@@ -41,7 +41,7 @@ class NotificationsView extends StatelessWidget {
                 children: [
                   Text("Today", style: TextStyle(color: Colors.white, fontSize: 20),),
                   Container(
-                    margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                    margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
                     child: Row(
                       children: [
                         CircleAvatar(
@@ -72,7 +72,7 @@ class NotificationsView extends StatelessWidget {
                     width: 320,
                   ),
                   Container(
-                    margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                    margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
                     child: Row(
                       children: [
                         CircleAvatar(
@@ -103,7 +103,7 @@ class NotificationsView extends StatelessWidget {
                     width: 320,
                   ),
                   Container(
-                    margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                    margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
                     child: Row(
                       children: [
                         CircleAvatar(
@@ -134,7 +134,7 @@ class NotificationsView extends StatelessWidget {
                     width: 320,
                   ),
                   Container(
-                    margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                    margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
                     child: Row(
                       children: [
                         CircleAvatar(
@@ -165,7 +165,7 @@ class NotificationsView extends StatelessWidget {
                     width: 320,
                   ),
                   Container(
-                    margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                    margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
                     child: Row(
                       children: [
                         CircleAvatar(
@@ -184,6 +184,37 @@ class NotificationsView extends StatelessWidget {
                               Text("i/Amogus2013 ● 3 h", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
                               Container(
                                 child: Text('amogus2013 posted a new post: "Can we focus on finding the impostor?"', style: TextStyle(color: Colors.white70),),
+                                width: 200,
+                                height: 50,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    height: 70,
+                    width: 320,
+                  ),
+                  Container(
+                    margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                    child: Row(
+                      children: [
+                        CircleAvatar(
+                          child: ClipOval(
+                            child: Image.network("https://static.wikia.nocookie.net/amogus/images/6/68/2C85DAFB-CED6-40D2-8338-7B53A2224C2C.png/revision/latest?cb=20211123155833", fit: BoxFit.cover,),
+                          ),
+                          backgroundColor: Colors.white,
+                          radius: 20,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text("i/Frogus ● 4 h", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
+                              Container(
+                                child: Text('frogus posted a new post: "ribbit ribbit ribbit"', style: TextStyle(color: Colors.white70),),
                                 width: 200,
                                 height: 50,
                               ),
