@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:i_sucialize/util/colors.dart';
 
 class NotificationsView extends StatelessWidget {
   const NotificationsView({Key? key}) : super(key: key);
@@ -12,8 +13,8 @@ class NotificationsView extends StatelessWidget {
         title: const Text('Notifications'),
         centerTitle: true,
         elevation: 0,
-        foregroundColor: Colors.white,
-        backgroundColor: Color.fromRGBO(0, 72, 144, 1),
+        foregroundColor: AppColors.textcolor,
+        backgroundColor: AppColors.primary,
         leading: Padding(
           padding: EdgeInsets.all(10),
           child: CircleAvatar(
@@ -23,7 +24,7 @@ class NotificationsView extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
-            backgroundColor: Colors.white,
+            backgroundColor: AppColors.primary,
             radius: 100,
           ),
         ),
@@ -34,9 +35,9 @@ class NotificationsView extends StatelessWidget {
             child: Container(
               margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
               decoration: BoxDecoration(
-                border: Border.all(color: Color.fromRGBO(0, 0, 0, 0), width: 1),
+                border: Border.all(color: AppColors.backgroundcolor, width: 1),
                 borderRadius: BorderRadius.all(Radius.circular(20)),
-                color: Color.fromRGBO(64, 118, 172, 1),
+                color: AppColors.backgroundcolor2,
               ),
               child: Padding(
                 padding: EdgeInsets.all(20),
@@ -45,7 +46,8 @@ class NotificationsView extends StatelessWidget {
                   children: [
                     Text(
                       "Today",
-                      style: TextStyle(color: Colors.white, fontSize: 20),
+                      style:
+                          TextStyle(color: AppColors.textcolor, fontSize: 20),
                     ),
                     Container(
                       margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
@@ -58,7 +60,7 @@ class NotificationsView extends StatelessWidget {
                                 fit: BoxFit.cover,
                               ),
                             ),
-                            backgroundColor: Colors.white,
+                            backgroundColor: AppColors.backgroundcolor2,
                             radius: 20,
                           ),
                           Padding(
@@ -70,13 +72,14 @@ class NotificationsView extends StatelessWidget {
                                 Text(
                                   "i/AmogSU ● Just now",
                                   style: TextStyle(
-                                      color: Colors.white,
+                                      color: AppColors.textcolor,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 Container(
                                   child: Text(
                                     'amogsu posted a new post: "Hello everyone! This is my first post."',
-                                    style: TextStyle(color: Colors.white70),
+                                    style:
+                                        TextStyle(color: AppColors.textcolor2),
                                   ),
                                   width: 200,
                                   height: 50,
@@ -100,7 +103,7 @@ class NotificationsView extends StatelessWidget {
                                 fit: BoxFit.cover,
                               ),
                             ),
-                            backgroundColor: Colors.white,
+                            backgroundColor: AppColors.backgroundcolor2,
                             radius: 20,
                           ),
                           Padding(
@@ -112,13 +115,14 @@ class NotificationsView extends StatelessWidget {
                                 Text(
                                   "i/Sussusamogus ● 30 min",
                                   style: TextStyle(
-                                      color: Colors.white,
+                                      color: AppColors.textcolor,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 Container(
                                   child: Text(
                                     'sussusamogus posted a new post: "Thats pretty sus if you ask me bro."',
-                                    style: TextStyle(color: Colors.white70),
+                                    style:
+                                        TextStyle(color: AppColors.textcolor2),
                                   ),
                                   width: 200,
                                   height: 50,
@@ -142,7 +146,7 @@ class NotificationsView extends StatelessWidget {
                                 fit: BoxFit.cover,
                               ),
                             ),
-                            backgroundColor: Colors.white,
+                            backgroundColor: AppColors.backgroundcolor2,
                             radius: 20,
                           ),
                           Padding(
@@ -154,13 +158,14 @@ class NotificationsView extends StatelessWidget {
                                 Text(
                                   "i/Amogdrip ● 1 h",
                                   style: TextStyle(
-                                      color: Colors.white,
+                                      color: AppColors.textcolor,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 Container(
                                   child: Text(
                                     'amogdrip posted a new post: "Among Drip Vocoded To Gangstas Paradise."',
-                                    style: TextStyle(color: Colors.white70),
+                                    style:
+                                        TextStyle(color: AppColors.textcolor2),
                                   ),
                                   width: 200,
                                   height: 50,
@@ -184,7 +189,7 @@ class NotificationsView extends StatelessWidget {
                                 fit: BoxFit.cover,
                               ),
                             ),
-                            backgroundColor: Colors.white,
+                            backgroundColor: AppColors.backgroundcolor2,
                             radius: 20,
                           ),
                           Padding(
@@ -196,13 +201,14 @@ class NotificationsView extends StatelessWidget {
                                 Text(
                                   "i/Amog-stuff ● 2.5 h",
                                   style: TextStyle(
-                                      color: Colors.white,
+                                      color: AppColors.textcolor,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 Container(
                                   child: Text(
                                     'amog-stuff posted a new post: "Im stuff"',
-                                    style: TextStyle(color: Colors.white70),
+                                    style:
+                                        TextStyle(color: AppColors.textcolor2),
                                   ),
                                   width: 200,
                                   height: 50,
@@ -226,7 +232,7 @@ class NotificationsView extends StatelessWidget {
                                 fit: BoxFit.cover,
                               ),
                             ),
-                            backgroundColor: Colors.white,
+                            backgroundColor: AppColors.backgroundcolor2,
                             radius: 20,
                           ),
                           Padding(
@@ -238,13 +244,14 @@ class NotificationsView extends StatelessWidget {
                                 Text(
                                   "i/Amogus2013 ● 3 h",
                                   style: TextStyle(
-                                      color: Colors.white,
+                                      color: AppColors.textcolor,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 Container(
                                   child: Text(
                                     'amogus2013 posted a new post: "Can we focus on finding the impostor?"',
-                                    style: TextStyle(color: Colors.white70),
+                                    style:
+                                        TextStyle(color: AppColors.textcolor2),
                                   ),
                                   width: 200,
                                   height: 50,
@@ -268,7 +275,7 @@ class NotificationsView extends StatelessWidget {
                                 fit: BoxFit.cover,
                               ),
                             ),
-                            backgroundColor: Colors.white,
+                            backgroundColor: AppColors.backgroundcolor2,
                             radius: 20,
                           ),
                           Padding(
@@ -280,13 +287,14 @@ class NotificationsView extends StatelessWidget {
                                 Text(
                                   "i/Frogus ● 4 h",
                                   style: TextStyle(
-                                      color: Colors.white,
+                                      color: AppColors.textcolor,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 Container(
                                   child: Text(
                                     'frogus posted a new post: "ribbit ribbit ribbit"',
-                                    style: TextStyle(color: Colors.white70),
+                                    style:
+                                        TextStyle(color: AppColors.textcolor2),
                                   ),
                                   width: 200,
                                   height: 50,
