@@ -110,6 +110,7 @@ class FeedView extends StatelessWidget {
                                         width: 200,
                                         height: 40,
                                       ),
+                                      SizedBox(height: 5),
                                       ClipRRect(
                                         borderRadius: BorderRadius.circular(10), // Image border
                                         child: SizedBox.fromSize(
@@ -215,10 +216,11 @@ class FeedView extends StatelessWidget {
                                           width: 200,
                                           height: 50,
                                         ),
+                                        SizedBox(height: 5),
                                         ClipRRect(
                                           borderRadius: BorderRadius.circular(10), // Image border
                                           child: SizedBox.fromSize(
-                                            size: Size(200, 100), // Image radius
+                                            size: Size(200, 90), // Image radius
                                             child: Image.network(
                                               "https://static.wikia.nocookie.net/13592c08-d923-4f30-a28e-025a0ea6ecfe/scale-to-width/755",
                                               fit: BoxFit.fill,
@@ -413,10 +415,11 @@ class FeedView extends StatelessWidget {
                                           width: 200,
                                           height: 50,
                                         ),
+                                        SizedBox(height: 5),
                                         ClipRRect(
                                           borderRadius: BorderRadius.circular(10), // Image border
                                           child: SizedBox.fromSize(
-                                            size: Size(200, 100), // Image radius
+                                            size: Size(200, 90), // Image radius
                                             child: Image.network(
                                               "https://img.game-news24.com/2021/10/Among-Us-Console-Edition-From-Tomorrow-Than-Expected.jpeg",
                                               fit: BoxFit.fill,
