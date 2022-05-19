@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:i_sucialize/util/colors.dart';
 
 class ProfileView extends StatelessWidget {
   const ProfileView({Key? key}) : super(key: key);
@@ -13,15 +14,15 @@ class ProfileView extends StatelessWidget {
         centerTitle: true,
         elevation: 0,
         foregroundColor: Colors.white,
-        backgroundColor: Color.fromRGBO(0, 72, 144, 1),
+        backgroundColor: AppColors.primary,
         leading: Padding(
           padding: EdgeInsets.all(10),
           child: Container(
             decoration: BoxDecoration(
               border:
-                  Border.all(color: Color.fromRGBO(64, 118, 172, 1), width: 1),
+                  Border.all(color: AppColors.backgroundcolor2, width: 1),
               borderRadius: BorderRadius.all(Radius.circular(20)),
-              color: Color.fromRGBO(64, 118, 172, 1),
+              color: AppColors.backgroundcolor2,
             ),
             child: TextButton(
               onPressed: () {},
@@ -81,7 +82,7 @@ class ProfileView extends StatelessWidget {
                       border: Border.all(
                           color: Color.fromRGBO(0, 0, 0, 0), width: 1),
                       borderRadius: BorderRadius.all(Radius.circular(20)),
-                      color: Color.fromRGBO(0, 72, 144, 1),
+                      color: AppColors.primary,
                     ),
                     width: 200,
                     height: 40,
@@ -149,7 +150,7 @@ class ProfileView extends StatelessWidget {
                       border: Border.all(
                           color: Color.fromRGBO(0, 0, 0, 0), width: 1),
                       borderRadius: BorderRadius.all(Radius.circular(20)),
-                      color: Color.fromRGBO(0, 72, 144, 1),
+                      color: AppColors.primary,
                     ),
                     margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
                     width: 100,
@@ -178,7 +179,7 @@ class ProfileView extends StatelessWidget {
                       border: Border.all(
                           color: Color.fromRGBO(0, 0, 0, 0), width: 1),
                       borderRadius: BorderRadius.all(Radius.circular(20)),
-                      color: Color.fromRGBO(0, 72, 144, 1),
+                      color: AppColors.primary,
                     ),
                     margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
                     width: 350,
@@ -198,7 +199,7 @@ class ProfileView extends StatelessWidget {
                                   color: Color.fromRGBO(0, 0, 0, 0), width: 1),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(20)),
-                              color: Color.fromRGBO(64, 118, 172, 1),
+                              color: AppColors.backgroundcolor2,
                             ),
                             child: Padding(
                               padding: EdgeInsets.all(20),

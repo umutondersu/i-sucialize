@@ -34,17 +34,21 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(items: const <BottomNavigationBarItem>[
-        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-        BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
-        BottomNavigationBarItem(icon: Icon(Icons.add), label: 'Add'),
-        BottomNavigationBarItem(icon: Icon(Icons.chat_rounded), label: 'Chat'),
-        BottomNavigationBarItem(icon: Icon(Icons.notifications),label: 'Notifications')
+        BottomNavigationBarItem(icon: Icon(Icons.home), label: ""),
+        BottomNavigationBarItem(icon: Icon(Icons.search), label: ""),
+        BottomNavigationBarItem(icon: Icon(Icons.add), label: ""),
+        BottomNavigationBarItem(icon: Icon(Icons.chat_rounded), label: ""),
+        BottomNavigationBarItem(icon: Icon(Icons.notifications), label: "")
 
       ],
-          currentIndex: _selectedIndex,
-          selectedItemColor: AppColors.primary,
-          unselectedItemColor: Colors.grey,
-          onTap: onTapped
+        currentIndex: _selectedIndex,
+        selectedItemColor: AppColors.textcolor,
+        unselectedItemColor: Colors.grey,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        onTap: onTapped,
+        backgroundColor: AppColors.primary,
+        type: BottomNavigationBarType.fixed,
       ),
     );
   }
