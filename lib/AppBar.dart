@@ -21,6 +21,19 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('This is so hard'),
+      ),
+      body: PageView(
+        controller: pageController,
+        children:[
+          Container(color:Colors.red),
+          Container(color:Colors.blue),
+          Container(color:Colors.green),
+          Container(color:Colors.white),
+          Container(color:Colors.black),
+        ],
+      ),
       bottomNavigationBar: BottomNavigationBar(items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
         BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
