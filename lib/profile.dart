@@ -19,8 +19,7 @@ class ProfileView extends StatelessWidget {
           padding: EdgeInsets.all(10),
           child: Container(
             decoration: BoxDecoration(
-              border:
-                  Border.all(color: AppColors.backgroundcolor2, width: 1),
+              border: Border.all(color: AppColors.backgroundcolor2, width: 1),
               borderRadius: BorderRadius.all(Radius.circular(20)),
               color: AppColors.backgroundcolor2,
             ),
@@ -183,7 +182,7 @@ class ProfileView extends StatelessWidget {
                     ),
                     margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
                     width: 350,
-                    height: 200,
+                    height: 180,
                     child: Padding(
                       padding: EdgeInsets.all(20),
                       child: Column(
@@ -211,7 +210,7 @@ class ProfileView extends StatelessWidget {
                             ),
                             margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
                             width: 310,
-                            height: 115,
+                            height: 95,
                           )
                         ],
                       ),
