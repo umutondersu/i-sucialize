@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:i_sucialize/home.dart';
 import 'package:i_sucialize/profile.dart';
 
 import 'notifications.dart';
@@ -11,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: NotificationsView(),
+      home: HomeScreen(),
     );
   }
 }

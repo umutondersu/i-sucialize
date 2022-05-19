@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:i_sucialize/home.dart';
 import 'package:i_sucialize/util/colors.dart';
 
 class NotificationsView extends StatelessWidget {
@@ -311,7 +312,7 @@ class NotificationsView extends StatelessWidget {
                 ),
               ),
               width: 350,
-              height: 600,
+              height: 630,
             ),
             alignment: Alignment.topCenter,
           ),

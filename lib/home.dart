@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:i_sucialize/notifications.dart';
+import 'package:i_sucialize/util/colors.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -21,17 +23,14 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('This is so hard'),
-      ),
       body: PageView(
         controller: pageController,
         children:[
-          Container(color:Colors.red),
+          Container(color:Colors.blue),
           Container(color:Colors.blue),
           Container(color:Colors.green),
           Container(color:Colors.white),
-          Container(color:Colors.black),
+          NotificationsView(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(items: const <BottomNavigationBarItem>[
@@ -39,11 +38,11 @@ class _HomeScreenState extends State<HomeScreen> {
         BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
         BottomNavigationBarItem(icon: Icon(Icons.add), label: 'Add'),
         BottomNavigationBarItem(icon: Icon(Icons.chat_rounded), label: 'Chat'),
-        BottomNavigationBarItem(icon: Icon(Icons.notifications), label: 'Notifs')
+        BottomNavigationBarItem(icon: Icon(Icons.notifications),label: 'Notifications')
 
       ],
           currentIndex: _selectedIndex,
-          selectedItemColor: Colors.white,
+          selectedItemColor: AppColors.primary,
           unselectedItemColor: Colors.grey,
           onTap: onTapped
       ),
