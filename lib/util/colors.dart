@@ -19,5 +19,7 @@ class AppColors {
   static const Color darkButtonTextColor = Colors.white;
   static const Color appBarTitleTextColor = Colors.white;
   static const Color textFieldFillColor = Color(0xFFD0D0D0);
+  static const Color mainbackgroundcolor = Color.fromRGBO(25, 25, 25, 1);
 
 }
+

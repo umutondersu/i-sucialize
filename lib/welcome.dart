@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:i_sucialize/util/colors.dart';
 import 'package:i_sucialize/util/dimensions.dart';
 import 'package:i_sucialize/util/styles.dart';
+
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
@@ -20,7 +21,7 @@ class Welcome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: AppColors.mainbackgroundcolor,
       body: SafeArea(
         maintainBottomViewPadding: false,
         child: Column(
@@ -31,17 +32,17 @@ class Welcome extends StatelessWidget {
                 padding: Dimen.regularPadding,
                 child: RichText(
                   text: TextSpan(
-                    text: "Welcome to I-SUCIALIZE!",
+                    text: "",
                     style: kHeadingTextStyle,
                     children: <TextSpan>[
                       TextSpan(
-                        text: "This is an app that people can gather and chat about any topic they like to talk about and share information via posts / chat. You can enjoy your time with others as long as you wish ! :)",
+                        text: "Welcome to I-SUCIALIZE!",
                         style: TextStyle(
                           //decoration: TextDecoration.underline,
                           decorationColor: Colors.red,
                           decorationThickness: 2.0,
                           fontStyle: FontStyle.italic,
-                          color: Colors.white,
+                          color: AppColors.primary,
                           height: 1.5,
                           fontSize: 25,
                           fontFamily: 'Raleway',
@@ -56,7 +57,7 @@ class Welcome extends StatelessWidget {
             Spacer(),
             Padding(
               padding: const EdgeInsets.all(10.0),
-              child: Image.network('https://i.picsum.photos/id/160/3200/2119.jpg?hmac=cz68HnnDt3XttIwIFu5ymcvkCp-YbkEBAM-Zgq-4DHE'),
+              child: Image.asset('assets/images/1.png'),
             ),
             Spacer(),
             Padding(
@@ -77,7 +78,7 @@ class Welcome extends StatelessWidget {
                         ),
                       ),
                       style: OutlinedButton.styleFrom(
-                        backgroundColor: AppColors.n_secondary,
+                        backgroundColor: AppColors.headingColor,
                       ),
                     ),
                   ),
@@ -97,7 +98,7 @@ class Welcome extends StatelessWidget {
                         ),
                       ),
                       style: OutlinedButton.styleFrom(
-                        backgroundColor: AppColors.n_primary,
+                        backgroundColor: AppColors.primary,
                       ),
                     ),
                   ),
