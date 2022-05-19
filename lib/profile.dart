@@ -28,7 +28,7 @@ class ProfileView extends StatelessWidget {
               onPressed: () {},
               child: Text(
                 "Logout",
-                style: TextStyle(color: Colors.white, fontSize: 20),
+                style: TextStyle(color: Colors.white, fontSize: 16),
               ),
             ),
           ),

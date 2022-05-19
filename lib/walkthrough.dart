@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:walkthrough_view/items.dart';
+import 'items.dart';
 
 void main() => runApp(MyApp());
 
@@ -10,17 +10,17 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Welcome Screen',
-      home: WelcomeScreen(),
+      home: WalkthroughScreen(),
     );
   }
 }
 
-class WelcomeScreen extends StatefulWidget {
+class WalkthroughScreen extends StatefulWidget {
   @override
-  _WelcomeScreenState createState() => _WelcomeScreenState();
+  _WalkthroughScreenState createState() => _WalkthroughScreenState();
 }
 
-class _WelcomeScreenState extends State<WelcomeScreen> {
+class _WalkthroughScreenState extends State<WalkthroughScreen> {
   List<Widget> slides = items
       .map((item) => Container(
       padding: EdgeInsets.symmetric(horizontal: 18.0),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:i_sucialize/notifications.dart';
+import 'package:i_sucialize/profile.dart';
 import 'package:i_sucialize/util/colors.dart';
+import 'package:i_sucialize/walkthrough.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -26,10 +28,10 @@ class _HomeScreenState extends State<HomeScreen> {
       body: PageView(
         controller: pageController,
         children:[
-          Container(color:Colors.blue),
+          WalkthroughScreen(),
           Container(color:Colors.blue),
           Container(color:Colors.green),
-          Container(color:Colors.white),
+          ProfileView(),
           NotificationsView(),
         ],
       ),
