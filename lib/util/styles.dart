@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:cs310_project/util/colors.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'colors.dart';
 
 TextStyle? kHeadingTextStyle = GoogleFonts.montserrat(
   color: AppColors.headingColor,

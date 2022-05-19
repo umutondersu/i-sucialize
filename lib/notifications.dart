@@ -36,7 +36,7 @@ class NotificationsView extends StatelessWidget {
             child: Container(
               margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
               decoration: BoxDecoration(
-                border: Border.all(color: AppColors.backgroundcolor, width: 1),
+                border: Border.all(color: AppColors.backgroundcolor2, width: 1),
                 borderRadius: BorderRadius.all(Radius.circular(20)),
                 color: AppColors.backgroundcolor2,
               ),

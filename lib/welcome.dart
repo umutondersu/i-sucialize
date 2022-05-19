@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:cs310_project/util/colors.dart';
-import 'package:cs310_project/util/dimensions.dart';
-import 'package:cs310_project/util/styles.dart';
-
+import 'package:i_sucialize/util/colors.dart';
+import 'package:i_sucialize/util/dimensions.dart';
+import 'package:i_sucialize/util/styles.dart';
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
@@ -78,7 +77,7 @@ class Welcome extends StatelessWidget {
                         ),
                       ),
                       style: OutlinedButton.styleFrom(
-                        backgroundColor: AppColors.secondary,
+                        backgroundColor: AppColors.n_secondary,
                       ),
                     ),
                   ),
@@ -98,7 +97,7 @@ class Welcome extends StatelessWidget {
                         ),
                       ),
                       style: OutlinedButton.styleFrom(
-                        backgroundColor: AppColors.primary,
+                        backgroundColor: AppColors.n_primary,
                       ),
                     ),
                   ),
