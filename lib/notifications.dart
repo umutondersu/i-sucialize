@@ -18,16 +18,23 @@ class NotificationsView extends StatelessWidget {
         backgroundColor: AppColors.primary,
         leading: Padding(
           padding: EdgeInsets.all(10),
-          child: CircleAvatar(
-            child: ClipOval(
-              child: Image.network(
-                "https://static.wikia.nocookie.net/amogus/images/c/cb/Susremaster.png/revision/latest/scale-to-width-down/1200?cb=20210806124552",
-                fit: BoxFit.cover,
+          child: FlatButton(
+            padding: EdgeInsets.all(0),
+            onPressed: () {
+              Navigator.pushNamed(context, '/profile');
+            },
+            child: CircleAvatar(
+              child: ClipOval(
+                child: Image.network(
+                  "https://static.wikia.nocookie.net/amogus/images/c/cb/Susremaster.png/revision/latest/scale-to-width-down/1200?cb=20210806124552",
+                  fit: BoxFit.cover,
+                ),
               ),
+              backgroundColor: AppColors.primary,
+              radius: 100,
             ),
-            backgroundColor: AppColors.primary,
-            radius: 100,
-          ),
+          )
+
         ),
         leadingWidth: 80,
       ),

@@ -235,6 +235,7 @@ class RegisterScreen extends StatelessWidget {
                     height: 75,
                     child: Center(
                       child: FlatButton(
+                        padding: EdgeInsets.all(0),
                         onPressed: () {
                           Navigator.pushNamed(context, '/home');
                         },

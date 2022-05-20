@@ -186,7 +186,9 @@ class SearchPageAppBar extends StatelessWidget with PreferredSizeWidget {
             ),
           ),
         ),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, '/profile');
+        },
       ),
       title: SearchBar(),
       actions: [

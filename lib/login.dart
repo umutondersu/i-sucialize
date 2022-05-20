@@ -149,6 +149,7 @@ class LoginScreen extends StatelessWidget {
                     height: 75,
                     child: Center(
                       child: FlatButton(
+                        padding: EdgeInsets.all(0),
                         onPressed: () {
                           Navigator.pushNamed(context, '/home');
                         },
@@ -161,6 +162,7 @@ class LoginScreen extends StatelessWidget {
                   Container(
                     margin: EdgeInsets.fromLTRB(10, 50, 0, 0),
                     child: FlatButton(
+                      padding: EdgeInsets.all(0),
                       onPressed: () {
                         Navigator.pushNamed(context, '/home');
                       },
@@ -207,6 +209,7 @@ class LoginScreen extends StatelessWidget {
                     height: 75,
                     child: Center(
                       child: FlatButton(
+                        padding: EdgeInsets.all(0),
                         onPressed: () {
                           Navigator.pushNamed(context, '/register');
                         },

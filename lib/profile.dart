@@ -24,7 +24,9 @@ class ProfileView extends StatelessWidget {
               color: AppColors.backgroundcolor2,
             ),
             child: TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.popUntil(context, (route) => route.isFirst);
+              },
               child: Text(
                 "Logout",
                 style: TextStyle(color: Colors.white, fontSize: 16),
@@ -36,7 +38,9 @@ class ProfileView extends StatelessWidget {
         actions: [
           IconButton(
             icon: Icon(Icons.arrow_back),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pop(context);
+            },
           ),
         ],
       ),
@@ -49,7 +53,9 @@ class ProfileView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/profileedit');
+                    },
                     icon: Icon(Icons.create_rounded),
                     color: Colors.white,
                   ),

@@ -213,7 +213,9 @@ class EditProfileAppBar extends StatelessWidget with PreferredSizeWidget {
             ),
           ),
         ),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pop(context);
+        },
       ),
       title: const Text('Edit Profile'),
       actions: [
@@ -221,7 +223,9 @@ class EditProfileAppBar extends StatelessWidget with PreferredSizeWidget {
           padding: const EdgeInsets.fromLTRB(5, 5, 10, 5),
           child: IconButton(
             icon: Icon(Icons.arrow_back),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pop(context);
+            },
           ),
         )
       ],
