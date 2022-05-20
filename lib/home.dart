@@ -24,6 +24,12 @@ class _HomeScreenState extends State<HomeScreen> {
     pageController.animateToPage(index, duration: Duration(milliseconds: 500), curve: Curves.easeIn);
   }
 
+  void onPageChange(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,6 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
           Container(color:Colors.red),
           NotificationsView(),
         ],
+        onPageChanged: onPageChange,
       ),
       bottomNavigationBar: BottomNavigationBar(items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(icon: Icon(Icons.home), label: ""),
