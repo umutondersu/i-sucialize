@@ -57,7 +57,7 @@ class Welcome extends StatelessWidget {
             Spacer(),
             Padding(
               padding: const EdgeInsets.all(10.0),
-              child: Image.asset('assets/images/1.png'),
+              child: Image.asset('lib/assets/images/1.png'),
             ),
             Spacer(),
             Padding(
@@ -68,7 +68,7 @@ class Welcome extends StatelessWidget {
                     flex: 1,
                     child: OutlinedButton(
                       onPressed: () {
-
+                        Navigator.pushNamed(context, '/register');
                       },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 12.0),
@@ -89,11 +89,12 @@ class Welcome extends StatelessWidget {
                     flex: 1,
                     child: OutlinedButton(
                       onPressed: () {
+                        Navigator.pushNamed(context, '/login');
                       },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 12.0),
                         child: Text(
-                          'Start by     Login',
+                          'Start by Login',
                           style: kButtonDarkTextStyle,
                         ),
                       ),

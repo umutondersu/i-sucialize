@@ -41,7 +41,7 @@ class RegisterScreen extends StatelessWidget {
                 children: [
                   ClipRect(
                     child: Image.asset(
-                      'lib/assets/images/logo.png',
+                      'lib/assets/images/1.png',
                       height: 250,
                       width: 300,
                     ),
@@ -234,8 +234,14 @@ class RegisterScreen extends StatelessWidget {
                     width: 230,
                     height: 75,
                     child: Center(
-                      child: Text("Register",
-                          style: TextStyle(color: Colors.white, fontSize: 25)),
+                      child: FlatButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/home');
+                        },
+                        child: Text("Register",
+                            style: TextStyle(color: Colors.white, fontSize: 25)),
+                      )
+
                     ),
                     //child: ,
                   )

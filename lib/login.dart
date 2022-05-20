@@ -41,7 +41,7 @@ class LoginScreen extends StatelessWidget {
                 children: [
                   ClipRect(
                     child: Image.asset(
-                      'lib/assets/images/logo.png',
+                      'lib/assets/images/1.png',
                       height: 300,
                       width: 300,
                     ),
@@ -148,29 +148,47 @@ class LoginScreen extends StatelessWidget {
                     width: 150,
                     height: 75,
                     child: Center(
-                      child: Text("Login",
-                          style: TextStyle(color: Colors.white, fontSize: 25)),
+                      child: FlatButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/home');
+                        },
+                        child: Text("Login",
+                            style: TextStyle(color: Colors.white, fontSize: 25)),
+                      )
+
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.fromLTRB(20, 50, 0, 0),
-                    child: ClipOval(
-                      child: Image.asset(
-                        'lib/assets/images/google_icon.png',
-                        height: 75,
-                        width: 75,
+                    margin: EdgeInsets.fromLTRB(10, 50, 0, 0),
+                    child: FlatButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/home');
+                      },
+                      child: ClipOval(
+                        child: Image.asset(
+                          'lib/assets/images/google_icon.png',
+                          height: 75,
+                          width: 75,
+                        ),
                       ),
-                    ),
+                    )
+
                   ),
                   Container(
-                    margin: EdgeInsets.fromLTRB(20, 50, 0, 0),
-                    child: ClipOval(
-                      child: Image.asset(
-                        'lib/assets/images/facebook_icon.png',
-                        height: 75,
-                        width: 75,
+                    margin: EdgeInsets.fromLTRB(0, 50, 0, 0),
+                    child: FlatButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/home');
+                      },
+                      child: ClipOval(
+                        child: Image.asset(
+                          'lib/assets/images/facebook_icon.png',
+                          height: 75,
+                          width: 75,
+                        ),
                       ),
-                    ),
+                    )
+
                   )
                 ],
               ),
@@ -188,8 +206,14 @@ class LoginScreen extends StatelessWidget {
                     width: 230,
                     height: 75,
                     child: Center(
-                      child: Text("Register",
-                          style: TextStyle(color: Colors.white, fontSize: 25)),
+                      child: FlatButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/register');
+                        },
+                        child: Text("Register",
+                            style: TextStyle(color: Colors.white, fontSize: 25)),
+                      )
+
                     ),
                     //child: ,
                   )

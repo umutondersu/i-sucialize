@@ -93,7 +93,7 @@ class _WalkthroughScreenState extends State<WalkthroughScreen> {
     });
   }
 
-  Widget getHomePage() {
+  Widget getHomePage(BuildContext context) {
     if(currentPage +1 == slides.length) {
       return Container(
         margin: EdgeInsets.fromLTRB(0,10,0,10),
@@ -104,8 +104,11 @@ class _WalkthroughScreenState extends State<WalkthroughScreen> {
         ),
         child: FlatButton(
           onPressed: () {
+            Navigator.pop(context, '/');
+            Navigator.pushNamed(context, '/welcome');
+
           },
-          child: Text("Home", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),),
+          child: Text("Welcome", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),),
         ),
       );
     }
@@ -139,7 +142,7 @@ class _WalkthroughScreenState extends State<WalkthroughScreen> {
             ),
             Align(
               alignment: Alignment.bottomCenter,
-              child: getHomePage(),
+              child: getHomePage(context),
             )
 
 

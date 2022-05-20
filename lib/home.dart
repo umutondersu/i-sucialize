@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:i_sucialize/feed.dart';
 import 'package:i_sucialize/notifications.dart';
 import 'package:i_sucialize/profile.dart';
+import 'package:i_sucialize/search.dart';
 import 'package:i_sucialize/util/colors.dart';
 import 'package:i_sucialize/walkthrough.dart';
 
@@ -28,10 +30,10 @@ class _HomeScreenState extends State<HomeScreen> {
       body: PageView(
         controller: pageController,
         children:[
-          WalkthroughScreen(),
-          Container(color:Colors.blue),
+          FeedView(),
+          SearchView(),
           Container(color:Colors.green),
-          ProfileView(),
+          Container(color:Colors.red),
           NotificationsView(),
         ],
       ),
