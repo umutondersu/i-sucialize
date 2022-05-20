@@ -154,7 +154,7 @@ class SearchView extends StatelessWidget {
               ),
             ),
             width: 350,
-            height: 250,
+            height: 280,
           ),
         ),
         backgroundColor: AppColors.backgroundcolor);
@@ -175,29 +175,27 @@ class SearchPageAppBar extends StatelessWidget with PreferredSizeWidget {
       foregroundColor: AppColors.textcolor,
       backgroundColor: AppColors.primary,
       shadowColor: AppColors.secondary,
-      leadingWidth: 80,
-      leading: Padding(
-          padding: const EdgeInsets.all(5.0),
-          child: TextButton(
-            child: CircleAvatar(
-              radius: 100,
-              child: ClipOval(
-                child: Image.network(
-                  "https://static.wikia.nocookie.net/amogus/images/c/cb/Susremaster.png/revision/latest/scale-to-width-down/1200?cb=20210806124552",
-                  fit: BoxFit.cover,
-                ),
-              ),
+      leadingWidth: 60,
+      leading: TextButton(
+        child: CircleAvatar(
+          radius: 100,
+          child: ClipOval(
+            child: Image.network(
+              "https://static.wikia.nocookie.net/amogus/images/c/cb/Susremaster.png/revision/latest/scale-to-width-down/1200?cb=20210806124552",
+              fit: BoxFit.cover,
             ),
-            onPressed: () {},
-          )),
+          ),
+        ),
+        onPressed: () {},
+      ),
       title: SearchBar(),
       actions: [
         Padding(
           padding: const EdgeInsets.all(5.0),
           child: Container(
             decoration: BoxDecoration(
-              border:
-                  Border.all(color: Color.fromRGBO(64, 118, 172, 1), width: 4),
+              border: Border.all(
+                  color: Color.fromRGBO(64, 118, 172, 1), width: 0.5),
               borderRadius: BorderRadius.all(Radius.circular(70)),
               color: Color.fromRGBO(64, 118, 172, 1),
             ),

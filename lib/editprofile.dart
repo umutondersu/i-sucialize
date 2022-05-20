@@ -18,12 +18,13 @@ class _ProfileEditViewState extends State<ProfileEditView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //bottomNavigationBar: ,
       appBar: EditProfileAppBar(),
       body: SizedBox(
         height: MediaQuery.of(context).size.height * 0.85,
         child: Row(
           children: [
-            Padding(padding: EdgeInsets.all(30)),
+            Padding(padding: EdgeInsets.all(23)),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -52,7 +53,7 @@ class _ProfileEditViewState extends State<ProfileEditView> {
                     color: AppColors.backgroundcolor2,
                   ),
                   margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                  width: 400,
+                  width: 330,
                   height: 50,
                   child: Align(
                     alignment: Alignment.center,
@@ -93,7 +94,7 @@ class _ProfileEditViewState extends State<ProfileEditView> {
                     color: AppColors.backgroundcolor2,
                   ),
                   margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                  width: 400,
+                  width: 330,
                   height: 50,
                   child: Align(
                     alignment: Alignment.center,
@@ -134,7 +135,7 @@ class _ProfileEditViewState extends State<ProfileEditView> {
                     color: AppColors.backgroundcolor2,
                   ),
                   margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                  width: 400,
+                  width: 330,
                   height: 200,
                   child: Align(
                     alignment: Alignment.center,
@@ -153,7 +154,7 @@ class _ProfileEditViewState extends State<ProfileEditView> {
                 ),
                 Row(
                   children: [
-                    Padding(padding: EdgeInsets.all(30)),
+                    Padding(padding: EdgeInsets.all(20)),
                     Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -202,20 +203,18 @@ class EditProfileAppBar extends StatelessWidget with PreferredSizeWidget {
       backgroundColor: AppColors.primary,
       shadowColor: AppColors.secondary,
       leadingWidth: 80,
-      leading: Padding(
-          padding: const EdgeInsets.all(5.0),
-          child: TextButton(
-            child: CircleAvatar(
-              radius: 100,
-              child: ClipOval(
-                child: Image.network(
-                  "https://static.wikia.nocookie.net/amogus/images/c/cb/Susremaster.png/revision/latest/scale-to-width-down/1200?cb=20210806124552",
-                  fit: BoxFit.cover,
-                ),
-              ),
+      leading: TextButton(
+        child: CircleAvatar(
+          radius: 100,
+          child: ClipOval(
+            child: Image.network(
+              "https://static.wikia.nocookie.net/amogus/images/c/cb/Susremaster.png/revision/latest/scale-to-width-down/1200?cb=20210806124552",
+              fit: BoxFit.cover,
             ),
-            onPressed: () {},
-          )),
+          ),
+        ),
+        onPressed: () {},
+      ),
       title: const Text('Edit Profile'),
       actions: [
         Padding(
