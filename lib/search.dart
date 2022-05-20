@@ -193,7 +193,7 @@ class SearchPageAppBar extends StatelessWidget with PreferredSizeWidget {
       title: SearchBar(),
       actions: [
         Padding(
-          padding: const EdgeInsets.all(5.0),
+          padding: const EdgeInsets.fromLTRB(0, 5, 5, 5),
           child: Container(
             decoration: BoxDecoration(
               border: Border.all(
