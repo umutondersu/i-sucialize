@@ -5,6 +5,8 @@ import 'package:i_sucialize/profile.dart';
 import 'package:i_sucialize/search.dart';
 import 'package:i_sucialize/util/colors.dart';
 import 'package:i_sucialize/walkthrough.dart';
+import 'package:i_sucialize/post.dart';
+import 'package:i_sucialize/chat_main.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -38,8 +40,8 @@ class _HomeScreenState extends State<HomeScreen> {
         children:[
           FeedView(),
           SearchView(),
-          Container(color:Colors.green),
-          Container(color:Colors.red),
+          PostView(),
+          ChatView(),
           NotificationsView(),
         ],
         onPageChanged: onPageChange,
