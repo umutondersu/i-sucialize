@@ -95,7 +95,7 @@ class LoginScreen extends StatelessWidget {
                                   ),
                                 ),
                                 margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                                width: 255,
+                                width: MediaQuery.of(context).size.width * 0.7,
                                 height: 200,
                               )
                             ],
@@ -154,7 +154,7 @@ class LoginScreen extends StatelessWidget {
                                   ),
                                 ),
                                 margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                                width: 215,
+                                width: MediaQuery.of(context).size.width * 0.6,
                                 height: 200,
                               )
                             ],
