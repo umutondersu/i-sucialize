@@ -42,8 +42,8 @@ class LoginScreen extends StatelessWidget {
                   ClipRect(
                     child: Image.asset(
                       'lib/assets/images/1.png',
-                      height: 300,
-                      width: 300,
+                      height: 290,
+                      width: 290,
                     ),
                   )
                 ],
@@ -51,41 +51,56 @@ class LoginScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                          color: Color.fromRGBO(0, 0, 0, 0), width: 1),
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                      color: Color.fromRGBO(0, 72, 144, 1),
-                    ),
-                    margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                    width: 360,
-                    height: 60,
-                    child: Padding(
-                      padding: EdgeInsets.all(10),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Email",
-                            style: TextStyle(color: Colors.white, fontSize: 20),
+                  Center(
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.95,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                              color: Color.fromRGBO(0, 0, 0, 0), width: 1),
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          color: Color.fromRGBO(0, 72, 144, 1),
+                        ),
+                        margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                        height: 60,
+                        child: Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Email",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 20),
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: Color.fromRGBO(0, 0, 0, 0),
+                                      width: 1),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20)),
+                                  color: Color.fromRGBO(64, 118, 172, 1),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: TextField(
+                                    style: TextStyle(color: Colors.white),
+                                    textAlign: TextAlign.justify,
+                                    decoration: InputDecoration(
+                                      counter: null,
+                                      hintStyle: TextStyle(color: Colors.white),
+                                      border: InputBorder.none,
+                                    ),
+                                  ),
+                                ),
+                                margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                width: 255,
+                                height: 200,
+                              )
+                            ],
                           ),
-                          Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: Color.fromRGBO(0, 0, 0, 0), width: 1),
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(20)),
-                              color: Color.fromRGBO(64, 118, 172, 1),
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.all(20),
-                            ),
-                            margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                            width: 275,
-                            height: 200,
-                          )
-                        ],
+                        ),
                       ),
                     ),
                   ),
@@ -94,133 +109,142 @@ class LoginScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                          color: Color.fromRGBO(0, 0, 0, 0), width: 1),
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                      color: Color.fromRGBO(0, 72, 144, 1),
-                    ),
-                    margin: EdgeInsets.fromLTRB(0, 30, 0, 0),
-                    width: 360,
-                    height: 60,
-                    child: Padding(
-                      padding: EdgeInsets.all(10),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Password",
-                            style: TextStyle(color: Colors.white, fontSize: 20),
+                  Center(
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.95,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                              color: Color.fromRGBO(0, 0, 0, 0), width: 1),
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          color: Color.fromRGBO(0, 72, 144, 1),
+                        ),
+                        margin: EdgeInsets.fromLTRB(0, 30, 0, 0),
+                        width: 360,
+                        height: 60,
+                        child: Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Password",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 20),
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: Color.fromRGBO(0, 0, 0, 0),
+                                      width: 1),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20)),
+                                  color: Color.fromRGBO(64, 118, 172, 1),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: TextField(
+                                    style: TextStyle(color: Colors.white),
+                                    textAlign: TextAlign.justify,
+                                    decoration: InputDecoration(
+                                      counter: null,
+                                      hintStyle: TextStyle(color: Colors.white),
+                                      border: InputBorder.none,
+                                    ),
+                                  ),
+                                ),
+                                margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                width: 215,
+                                height: 200,
+                              )
+                            ],
                           ),
-                          Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: Color.fromRGBO(0, 0, 0, 0), width: 1),
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(20)),
-                              color: Color.fromRGBO(64, 118, 172, 1),
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.all(20),
-                            ),
-                            margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                            width: 235,
-                            height: 200,
-                          )
-                        ],
+                        ),
                       ),
                     ),
                   ),
                 ],
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Container(
-                    margin: EdgeInsets.fromLTRB(35, 50, 0, 0),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                          color: Color.fromRGBO(0, 0, 0, 0), width: 1),
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                      color: Color.fromRGBO(0, 72, 144, 1),
-                    ),
-                    width: 150,
-                    height: 75,
-                    child: Center(
-                      child: FlatButton(
-                        padding: EdgeInsets.all(0),
+              Center(
+                child: Container(
+                  margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                              color: Color.fromRGBO(0, 0, 0, 0), width: 1),
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          color: Color.fromRGBO(0, 72, 144, 1),
+                        ),
+                        width: 130,
+                        height: 75,
+                        child: Center(
+                          child: FlatButton(
+                            padding: EdgeInsets.all(0),
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/home');
+                            },
+                            child: Text("Login",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 25)),
+                          ),
+                        ),
+                      ),
+                      Container(
+                          margin: EdgeInsets.fromLTRB(15, 0, 0, 0),
+                          child: FlatButton(
+                            padding: EdgeInsets.all(0),
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/home');
+                            },
+                            child: ClipOval(
+                              child: Image.asset(
+                                'lib/assets/images/google_icon.png',
+                                height: 75,
+                                width: 75,
+                              ),
+                            ),
+                          )),
+                      FlatButton(
                         onPressed: () {
                           Navigator.pushNamed(context, '/home');
                         },
-                        child: Text("Login",
-                            style: TextStyle(color: Colors.white, fontSize: 25)),
+                        child: ClipOval(
+                          child: Image.asset(
+                            'lib/assets/images/facebook_icon.png',
+                            height: 75,
+                            width: 75,
+                          ),
+                        ),
                       )
-
-                    ),
+                    ],
                   ),
-                  Container(
-                    margin: EdgeInsets.fromLTRB(10, 50, 0, 0),
-                    child: FlatButton(
-                      padding: EdgeInsets.all(0),
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/home');
-                      },
-                      child: ClipOval(
-                        child: Image.asset(
-                          'lib/assets/images/google_icon.png',
-                          height: 75,
-                          width: 75,
-                        ),
-                      ),
-                    )
-
-                  ),
-                  Container(
-                    margin: EdgeInsets.fromLTRB(0, 50, 0, 0),
-                    child: FlatButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/home');
-                      },
-                      child: ClipOval(
-                        child: Image.asset(
-                          'lib/assets/images/facebook_icon.png',
-                          height: 75,
-                          width: 75,
-                        ),
-                      ),
-                    )
-
-                  )
-                ],
+                ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    margin: EdgeInsets.fromLTRB(0, 30, 0, 0),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                          color: Color.fromRGBO(0, 0, 0, 0), width: 1),
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                      color: Color.fromRGBO(0, 72, 144, 1),
-                    ),
-                    width: 230,
-                    height: 75,
-                    child: Center(
+              Center(
+                child: Container(
+                  margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                  decoration: BoxDecoration(
+                    border:
+                        Border.all(color: Color.fromRGBO(0, 0, 0, 0), width: 1),
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                    color: Color.fromRGBO(0, 72, 144, 1),
+                  ),
+                  width: 230,
+                  height: 75,
+                  child: Center(
                       child: FlatButton(
-                        padding: EdgeInsets.all(0),
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/register');
-                        },
-                        child: Text("Register",
-                            style: TextStyle(color: Colors.white, fontSize: 25)),
-                      )
-
-                    ),
-                    //child: ,
-                  )
-                ],
+                    padding: EdgeInsets.all(0),
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/register');
+                    },
+                    child: Text("Register",
+                        style: TextStyle(color: Colors.white, fontSize: 25)),
+                  )),
+                  //child: ,
+                ),
               ),
             ],
           ),
