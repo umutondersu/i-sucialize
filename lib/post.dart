@@ -10,13 +10,13 @@ class PostView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('New Post'),
-        centerTitle: true,
-        elevation: 0,
-        foregroundColor: AppColors.textcolor,
-        backgroundColor: AppColors.primary,
-        leading: Padding(
+        appBar: AppBar(
+          title: const Text('New Post'),
+          centerTitle: true,
+          elevation: 0,
+          foregroundColor: AppColors.textcolor,
+          backgroundColor: AppColors.primary,
+          leading: Padding(
             padding: EdgeInsets.all(10),
             child: FlatButton(
               padding: EdgeInsets.all(0),
@@ -34,10 +34,10 @@ class PostView extends StatelessWidget {
                 radius: 100,
               ),
             ),
+          ),
+          leadingWidth: 80,
         ),
-        leadingWidth: 80,
-      ),
-      body: Column(
+        body: Column(
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -46,7 +46,8 @@ class PostView extends StatelessWidget {
                 Container(
                   margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
                   decoration: BoxDecoration(
-                    border: Border.all(color: AppColors.backgroundcolor2, width: 1),
+                    border:
+                        Border.all(color: AppColors.backgroundcolor2, width: 1),
                     borderRadius: BorderRadius.all(Radius.circular(20)),
                     color: AppColors.backgroundcolor2,
                   ),
@@ -59,14 +60,16 @@ class PostView extends StatelessWidget {
                         Padding(
                           padding: EdgeInsets.all(10),
                         ),
-                        Text("This logo is looking pretty sus!",
-                          style: TextStyle(color: AppColors.textcolor, fontSize: 20),
+                        Text(
+                          "This logo is looking pretty sus!",
+                          style: TextStyle(
+                              color: AppColors.textcolor, fontSize: 20),
                         ),
                       ],
                     ),
                   ),
-                  width: 350,
-                  height: 530,
+                  width: MediaQuery.of(context).size.width * 0.85,
+                  height: MediaQuery.of(context).size.height * 0.66,
                 ),
               ],
             ),
@@ -75,10 +78,10 @@ class PostView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
-                  margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                  margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
                   decoration: BoxDecoration(
-                    border: Border.all(
-                        color: Color.fromRGBO(0, 0, 0, 0), width: 1),
+                    border:
+                        Border.all(color: Color.fromRGBO(0, 0, 0, 0), width: 1),
                     borderRadius: BorderRadius.all(Radius.circular(20)),
                     color: Color.fromRGBO(0, 72, 144, 1),
                   ),
@@ -90,22 +93,19 @@ class PostView extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                  margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
                   child: IconButton(
-                    onPressed: (){},
+                    onPressed: () {},
                     icon: Icon(Icons.upload),
                     iconSize: 50,
                     color: Colors.white,
                     splashRadius: 30,
                   ),
                 ),
-
               ],
             ),
           ],
         ),
-        backgroundColor: Color.fromRGBO(25, 25, 25, 1)
-    );
+        backgroundColor: Color.fromRGBO(25, 25, 25, 1));
   }
 }
-
