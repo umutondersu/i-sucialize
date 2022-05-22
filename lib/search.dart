@@ -6,9 +6,14 @@ import 'package:i_sucialize/main.dart';
 import 'package:i_sucialize/util/colors.dart';
 import 'package:i_sucialize/routes.dart';
 
-class SearchView extends StatelessWidget {
+class SearchView extends StatefulWidget {
   const SearchView({Key? key}) : super(key: key);
 
+  @override
+  State<SearchView> createState() => _SearchViewState();
+}
+
+class _SearchViewState extends State<SearchView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,6 +65,16 @@ class SearchView extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                               color: AppColors.appBarTitleTextColor),
                         ),
+                        IconButton(
+                            onPressed: () => {
+                                  setState(() {
+                                    dummyHist.removeAt(i);
+                                  })
+                                },
+                            icon: Icon(
+                              Icons.remove,
+                              color: AppColors.appBarTitleTextColor,
+                            )),
                       ],
                     ),
                   )
