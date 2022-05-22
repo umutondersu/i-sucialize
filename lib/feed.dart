@@ -15,7 +15,6 @@ class FeedView extends StatelessWidget {
         backgroundColor: AppColors.primary,
         leading: Padding(
           padding: EdgeInsets.all(10),
-
           child: FlatButton(
             padding: EdgeInsets.all(0),
             onPressed: () {
@@ -37,47 +36,44 @@ class FeedView extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         reverse: true,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children:[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children:[
-                  Container(
-                    margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: AppColors.backgroundcolor, width: 1),
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                      color: AppColors.backgroundcolor2,
-                    ),
-
-                    child: Padding(
-                      padding: EdgeInsets.all(10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                            child: Row(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              Container(
+                margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
+                decoration: BoxDecoration(
+                  border:
+                  Border.all(color: AppColors.backgroundcolor, width: 1),
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                  color: AppColors.backgroundcolor2,
+                ),
+                child: Padding(
+                  padding: EdgeInsets.all(10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Row(
                               children: [
                                 Padding(
                                   padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
                                   child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Icon(
-                                            Icons.arrow_circle_up_outlined
-                                        ),
-                                        Text(
-                                            "23"
-                                        ),
-                                        Icon(
-                                            Icons.arrow_circle_down_outlined
-                                        ),
-                                      ],
-                                  )
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.start,
+                                    children: [
+                                      Icon(Icons.arrow_circle_up_outlined),
+                                      Text("248"),
+                                      Icon(Icons.arrow_circle_down_outlined),
+                                    ],
+                                  ),
                                 ),
                                 CircleAvatar(
                                   child: ClipOval(
@@ -89,474 +85,433 @@ class FeedView extends StatelessWidget {
                                   backgroundColor: AppColors.backgroundcolor2,
                                   radius: 20,
                                 ),
+                              ],
+                            ),
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "i/Amogdrip",
+                                    style: TextStyle(
+                                        color: AppColors.textcolor,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Container(
+                                    margin: const EdgeInsets.all(2.0),
+                                    padding: const EdgeInsets.all(2.0),
+                                    child: Text(
+                                      'Amongus Drip Vcdoded will eventually decrease.',
+                                      style: TextStyle(
+                                          color: AppColors.textcolor2),
+                                    ),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: Colors.white24,
+                                    ),
+                                    width: 210,
+                                  ),
+                                  SizedBox(height: 5),
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(
+                                        20), // Image border
+                                    child: SizedBox.fromSize(
+                                      size: Size(200, 100), // Image radius
+                                      child: Image.network(
+                                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQPVQnqNXXsWAVKGXH4UrwtNLqC2S5kfI8ug&usqp=CAU",
+                                        fit: BoxFit.fitHeight,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        width: 320,
+                      ),
+                    ],
+                  ),
+                ),
+                width: 350,
+              ),
+            ]),
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              Container(
+                margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
+                decoration: BoxDecoration(
+                  border:
+                  Border.all(color: AppColors.backgroundcolor, width: 1),
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                  color: AppColors.backgroundcolor2,
+                ),
+                child: Padding(
+                  padding: EdgeInsets.all(10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
                                 Padding(
-                                  padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                  padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.start,
                                     children: [
-                                      Text(
-                                        "i/Amogdrip",
-                                        style: TextStyle(
-                                            color: AppColors.textcolor,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-
-                                      Container(
-                                        margin: const EdgeInsets.all(2.0),
-                                        padding: const EdgeInsets.all(2.0),
-                                        child: 
-                                        Text(
-                                          'Amongus Drip Vcdoded will eventually decrease.',
-                                          style:
-                                          TextStyle(color: AppColors.textcolor2),
-                                        ),
-
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(10),
-                                          color: Colors.white24,
-                                        ),
-                                        width: 210,
-
-                                      ),
-                                      SizedBox(height: 5),
-                                      ClipRRect(
-                                        borderRadius: BorderRadius.circular(20), // Image border
-                                        child: SizedBox.fromSize(
-                                          size: Size(200, 100), // Image radius
-                                          child: Image.network(
-                                              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQPVQnqNXXsWAVKGXH4UrwtNLqC2S5kfI8ug&usqp=CAU",
-                                            fit:BoxFit.fitHeight,
-                                          ),
-                                        ),
-                                      ),
+                                      Icon(Icons.arrow_circle_up_outlined),
+                                      Text("23"),
+                                      Icon(Icons.arrow_circle_down_outlined),
                                     ],
                                   ),
                                 ),
-                                
+                                CircleAvatar(
+                                  child: ClipOval(
+                                    child: Image.network(
+                                      "https://i.pinimg.com/236x/db/b3/9d/dbb39d8f7713c3e160754de3bd709ca3.jpg",
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  backgroundColor: AppColors.backgroundcolor2,
+                                  radius: 20,
+                                ),
                               ],
                             ),
-                            height: 70,
-                            width: 320,
-                          ),
-                        ],
-                      ),
-                    ),
-                    width: 350,
-                    height: 200,
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "i/AskAmong",
+                                    style: TextStyle(
+                                        color: AppColors.textcolor,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Container(
+                                    margin: const EdgeInsets.all(2.0),
+                                    padding: const EdgeInsets.all(2.0),
+                                    child: Text(
+                                      'What will be the changes in nowadays murders???',
+                                      style: TextStyle(
+                                          color: AppColors.textcolor2),
+                                    ),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: Colors.white24,
+                                    ),
+                                    width: 210,
+                                  ),
 
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        width: 320,
+                      ),
+                    ],
                   ),
-                ]
-
+                ),
+                width: 350,
               ),
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children:[
-                    Container(
-                      margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: AppColors.backgroundcolor, width: 1),
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                        color: AppColors.backgroundcolor2,
-                      ),
-
-                      child: Padding(
-                        padding: EdgeInsets.all(10),
-                        child: Column(
+            ]),
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              Container(
+                margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
+                decoration: BoxDecoration(
+                  border:
+                  Border.all(color: AppColors.backgroundcolor, width: 1),
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                  color: AppColors.backgroundcolor2,
+                ),
+                child: Padding(
+                  padding: EdgeInsets.all(10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                        child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Container(
-                              margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                              child: Row(
-                                children: [
-                                  Padding(
-                                      padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Icon(
-                                              Icons.arrow_circle_up_outlined
-                                          ),
-                                          Text(
-                                              "23"
-                                          ),
-                                          Icon(
-                                              Icons.arrow_circle_down_outlined
-                                          ),
-                                        ],
-                                      )
+                            Row(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.start,
+                                    children: [
+                                      Icon(Icons.arrow_circle_up_outlined),
+                                      Text("36"),
+                                      Icon(Icons.arrow_circle_down_outlined),
+                                    ],
                                   ),
-                                  CircleAvatar(
-                                    child: ClipOval(
-                                      child: Image.network(
-                                        "https://pbs.twimg.com/profile_images/1349164016640413698/OR4T6a49_400x400.png",
-                                        fit: BoxFit.cover,
-                                      ),
+                                ),
+                                CircleAvatar(
+                                  child: ClipOval(
+                                    child: Image.network(
+                                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJJmqSGd5IdcQuqo9UxLnw3GUQwnUqKXlUtQ&usqp=CAU",
+                                      fit: BoxFit.cover,
                                     ),
-                                    backgroundColor: AppColors.backgroundcolor2,
-                                    radius: 20,
                                   ),
-                                  Padding(
-                                    padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "i/Amog-Stuff",
-                                          style: TextStyle(
-                                              color: AppColors.textcolor,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-
-                                        Container(
-                                          margin: const EdgeInsets.all(2.0),
-                                          padding: const EdgeInsets.all(2.0),
-                                          child:
-                                          Text(
-                                            'I am a stuff guys, what should i do ?.',
-                                            style:
-                                            TextStyle(color: AppColors.textcolor2),
-                                          ),
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(10),
-                                            color: Colors.white24,
-                                          ),
-                                          width: 210,
-                                        ),
-                                        SizedBox(height: 5),
-                                        ClipRRect(
-                                          borderRadius: BorderRadius.circular(10), // Image border
-                                          child: SizedBox.fromSize(
-                                            size: Size(200, 90), // Image radius
-                                            child: Image.network(
-                                              "https://static.wikia.nocookie.net/13592c08-d923-4f30-a28e-025a0ea6ecfe/scale-to-width/755",
-                                              fit: BoxFit.fill,
-
-                                            ),
-                                          ),
-                                        ),
-                                      ],
+                                  backgroundColor: AppColors.backgroundcolor2,
+                                  radius: 20,
+                                ),
+                              ],
+                            ),
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "i/AmogNews",
+                                    style: TextStyle(
+                                        color: AppColors.textcolor,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Container(
+                                    margin: const EdgeInsets.all(2.0),
+                                    padding: const EdgeInsets.all(2.0),
+                                    child: Text(
+                                      'Today news on AmogNews...',
+                                      style: TextStyle(
+                                          color: AppColors.textcolor2),
+                                    ),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: Colors.white24,
+                                    ),
+                                    width: 210,
+                                  ),
+                                  SizedBox(height: 5),
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(
+                                        20), // Image border
+                                    child: SizedBox.fromSize(
+                                      size: Size(200, 100), // Image radius
+                                      child: Image.network(
+                                        "https://img.game-news24.com/2021/10/Among-Us-Console-Edition-From-Tomorrow-Than-Expected.jpeg",
+                                        fit: BoxFit.fitHeight,
+                                      ),
                                     ),
                                   ),
                                 ],
                               ),
-                              height: 70,
-                              width: 320,
                             ),
                           ],
                         ),
+                        width: 320,
                       ),
-                      width: 350,
-                      height: 200,
-
-                    ),
-                  ]
-
+                    ],
+                  ),
+                ),
+                width: 350,
               ),
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children:[
-                    Container(
-                      margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: AppColors.backgroundcolor, width: 1),
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                        color: AppColors.backgroundcolor2,
-                      ),
-
-                      child: Padding(
-                        padding: EdgeInsets.all(10),
-                        child: Column(
+            ]),
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              Container(
+                margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
+                decoration: BoxDecoration(
+                  border:
+                  Border.all(color: AppColors.backgroundcolor, width: 1),
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                  color: AppColors.backgroundcolor2,
+                ),
+                child: Padding(
+                  padding: EdgeInsets.all(10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                        child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Container(
-                              margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                              child: Row(
-                                children: [
-                                  Padding(
-                                      padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Icon(
-                                              Icons.arrow_circle_up_outlined
-                                          ),
-                                          Text(
-                                              "23"
-                                          ),
-                                          Icon(
-                                              Icons.arrow_circle_down_outlined
-                                          ),
-                                        ],
-                                      )
+                            Row(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.start,
+                                    children: [
+                                      Icon(Icons.arrow_circle_up_outlined),
+                                      Text("76"),
+                                      Icon(Icons.arrow_circle_down_outlined),
+                                    ],
                                   ),
-                                  CircleAvatar(
-                                    child: ClipOval(
-                                      child: Image.network(
-                                        "https://i.pinimg.com/736x/87/c1/88/87c188fd657f9d13e200f13c819694a6.jpg",
-                                        fit: BoxFit.cover,
-                                      ),
+                                ),
+                                CircleAvatar(
+                                  child: ClipOval(
+                                    child: Image.network(
+                                      "https://pbs.twimg.com/media/EjJQLeLWkAE-RXF.jpg",
+                                      fit: BoxFit.cover,
                                     ),
-                                    backgroundColor: AppColors.backgroundcolor2,
-                                    radius: 20,
                                   ),
-                                  Padding(
-                                    padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "i/AmogAsk",
-                                          style: TextStyle(
-                                              color: AppColors.textcolor,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-
-                                        Container(
-                                          margin: const EdgeInsets.all(2.0),
-                                          padding: const EdgeInsets.all(2.0),
-                                          child:
-                                          Text(
-                                            'What do you do first in the morning?.',
-                                            style:
-                                            TextStyle(color: AppColors.textcolor2),
-                                          ),
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(10),
-                                            color: Colors.white24,
-                                          ),
-                                          width: 210,
-                                        ),
-                                      ],
+                                  backgroundColor: AppColors.backgroundcolor2,
+                                  radius: 20,
+                                ),
+                              ],
+                            ),
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "i/AmogGeeks",
+                                    style: TextStyle(
+                                        color: AppColors.textcolor,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Container(
+                                    margin: const EdgeInsets.all(2.0),
+                                    padding: const EdgeInsets.all(2.0),
+                                    child: Text(
+                                      'New Sci-Fi movie AmogTheSpaceMan was great again!!!',
+                                      style: TextStyle(
+                                          color: AppColors.textcolor2),
+                                    ),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: Colors.white24,
+                                    ),
+                                    width: 210,
+                                  ),
+                                  SizedBox(height: 5),
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(
+                                        20), // Image border
+                                    child: SizedBox.fromSize(
+                                      size: Size(200, 100), // Image radius
+                                      child: Image.network(
+                                        "http://ictmedia.com.tr/Media/News/9765.jpg",
+                                        fit: BoxFit.fitHeight,
+                                      ),
                                     ),
                                   ),
                                 ],
                               ),
-                              height: 70,
-                              width: 320,
                             ),
                           ],
                         ),
+                        width: 320,
                       ),
-                      width: 350,
-                      height: 122,
-
-                    ),
-                  ]
-
+                    ],
+                  ),
+                ),
+                width: 350,
               ),
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children:[
-                    Container(
-                      margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: AppColors.backgroundcolor, width: 1),
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                        color: AppColors.backgroundcolor2,
-                      ),
-
-                      child: Padding(
-                        padding: EdgeInsets.all(10),
-                        child: Column(
+            ]),
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              Container(
+                margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
+                decoration: BoxDecoration(
+                  border:
+                  Border.all(color: AppColors.backgroundcolor, width: 1),
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                  color: AppColors.backgroundcolor2,
+                ),
+                child: Padding(
+                  padding: EdgeInsets.all(10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                        child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Container(
-                              margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                              child: Row(
+                            Row(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.start,
+                                    children: [
+                                      Icon(Icons.arrow_circle_up_outlined),
+                                      Text("55"),
+                                      Icon(Icons.arrow_circle_down_outlined),
+                                    ],
+                                  ),
+                                ),
+                                CircleAvatar(
+                                  child: ClipOval(
+                                    child: Image.network(
+                                      "https://i.pinimg.com/474x/b0/63/98/b0639897a0248b50cebee54e6908e4bb.jpg",
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  backgroundColor: AppColors.backgroundcolor2,
+                                  radius: 20,
+                                ),
+                              ],
+                            ),
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Padding(
-                                      padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Icon(
-                                              Icons.arrow_circle_up_outlined
-                                          ),
-                                          Text(
-                                              "23"
-                                          ),
-                                          Icon(
-                                              Icons.arrow_circle_down_outlined
-                                          ),
-                                        ],
-                                      )
+                                  Text(
+                                    "i/Amogcute",
+                                    style: TextStyle(
+                                        color: AppColors.textcolor,
+                                        fontWeight: FontWeight.bold),
                                   ),
-                                  CircleAvatar(
-                                    child: ClipOval(
-                                      child: Image.network(
-                                        "https://apkresult.com/Logos/among%20us%20apkresult.jpg",
-                                        fit: BoxFit.cover,
-                                      ),
+                                  Container(
+                                    margin: const EdgeInsets.all(2.0),
+                                    padding: const EdgeInsets.all(2.0),
+                                    child: Text(
+                                      'Are you so cute too!!! I am too cute kawai uwu!!! ',
+                                      style: TextStyle(
+                                          color: AppColors.textcolor2),
                                     ),
-                                    backgroundColor: AppColors.backgroundcolor2,
-                                    radius: 20,
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "i/AmogNews",
-                                          style: TextStyle(
-                                              color: AppColors.textcolor,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-
-                                        Container(
-                                          margin: const EdgeInsets.all(2.0),
-                                          padding: const EdgeInsets.all(2.0),
-                                          child:
-                                          Text(
-                                            'Three new murders happened this morning in the amug Avenue!!!',
-                                            style:
-                                            TextStyle(color: AppColors.textcolor2),
-                                          ),
-
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(10),
-                                            color: Colors.white24,
-                                          ),
-                                          width: 210,
-                                        ),
-                                        SizedBox(height: 5),
-                                        ClipRRect(
-                                          borderRadius: BorderRadius.circular(10), // Image border
-                                          child: SizedBox.fromSize(
-                                            size: Size(200, 90), // Image radius
-                                            child: Image.network(
-                                              "https://img.game-news24.com/2021/10/Among-Us-Console-Edition-From-Tomorrow-Than-Expected.jpeg",
-                                              fit: BoxFit.fill,
-
-                                            ),
-                                          ),
-                                        ),
-                                      ],
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: Colors.white24,
                                     ),
+                                    width: 210,
                                   ),
                                 ],
                               ),
-                              height: 70,
-                              width: 320,
                             ),
                           ],
                         ),
+                        width: 320,
                       ),
-                      width: 350,
-                      height: 200,
-
-                    ),
-                  ]
-
+                    ],
+                  ),
+                ),
+                width: 350,
               ),
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children:[
-                    Container(
-                      margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: AppColors.backgroundcolor, width: 1),
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                        color: AppColors.backgroundcolor2,
-                      ),
-
-                      child: Padding(
-                        padding: EdgeInsets.all(10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                              child: Row(
-                                children: [
-                                  Padding(
-                                      padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Icon(
-                                              Icons.arrow_circle_up_outlined
-                                          ),
-                                          Text(
-                                              "23"
-                                          ),
-                                          Icon(
-                                              Icons.arrow_circle_down_outlined
-                                          ),
-                                        ],
-                                      )
-                                  ),
-                                  CircleAvatar(
-                                    child: ClipOval(
-                                      child: Image.network(
-                                        "https://w7.pngwing.com/pngs/74/355/png-transparent-whitty-among-us-crewmate-impostor-astronaut-space-character-game-imposter-bomb.png",
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                    backgroundColor: AppColors.backgroundcolor2,
-                                    radius: 20,
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "i/Amog-SciFi",
-                                          style: TextStyle(
-                                              color: AppColors.textcolor,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-
-                                        Container(
-                                          margin: const EdgeInsets.all(2.0),
-                                          padding: const EdgeInsets.all(2.0),
-                                          child:
-                                          Text(
-                                            'Amogs Become Human such a nice movie...',
-                                            style:
-                                            TextStyle(color: AppColors.textcolor2),
-                                          ),
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(10),
-                                            color: Colors.white24,
-                                          ),
-                                          width: 210,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              height: 70,
-                              width: 320,
-                            ),
-                          ],
-                        ),
-                      ),
-                      width: 350,
-                      height: 122,
-
-                    ),
-                  ]
-
-              ),
-            ],
-
-          ),
-
-          ),
-        backgroundColor: Color.fromRGBO(25, 25, 25, 1),
-        resizeToAvoidBottomInset: false,
+            ]),
+          ],
+        ),
+      ),
+      backgroundColor: Color.fromRGBO(25, 25, 25, 1),
+      resizeToAvoidBottomInset: false,
     );
   }
 }
