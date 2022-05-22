@@ -1,25 +1,49 @@
 import 'package:flutter/material.dart';
+import 'package:i_sucialize/feed.dart';
 import 'package:i_sucialize/notifications.dart';
 import 'package:i_sucialize/profile.dart';
+import 'package:i_sucialize/search.dart';
 import 'package:i_sucialize/util/colors.dart';
 import 'package:i_sucialize/walkthrough.dart';
+import 'package:i_sucialize/post.dart';
+import 'package:i_sucialize/chat_main.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  int index = 0;
+  HomeScreen({Key? key}) : super(key: key);
+  HomeScreen.asindex(int index) {
+    this.index = index;
+  }
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<HomeScreen> createState() => _HomeScreenState.asindex(this.index);
 }
 
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
-  PageController pageController = PageController();
+
+  PageController? pageController = null;
+
+  _HomeScreenState() {
+    pageController = PageController(initialPage: 0);
+  }
+  _HomeScreenState.asindex(index) {
+    _selectedIndex = index;
+    pageController = PageController(initialPage: _selectedIndex);
+  }
+
 
   void onTapped (int index){
     setState((){
       _selectedIndex = index;
     });
-    pageController.animateToPage(index, duration: Duration(milliseconds: 500), curve: Curves.easeIn);
+    pageController?.animateToPage(index, duration: Duration(milliseconds: 500), curve: Curves.easeIn);
+  }
+
+  void onPageChange(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
   }
 
   @override
@@ -28,12 +52,13 @@ class _HomeScreenState extends State<HomeScreen> {
       body: PageView(
         controller: pageController,
         children:[
-          WalkthroughScreen(),
-          Container(color:Colors.blue),
-          Container(color:Colors.green),
-          ProfileView(),
+          FeedView(),
+          SearchView(),
+          PostView(),
+          ChatView(),
           NotificationsView(),
         ],
+        onPageChanged: onPageChange,
       ),
       bottomNavigationBar: BottomNavigationBar(items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(icon: Icon(Icons.home), label: ""),

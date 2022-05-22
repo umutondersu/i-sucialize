@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:i_sucialize/home.dart';
 import 'package:i_sucialize/profile.dart';
+import 'package:i_sucialize/routes.dart';
 
 import 'home.dart';
 import 'notifications.dart';
@@ -12,8 +13,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: HomeScreen(),
+    return MaterialApp(
+      routes: appRoutes,
     );
   }
 }
