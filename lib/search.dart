@@ -207,13 +207,13 @@ List<ProfileHist> dummyHist = [
   ProfileHist(
     name: "i/susCity",
     avatarUrl:
-        "https://static.wikia.nocookie.net/amogus/images/c/cb/Susremaster.png/revision/latest/scale-to-width-down/1200?cb=20210806124552",
+        "https://pbs.twimg.com/media/EjJQLeLWkAE-RXF.jpg",
     route: "/profile",
   ),
   ProfileHist(
     name: "i/amiSUS",
     avatarUrl:
-        "https://static.wikia.nocookie.net/amogus/images/c/cb/Susremaster.png/revision/latest/scale-to-width-down/1200?cb=20210806124552",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJJmqSGd5IdcQuqo9UxLnw3GUQwnUqKXlUtQ&usqp=CAU",
     route: "/profile",
   ),
   ProfileHist(
@@ -225,7 +225,7 @@ List<ProfileHist> dummyHist = [
   ProfileHist(
     name: "i/areuSUS",
     avatarUrl:
-        "https://static.wikia.nocookie.net/amogus/images/c/cb/Susremaster.png/revision/latest/scale-to-width-down/1200?cb=20210806124552",
+        "https://i.pinimg.com/236x/db/b3/9d/dbb39d8f7713c3e160754de3bd709ca3.jpg",
     route: "/profile",
   ),
 ];
