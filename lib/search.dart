@@ -1,7 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:i_sucialize/home.dart';
+import 'package:i_sucialize/main.dart';
 import 'package:i_sucialize/util/colors.dart';
+import 'package:i_sucialize/routes.dart';
 
 class SearchView extends StatelessWidget {
   const SearchView({Key? key}) : super(key: key);
@@ -17,147 +20,59 @@ class SearchView extends StatelessWidget {
   // ignore: non_constant_identifier_names
   Scaffold SearchHistory() {
     return Scaffold(
-        body: Align(
-          alignment: Alignment.topCenter,
-          child: Container(
-            margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
-            decoration: BoxDecoration(
-              border: Border.all(color: AppColors.backgroundcolor, width: 1),
-              borderRadius: BorderRadius.all(Radius.circular(20)),
-              color: AppColors.backgroundcolor2,
-            ),
-            child: Padding(
-              padding: EdgeInsets.all(10),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
+      body: Align(
+        alignment: Alignment.topCenter,
+        child: Container(
+          margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
+          decoration: BoxDecoration(
+            border: Border.all(color: AppColors.backgroundcolor, width: 1),
+            borderRadius: BorderRadius.all(Radius.circular(20)),
+            color: AppColors.backgroundcolor2,
+          ),
+          child: Padding(
+            padding: EdgeInsets.all(10),
+            child: ListView.builder(
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: dummyHist.length,
+              itemBuilder: (context, i) => Column(
                 children: [
-                  Row(
-                    children: [
-                      Padding(padding: EdgeInsets.fromLTRB(0, 0, 10, 0)),
-                      Icon(
-                        Icons.circle,
-                        color: AppColors.textcolor,
-                        size: 15,
-                      ),
-                      Text(
-                        ' i/susTown',
-                        style: TextStyle(
-                          color: AppColors.textcolor,
-                        ),
-                      ),
-                      IconButton(
-                        icon: Icon(
-                          Icons.remove,
-                          color: AppColors.textcolor,
-                        ),
-                        onPressed: () {},
-                      ),
-                    ],
+                  Divider(
+                    height: 10.0,
                   ),
-                  Row(
-                    children: [
-                      Padding(padding: EdgeInsets.fromLTRB(0, 0, 10, 0)),
-                      Icon(
-                        Icons.circle,
-                        color: AppColors.textcolor,
-                        size: 15,
+                  ListTile(
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => HomeScreen.asindex(1),
                       ),
-                      Text(
-                        ' i/susCity',
-                        style: TextStyle(
-                          color: AppColors.textcolor,
+                    ),
+                    leading: CircleAvatar(
+                      foregroundColor: Theme.of(context).primaryColor,
+                      backgroundColor: AppColors.mainbackgroundcolor,
+                      backgroundImage: NetworkImage(dummyHist[i].avatarUrl),
+                    ),
+                    title: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          dummyHist[i].name,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.appBarTitleTextColor),
                         ),
-                      ),
-                      IconButton(
-                        icon: Icon(
-                          Icons.remove,
-                          color: AppColors.textcolor,
-                        ),
-                        onPressed: () {},
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Padding(padding: EdgeInsets.fromLTRB(0, 0, 10, 0)),
-                      Icon(
-                        Icons.circle,
-                        color: AppColors.textcolor,
-                        size: 15,
-                      ),
-                      Text(
-                        ' i/amiSUS',
-                        style: TextStyle(
-                          color: AppColors.textcolor,
-                        ),
-                      ),
-                      IconButton(
-                        icon: Icon(
-                          Icons.remove,
-                          color: AppColors.textcolor,
-                        ),
-                        onPressed: () {},
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Padding(padding: EdgeInsets.fromLTRB(0, 0, 10, 0)),
-                      Icon(
-                        Icons.circle,
-                        color: AppColors.textcolor,
-                        size: 15,
-                      ),
-                      Text(
-                        ' i/beingImpostor',
-                        style: TextStyle(
-                          color: AppColors.textcolor,
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: IconButton(
-                          icon: Icon(
-                            Icons.remove,
-                            color: AppColors.textcolor,
-                          ),
-                          onPressed: () {},
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Padding(padding: EdgeInsets.fromLTRB(0, 0, 10, 0)),
-                      Icon(
-                        Icons.circle,
-                        color: AppColors.textcolor,
-                        size: 15,
-                      ),
-                      Text(
-                        ' i/areuSUS',
-                        style: TextStyle(
-                          color: AppColors.textcolor,
-                        ),
-                      ),
-                      IconButton(
-                        alignment: AlignmentDirectional.centerEnd,
-                        icon: Icon(
-                          Icons.remove,
-                          color: AppColors.textcolor,
-                        ),
-                        onPressed: () {},
-                      ),
-                    ],
-                  ),
+                      ],
+                    ),
+                  )
                 ],
               ),
             ),
-            width: 350,
-            height: 280,
           ),
+          width: 350,
+          height: 280,
         ),
-        backgroundColor: AppColors.backgroundcolor);
+      ),
+      backgroundColor: AppColors.backgroundcolor,
+    );
   }
 }
 
@@ -264,3 +179,39 @@ class _SearchBarState extends State<SearchBar> {
     );
   }
 }
+
+class ProfileHist {
+  final String name;
+  final String route;
+  final String avatarUrl;
+
+  ProfileHist(
+      {required this.name, required this.avatarUrl, required this.route});
+}
+
+List<ProfileHist> dummyHist = [
+  ProfileHist(
+    name: "i/susCity",
+    avatarUrl:
+        "https://static.wikia.nocookie.net/amogus/images/c/cb/Susremaster.png/revision/latest/scale-to-width-down/1200?cb=20210806124552",
+    route: "/profile",
+  ),
+  ProfileHist(
+    name: "i/amiSUS",
+    avatarUrl:
+        "https://static.wikia.nocookie.net/amogus/images/c/cb/Susremaster.png/revision/latest/scale-to-width-down/1200?cb=20210806124552",
+    route: "/profile",
+  ),
+  ProfileHist(
+    name: "i/beingImpostor",
+    avatarUrl:
+        "https://static.wikia.nocookie.net/amogus/images/c/cb/Susremaster.png/revision/latest/scale-to-width-down/1200?cb=20210806124552",
+    route: "/profile",
+  ),
+  ProfileHist(
+    name: "i/areuSUS",
+    avatarUrl:
+        "https://static.wikia.nocookie.net/amogus/images/c/cb/Susremaster.png/revision/latest/scale-to-width-down/1200?cb=20210806124552",
+    route: "/profile",
+  ),
+];
