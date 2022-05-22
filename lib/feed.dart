@@ -15,21 +15,28 @@ class FeedView extends StatelessWidget {
         backgroundColor: AppColors.primary,
         leading: Padding(
           padding: EdgeInsets.all(10),
-          child: CircleAvatar(
-            child: ClipOval(
-              child: Image.network(
-                "https://static.wikia.nocookie.net/amogus/images/c/cb/Susremaster.png/revision/latest/scale-to-width-down/1200?cb=20210806124552",
-                fit: BoxFit.cover,
+
+          child: FlatButton(
+            padding: EdgeInsets.all(0),
+            onPressed: () {
+              Navigator.pushNamed(context, '/profile');
+            },
+            child: CircleAvatar(
+              child: ClipOval(
+                child: Image.network(
+                  "https://static.wikia.nocookie.net/amogus/images/c/cb/Susremaster.png/revision/latest/scale-to-width-down/1200?cb=20210806124552",
+                  fit: BoxFit.cover,
+                ),
               ),
+              backgroundColor: AppColors.primary,
+              radius: 100,
             ),
-            backgroundColor: AppColors.primary,
-            radius: 100,
           ),
         ),
         leadingWidth: 80,
       ),
-        resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
+        reverse: true,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.end,
@@ -46,7 +53,7 @@ class FeedView extends StatelessWidget {
                     ),
 
                     child: Padding(
-                      padding: EdgeInsets.all(20),
+                      padding: EdgeInsets.all(10),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -55,7 +62,7 @@ class FeedView extends StatelessWidget {
                             child: Row(
                               children: [
                                 Padding(
-                                  padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                  padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
                                   child: Column(
                                       mainAxisAlignment: MainAxisAlignment.start,
                                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -83,7 +90,7 @@ class FeedView extends StatelessWidget {
                                   radius: 20,
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                                  padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -96,6 +103,8 @@ class FeedView extends StatelessWidget {
                                       ),
 
                                       Container(
+                                        margin: const EdgeInsets.all(2.0),
+                                        padding: const EdgeInsets.all(2.0),
                                         child: 
                                         Text(
                                           'Amongus Drip Vcdoded will eventually decrease.',
@@ -107,18 +116,17 @@ class FeedView extends StatelessWidget {
                                           borderRadius: BorderRadius.circular(10),
                                           color: Colors.white24,
                                         ),
-                                        width: 200,
-                                        height: 40,
+                                        width: 210,
+
                                       ),
                                       SizedBox(height: 5),
                                       ClipRRect(
-                                        borderRadius: BorderRadius.circular(10), // Image border
+                                        borderRadius: BorderRadius.circular(20), // Image border
                                         child: SizedBox.fromSize(
                                           size: Size(200, 100), // Image radius
                                           child: Image.network(
                                               "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQPVQnqNXXsWAVKGXH4UrwtNLqC2S5kfI8ug&usqp=CAU",
-                                              fit: BoxFit.fill,
-
+                                            fit:BoxFit.fitHeight,
                                           ),
                                         ),
                                       ),
@@ -153,7 +161,7 @@ class FeedView extends StatelessWidget {
                       ),
 
                       child: Padding(
-                        padding: EdgeInsets.all(20),
+                        padding: EdgeInsets.all(10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -162,7 +170,7 @@ class FeedView extends StatelessWidget {
                               child: Row(
                                 children: [
                                   Padding(
-                                      padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                      padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
                                       child: Column(
                                         mainAxisAlignment: MainAxisAlignment.start,
                                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -203,6 +211,8 @@ class FeedView extends StatelessWidget {
                                         ),
 
                                         Container(
+                                          margin: const EdgeInsets.all(2.0),
+                                          padding: const EdgeInsets.all(2.0),
                                           child:
                                           Text(
                                             'I am a stuff guys, what should i do ?.',
@@ -213,8 +223,7 @@ class FeedView extends StatelessWidget {
                                             borderRadius: BorderRadius.circular(10),
                                             color: Colors.white24,
                                           ),
-                                          width: 200,
-                                          height: 50,
+                                          width: 210,
                                         ),
                                         SizedBox(height: 5),
                                         ClipRRect(
@@ -258,7 +267,7 @@ class FeedView extends StatelessWidget {
                       ),
 
                       child: Padding(
-                        padding: EdgeInsets.all(20),
+                        padding: EdgeInsets.all(10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -267,7 +276,7 @@ class FeedView extends StatelessWidget {
                               child: Row(
                                 children: [
                                   Padding(
-                                      padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                      padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
                                       child: Column(
                                         mainAxisAlignment: MainAxisAlignment.start,
                                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -308,6 +317,8 @@ class FeedView extends StatelessWidget {
                                         ),
 
                                         Container(
+                                          margin: const EdgeInsets.all(2.0),
+                                          padding: const EdgeInsets.all(2.0),
                                           child:
                                           Text(
                                             'What do you do first in the morning?.',
@@ -318,8 +329,7 @@ class FeedView extends StatelessWidget {
                                             borderRadius: BorderRadius.circular(10),
                                             color: Colors.white24,
                                           ),
-                                          width: 200,
-                                          height: 50,
+                                          width: 210,
                                         ),
                                       ],
                                     ),
@@ -351,7 +361,7 @@ class FeedView extends StatelessWidget {
                       ),
 
                       child: Padding(
-                        padding: EdgeInsets.all(20),
+                        padding: EdgeInsets.all(10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -360,7 +370,7 @@ class FeedView extends StatelessWidget {
                               child: Row(
                                 children: [
                                   Padding(
-                                      padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                      padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
                                       child: Column(
                                         mainAxisAlignment: MainAxisAlignment.start,
                                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -401,6 +411,8 @@ class FeedView extends StatelessWidget {
                                         ),
 
                                         Container(
+                                          margin: const EdgeInsets.all(2.0),
+                                          padding: const EdgeInsets.all(2.0),
                                           child:
                                           Text(
                                             'Three new murders happened this morning in the amug Avenue!!!',
@@ -412,8 +424,7 @@ class FeedView extends StatelessWidget {
                                             borderRadius: BorderRadius.circular(10),
                                             color: Colors.white24,
                                           ),
-                                          width: 200,
-                                          height: 50,
+                                          width: 210,
                                         ),
                                         SizedBox(height: 5),
                                         ClipRRect(
@@ -457,7 +468,7 @@ class FeedView extends StatelessWidget {
                       ),
 
                       child: Padding(
-                        padding: EdgeInsets.all(20),
+                        padding: EdgeInsets.all(10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -466,7 +477,7 @@ class FeedView extends StatelessWidget {
                               child: Row(
                                 children: [
                                   Padding(
-                                      padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                      padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
                                       child: Column(
                                         mainAxisAlignment: MainAxisAlignment.start,
                                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -507,6 +518,8 @@ class FeedView extends StatelessWidget {
                                         ),
 
                                         Container(
+                                          margin: const EdgeInsets.all(2.0),
+                                          padding: const EdgeInsets.all(2.0),
                                           child:
                                           Text(
                                             'Amogs Become Human such a nice movie...',
@@ -517,8 +530,7 @@ class FeedView extends StatelessWidget {
                                             borderRadius: BorderRadius.circular(10),
                                             color: Colors.white24,
                                           ),
-                                          width: 200,
-                                          height: 50,
+                                          width: 210,
                                         ),
                                       ],
                                     ),
@@ -543,7 +555,8 @@ class FeedView extends StatelessWidget {
           ),
 
           ),
-        backgroundColor: Color.fromRGBO(25, 25, 25, 1)
+        backgroundColor: Color.fromRGBO(25, 25, 25, 1),
+        resizeToAvoidBottomInset: false,
     );
   }
 }
