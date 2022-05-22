@@ -105,21 +105,27 @@ class SearchPageAppBar extends StatelessWidget with PreferredSizeWidget {
       foregroundColor: AppColors.textcolor,
       backgroundColor: AppColors.primary,
       shadowColor: AppColors.secondary,
-      leadingWidth: 60,
-      leading: TextButton(
-        child: CircleAvatar(
-          radius: 100,
-          child: ClipOval(
-            child: Image.network(
-              "https://static.wikia.nocookie.net/amogus/images/c/cb/Susremaster.png/revision/latest/scale-to-width-down/1200?cb=20210806124552",
-              fit: BoxFit.cover,
+      leadingWidth: 80,
+      leading: Padding(
+        padding: EdgeInsets.fromLTRB(10, 10, 0, 10),
+        child: FlatButton(
+          padding: EdgeInsets.all(0),
+          onPressed: () {
+            Navigator.pushNamed(context, '/profile');
+          },
+          child: CircleAvatar(
+            child: ClipOval(
+              child: Image.network(
+                "https://static.wikia.nocookie.net/amogus/images/c/cb/Susremaster.png/revision/latest/scale-to-width-down/1200?cb=20210806124552",
+                fit: BoxFit.cover,
+              ),
             ),
+            backgroundColor: AppColors.primary,
+            radius: 100,
           ),
         ),
-        onPressed: () {
-          Navigator.pushNamed(context, '/profile');
-        },
       ),
+      centerTitle: true,
       title: SearchBar(),
       actions: [
         Padding(
@@ -138,7 +144,6 @@ class SearchPageAppBar extends StatelessWidget with PreferredSizeWidget {
           ),
         )
       ],
-      centerTitle: true,
     );
   }
 }
@@ -157,40 +162,34 @@ class _SearchBarState extends State<SearchBar> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(5.0),
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(
-              color: Color.fromRGBO(64, 118, 172, 1),
-              width: 0.1,
-              style: BorderStyle.solid),
-          borderRadius: BorderRadius.all(Radius.circular(50)),
-          color: Color.fromRGBO(64, 118, 172, 1),
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(color: AppColors.primary),
+        borderRadius: BorderRadius.all(Radius.circular(50)),
+        color: Color.fromRGBO(64, 118, 172, 1),
+      ),
+      child: Row(children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
         ),
-        child: Row(children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-          ),
-          Expanded(
-            child: TextField(
-              controller: _controller,
-              textAlign: TextAlign.left,
-              decoration: InputDecoration(
-                hintText: "Search...",
-                hintStyle: TextStyle(color: AppColors.textcolor),
-                border: InputBorder.none,
-                suffixIcon: IconButton(
-                  icon: Icon(Icons.cancel_rounded),
-                  onPressed: () {
-                    _controller.clear();
-                  },
-                ),
+        Expanded(
+          child: TextField(
+            controller: _controller,
+            textAlign: TextAlign.left,
+            decoration: InputDecoration(
+              hintText: "Search...",
+              hintStyle: TextStyle(color: AppColors.textcolor),
+              border: InputBorder.none,
+              suffixIcon: IconButton(
+                icon: Icon(Icons.cancel_rounded),
+                onPressed: () {
+                  _controller.clear();
+                },
               ),
             ),
           ),
-        ]),
-      ),
+        ),
+      ]),
     );
   }
 }
