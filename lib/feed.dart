@@ -45,7 +45,7 @@ class FeedView extends StatelessWidget {
                 margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
                 decoration: BoxDecoration(
                   border:
-                  Border.all(color: AppColors.backgroundcolor, width: 1),
+                      Border.all(color: AppColors.backgroundcolor, width: 1),
                   borderRadius: BorderRadius.all(Radius.circular(20)),
                   color: AppColors.backgroundcolor2,
                 ),
@@ -67,7 +67,7 @@ class FeedView extends StatelessWidget {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Icon(Icons.arrow_circle_up_outlined),
                                       Text("248"),
@@ -143,7 +143,7 @@ class FeedView extends StatelessWidget {
                 margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
                 decoration: BoxDecoration(
                   border:
-                  Border.all(color: AppColors.backgroundcolor, width: 1),
+                      Border.all(color: AppColors.backgroundcolor, width: 1),
                   borderRadius: BorderRadius.all(Radius.circular(20)),
                   color: AppColors.backgroundcolor2,
                 ),
@@ -165,7 +165,7 @@ class FeedView extends StatelessWidget {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Icon(Icons.arrow_circle_up_outlined),
                                       Text("23"),
@@ -211,7 +211,6 @@ class FeedView extends StatelessWidget {
                                     ),
                                     width: 210,
                                   ),
-
                                 ],
                               ),
                             ),
@@ -230,7 +229,7 @@ class FeedView extends StatelessWidget {
                 margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
                 decoration: BoxDecoration(
                   border:
-                  Border.all(color: AppColors.backgroundcolor, width: 1),
+                      Border.all(color: AppColors.backgroundcolor, width: 1),
                   borderRadius: BorderRadius.all(Radius.circular(20)),
                   color: AppColors.backgroundcolor2,
                 ),
@@ -252,7 +251,7 @@ class FeedView extends StatelessWidget {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Icon(Icons.arrow_circle_up_outlined),
                                       Text("36"),
@@ -328,7 +327,7 @@ class FeedView extends StatelessWidget {
                 margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
                 decoration: BoxDecoration(
                   border:
-                  Border.all(color: AppColors.backgroundcolor, width: 1),
+                      Border.all(color: AppColors.backgroundcolor, width: 1),
                   borderRadius: BorderRadius.all(Radius.circular(20)),
                   color: AppColors.backgroundcolor2,
                 ),
@@ -350,7 +349,7 @@ class FeedView extends StatelessWidget {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Icon(Icons.arrow_circle_up_outlined),
                                       Text("76"),
@@ -426,7 +425,7 @@ class FeedView extends StatelessWidget {
                 margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
                 decoration: BoxDecoration(
                   border:
-                  Border.all(color: AppColors.backgroundcolor, width: 1),
+                      Border.all(color: AppColors.backgroundcolor, width: 1),
                   borderRadius: BorderRadius.all(Radius.circular(20)),
                   color: AppColors.backgroundcolor2,
                 ),
@@ -448,7 +447,7 @@ class FeedView extends StatelessWidget {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Icon(Icons.arrow_circle_up_outlined),
                                       Text("55"),

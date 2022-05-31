@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "790093489915",
+    "project_id": "i-sucialize",
+    "storage_bucket": "i-sucialize.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:790093489915:android:e08cfff272f40ee60c725e",
+        "android_client_info": {
+          "package_name": "com.example.i_sucialize"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "790093489915-ir2pb4gqorvuc727536hjlio09rhbiis.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4Mkq7pK6Upjk5FMPeLSamcYabkjhOKPg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "790093489915-ir2pb4gqorvuc727536hjlio09rhbiis.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "790093489915-49r13tuacdfdlhvtclrpi8rhqe7so2f4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.iSucialize"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

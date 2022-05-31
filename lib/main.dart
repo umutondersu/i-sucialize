@@ -1,19 +1,70 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:i_sucialize/home.dart';
 import 'package:i_sucialize/profile.dart';
 import 'package:i_sucialize/routes.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:i_sucialize/walkthrough.dart';
+import 'firebase_options.dart';
 
 import 'home.dart';
 import 'notifications.dart';
 
-void main() => runApp(const MyApp());
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(MyFirebaseApp());
+}
+
+class MyFirebaseApp extends StatefulWidget {
+  const MyFirebaseApp({Key? key}) : super(key: key);
+
+  @override
+  _MyFirebaseAppState createState() => _MyFirebaseAppState();
+}
+
+class _MyFirebaseAppState extends State<MyFirebaseApp> {
+  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: _initialization,
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return MaterialApp(
+            home: Scaffold(
+              body: Center(
+                child: Text(
+                    'No Firebase Connection: ${snapshot.error.toString()}'),
+              ),
+            ),
+          );
+        }
+        if (snapshot.connectionState == ConnectionState.done) {
+          return MaterialApp(
+            home: MyApp(),
+          );
+        }
+        return MaterialApp(
+          home: Center(
+            child: Text('Connecting to Firebase'),
+          ),
+        );
+      },
+    );
+  }
+}
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      initialRoute: '/',
       routes: appRoutes,
     );
   }
@@ -41,6 +92,40 @@ class HomeView extends StatelessWidget {
             fontWeight: FontWeight.w800,
           ),
         ),
+      ),
+    );
+  }
+}
+
+class WaitingScreen extends StatelessWidget {
+  const WaitingScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.white,
+      child: const Text('Connecting to Firebase',
+          style: TextStyle(
+            fontSize: 24,
+          )),
+    );
+  }
+}
+
+class ErrorScreen extends StatelessWidget {
+  ErrorScreen({Key? key, required this.message}) : super(key: key);
+
+  String message;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('ERROR'),
+        centerTitle: true,
+      ),
+      body: Center(
+        child: Text(message),
       ),
     );
   }

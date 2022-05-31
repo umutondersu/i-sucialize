@@ -2,10 +2,62 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:i_sucialize/home.dart';
+import 'package:i_sucialize/notification_items.dart';
 import 'package:i_sucialize/util/colors.dart';
+import 'package:intl/intl.dart';
 
 class NotificationsView extends StatelessWidget {
-  const NotificationsView({Key? key}) : super(key: key);
+  NotificationsView({Key? key}) : super(key: key);
+
+  List<Widget> list = notification_items
+      .map((e) => Container(
+            margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+            child: Row(
+              children: [
+                CircleAvatar(
+                  child: ClipOval(
+                    child: Image.network(
+                      e.author_img,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  backgroundColor: AppColors.backgroundcolor2,
+                  radius: 20,
+                ),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        e.member + " ● " + e.getDifference(DateTime.now()),
+                        style: TextStyle(
+                            color: AppColors.textcolor,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Container(
+                        child: Text(
+                          e.member.toLowerCase() +
+                              ' posted a new post: "' +
+                              e.message +
+                              '"',
+                          style: TextStyle(color: AppColors.textcolor2),
+                        ),
+                        width: 200,
+                        height: 50,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            height: 70,
+            width: 320,
+          ))
+      .toList()
+      .reversed
+      .toList();
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +89,15 @@ class NotificationsView extends StatelessWidget {
         leadingWidth: 80,
       ),
       body: Scaffold(
+          body: SingleChildScrollView(
+            reverse: true,
+            child: Align(
+                alignment: Alignment.topCenter, child: Column(children: list)),
+          ),
+          backgroundColor: Color.fromRGBO(25, 25, 25, 1)),
+    );
+
+    /*Scaffold(
           body: Align(
             child: Container(
               margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
@@ -322,6 +383,6 @@ class NotificationsView extends StatelessWidget {
             alignment: Alignment.topCenter,
           ),
           backgroundColor: Color.fromRGBO(25, 25, 25, 1)),
-    );
+        );*/
   }
 }

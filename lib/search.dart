@@ -86,7 +86,7 @@ class _SearchViewState extends State<SearchView> {
           height: 280,
         ),
       ),
-      backgroundColor: AppColors.backgroundcolor,
+      backgroundColor: AppColors.mainbackgroundcolor,
     );
   }
 }
@@ -206,8 +206,7 @@ class ProfileHist {
 List<ProfileHist> dummyHist = [
   ProfileHist(
     name: "i/susCity",
-    avatarUrl:
-        "https://pbs.twimg.com/media/EjJQLeLWkAE-RXF.jpg",
+    avatarUrl: "https://pbs.twimg.com/media/EjJQLeLWkAE-RXF.jpg",
     route: "/profile",
   ),
   ProfileHist(

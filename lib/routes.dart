@@ -9,13 +9,12 @@ import 'package:i_sucialize/search.dart';
 import 'package:i_sucialize/walkthrough.dart';
 import 'package:i_sucialize/welcome.dart';
 
-
 var appRoutes = {
   '/': (context) => WalkthroughScreen(),
   '/welcome': (context) => Welcome(),
   '/login': (context) => LoginScreen(),
   '/register': (context) => RegisterScreen(),
-  '/home': (context) => HomeScreen(),
+  '/home': (context) => HomeScreen.asindex(0),
   '/profile': (context) => ProfileView(),
   '/profileedit': (context) => ProfileEditView(),
 };

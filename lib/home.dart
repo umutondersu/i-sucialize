@@ -22,7 +22,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
-  PageController? pageController = null;
+  PageController? pageController = PageController(initialPage: 0);
 
   _HomeScreenState() {
     pageController = PageController(initialPage: 0);
@@ -32,12 +32,12 @@ class _HomeScreenState extends State<HomeScreen> {
     pageController = PageController(initialPage: _selectedIndex);
   }
 
-
-  void onTapped (int index){
-    setState((){
+  void onTapped(int index) {
+    setState(() {
       _selectedIndex = index;
     });
-    pageController?.animateToPage(index, duration: Duration(milliseconds: 500), curve: Curves.easeIn);
+    pageController?.animateToPage(index,
+        duration: Duration(milliseconds: 500), curve: Curves.easeIn);
   }
 
   void onPageChange(int index) {
@@ -51,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: PageView(
         controller: pageController,
-        children:[
+        children: [
           FeedView(),
           SearchView(),
           PostView(),
@@ -60,14 +60,14 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
         onPageChanged: onPageChange,
       ),
-      bottomNavigationBar: BottomNavigationBar(items: const <BottomNavigationBarItem>[
-        BottomNavigationBarItem(icon: Icon(Icons.home), label: ""),
-        BottomNavigationBarItem(icon: Icon(Icons.search), label: ""),
-        BottomNavigationBarItem(icon: Icon(Icons.add), label: ""),
-        BottomNavigationBarItem(icon: Icon(Icons.chat_rounded), label: ""),
-        BottomNavigationBarItem(icon: Icon(Icons.notifications), label: "")
-
-      ],
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: ""),
+          BottomNavigationBarItem(icon: Icon(Icons.search), label: ""),
+          BottomNavigationBarItem(icon: Icon(Icons.add), label: ""),
+          BottomNavigationBarItem(icon: Icon(Icons.chat_rounded), label: ""),
+          BottomNavigationBarItem(icon: Icon(Icons.notifications), label: "")
+        ],
         currentIndex: _selectedIndex,
         selectedItemColor: AppColors.textcolor,
         unselectedItemColor: Colors.grey,
