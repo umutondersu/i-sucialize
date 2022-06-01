@@ -34,52 +34,49 @@ class _SearchViewState extends State<SearchView> {
             borderRadius: BorderRadius.all(Radius.circular(20)),
             color: AppColors.backgroundcolor2,
           ),
-          child: Padding(
-            padding: EdgeInsets.all(10),
-            child: ListView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: dummyHist.length,
-              itemBuilder: (context, i) => Column(
-                children: [
-                  Divider(
-                    height: 10.0,
+          child: ListView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: dummyHist.length,
+            itemBuilder: (context, i) => Column(
+              children: [
+                Divider(
+                  height: 10.0,
+                ),
+                ListTile(
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => HomeScreen.asindex(1),
+                    ),
                   ),
-                  ListTile(
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => HomeScreen.asindex(1),
+                  leading: CircleAvatar(
+                    foregroundColor: Theme.of(context).primaryColor,
+                    backgroundColor: AppColors.mainbackgroundcolor,
+                    backgroundImage: NetworkImage(dummyHist[i].avatarUrl),
+                  ),
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        dummyHist[i].name,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.appBarTitleTextColor),
                       ),
-                    ),
-                    leading: CircleAvatar(
-                      foregroundColor: Theme.of(context).primaryColor,
-                      backgroundColor: AppColors.mainbackgroundcolor,
-                      backgroundImage: NetworkImage(dummyHist[i].avatarUrl),
-                    ),
-                    title: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          dummyHist[i].name,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: AppColors.appBarTitleTextColor),
-                        ),
-                        IconButton(
-                            onPressed: () => {
-                                  setState(() {
-                                    dummyHist.removeAt(i);
-                                  })
-                                },
-                            icon: Icon(
-                              Icons.remove,
-                              color: AppColors.appBarTitleTextColor,
-                            )),
-                      ],
-                    ),
-                  )
-                ],
-              ),
+                      IconButton(
+                          onPressed: () => {
+                                setState(() {
+                                  dummyHist.removeAt(i);
+                                })
+                              },
+                          icon: Icon(
+                            Icons.remove,
+                            color: AppColors.appBarTitleTextColor,
+                          )),
+                    ],
+                  ),
+                )
+              ],
             ),
           ),
           width: 350,
@@ -104,7 +101,6 @@ class SearchPageAppBar extends StatelessWidget with PreferredSizeWidget {
     return AppBar(
       foregroundColor: AppColors.textcolor,
       backgroundColor: AppColors.primary,
-      shadowColor: AppColors.secondary,
       leadingWidth: 80,
       leading: Padding(
         padding: EdgeInsets.fromLTRB(10, 10, 0, 10),
