@@ -45,7 +45,7 @@ class FeedView extends StatelessWidget {
                 margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
                 decoration: BoxDecoration(
                   border:
-                      Border.all(color: AppColors.backgroundcolor, width: 1),
+                  Border.all(color: AppColors.backgroundcolor, width: 1),
                   borderRadius: BorderRadius.all(Radius.circular(20)),
                   color: AppColors.backgroundcolor2,
                 ),
@@ -67,10 +67,10 @@ class FeedView extends StatelessWidget {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    CrossAxisAlignment.start,
                                     children: [
                                       Icon(Icons.arrow_circle_up_outlined),
-                                      Text("248"),
+                                      Text("23"),
                                       Icon(Icons.arrow_circle_down_outlined),
                                     ],
                                   ),
@@ -143,7 +143,7 @@ class FeedView extends StatelessWidget {
                 margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
                 decoration: BoxDecoration(
                   border:
-                      Border.all(color: AppColors.backgroundcolor, width: 1),
+                  Border.all(color: AppColors.backgroundcolor, width: 1),
                   borderRadius: BorderRadius.all(Radius.circular(20)),
                   color: AppColors.backgroundcolor2,
                 ),
@@ -165,7 +165,7 @@ class FeedView extends StatelessWidget {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    CrossAxisAlignment.start,
                                     children: [
                                       Icon(Icons.arrow_circle_up_outlined),
                                       Text("23"),
@@ -229,7 +229,7 @@ class FeedView extends StatelessWidget {
                 margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
                 decoration: BoxDecoration(
                   border:
-                      Border.all(color: AppColors.backgroundcolor, width: 1),
+                  Border.all(color: AppColors.backgroundcolor, width: 1),
                   borderRadius: BorderRadius.all(Radius.circular(20)),
                   color: AppColors.backgroundcolor2,
                 ),
@@ -251,7 +251,7 @@ class FeedView extends StatelessWidget {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    CrossAxisAlignment.start,
                                     children: [
                                       Icon(Icons.arrow_circle_up_outlined),
                                       Text("36"),
@@ -327,7 +327,7 @@ class FeedView extends StatelessWidget {
                 margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
                 decoration: BoxDecoration(
                   border:
-                      Border.all(color: AppColors.backgroundcolor, width: 1),
+                  Border.all(color: AppColors.backgroundcolor, width: 1),
                   borderRadius: BorderRadius.all(Radius.circular(20)),
                   color: AppColors.backgroundcolor2,
                 ),
@@ -349,7 +349,7 @@ class FeedView extends StatelessWidget {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    CrossAxisAlignment.start,
                                     children: [
                                       Icon(Icons.arrow_circle_up_outlined),
                                       Text("76"),
@@ -425,7 +425,7 @@ class FeedView extends StatelessWidget {
                 margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
                 decoration: BoxDecoration(
                   border:
-                      Border.all(color: AppColors.backgroundcolor, width: 1),
+                  Border.all(color: AppColors.backgroundcolor, width: 1),
                   borderRadius: BorderRadius.all(Radius.circular(20)),
                   color: AppColors.backgroundcolor2,
                 ),
@@ -447,7 +447,7 @@ class FeedView extends StatelessWidget {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    CrossAxisAlignment.start,
                                     children: [
                                       Icon(Icons.arrow_circle_up_outlined),
                                       Text("55"),
@@ -514,3 +514,64 @@ class FeedView extends StatelessWidget {
     );
   }
 }
+class FeedModel {
+  final String subname;
+  final String message;
+  final String time;
+  final String vote;
+  final String image;
+  final String avatarUrl;
+
+  FeedModel({required this.subname, required this.message, required this.time, required this.vote, required this.image, required this.avatarUrl});
+}
+
+List<FeedModel> dummyfeedData = [
+  FeedModel(
+      subname: "i/Amogdrip",
+      message: "Amongus Drip Vcdoded will eventually decrease.",
+      time: "21:13",
+      vote: "243",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQPVQnqNXXsWAVKGXH4UrwtNLqC2S5kfI8ug&usqp=CAU",
+      avatarUrl:
+      "https://m.media-amazon.com/images/I/316sTqrlXEL._AC_SY780_.jpg"),
+  FeedModel(
+      subname: "i/AskAmong",
+      message: "What will be the changes in nowadays muders???",
+      time: "14:56",
+      vote: "23",
+      image: " ",
+      avatarUrl:
+      "https://i.pinimg.com/236x/db/b3/9d/dbb39d8f7713c3e160754de3bd709ca3.jpg"),
+  FeedModel(
+      subname: "i/AskAmong",
+      message: "What will be the changes in nowadays muders???",
+      time: "14:56",
+      vote: "23",
+      image: " ",
+      avatarUrl:
+      "https://i.pinimg.com/236x/db/b3/9d/dbb39d8f7713c3e160754de3bd709ca3.jpg"),
+  FeedModel(
+      subname: "i/AmogNews",
+      message: "Today news on AmongNews...",
+      time: "9:00",
+      vote: "36",
+      image: "https://img.game-news24.com/2021/10/Among-Us-Console-Edition-From-Tomorrow-Than-Expected.jpeg",
+      avatarUrl:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJJmqSGd5IdcQuqo9UxLnw3GUQwnUqKXlUtQ&usqp=CAU"),
+  FeedModel(
+      subname: "i/AmogGeeks",
+      message: "New Sci Fi movie AmogTheSpaceMan was great again!!!",
+      time: "20:01",
+      vote: "76",
+      image: "http://ictmedia.com.tr/Media/News/9765.jpg",
+      avatarUrl:
+      "https://pbs.twimg.com/media/EjJQLeLWkAE-RXF.jpg"),
+  FeedModel(
+      subname: "i/Amogcute",
+      message: "Are you so cute too!!! I am too cute kawai uwu!!!",
+      time: "16:34",
+      vote: "55",
+      image: " ",
+      avatarUrl:
+      "https://i.pinimg.com/474x/b0/63/98/b0639897a0248b50cebee54e6908e4bb.jpg"),
+];
