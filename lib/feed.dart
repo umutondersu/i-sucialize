@@ -525,7 +525,7 @@ class FeedModel {
   FeedModel({required this.subname, required this.message, required this.time, required this.vote, required this.image, required this.avatarUrl});
 }
 
-List<FeedModel> dummyfeedData = [
+List<FeedModel> feedData = [
   FeedModel(
       subname: "i/Amogdrip",
       message: "Amongus Drip Vcdoded will eventually decrease.",

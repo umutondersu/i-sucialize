@@ -37,11 +37,11 @@ dependencies:
   json_serializable: any
   firebase_core: ^1.11.0
   intl: ^0.17.0
-  firebase_auth: ^3.3.8
-  firebase_auth_web: ^3.3.8
-  #firebase_analytics: ^8.2.0
-  firebase_crashlytics: ^2.5.2
-  firebase_storage: ^10.2.8
+  firebase_auth: ^3.3.19
+  firebase_auth_web: ^3.3.16
+  firebase_analytics: ^9.1.9
+  firebase_crashlytics: ^2.8.1
+  firebase_storage: ^10.2.17
 
 
 
