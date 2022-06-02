@@ -24,6 +24,7 @@ class PostViewState extends State<PostView> {
 
   final ImagePicker _picker = ImagePicker();
   late XFile _image;
+  late String mediaUrl;
 
   Future pickImage() async {
     final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
@@ -36,7 +37,7 @@ class PostViewState extends State<PostView> {
   StorageService _storageService = StorageService();
 
   Future uploadImageToFirebase(BuildContext context) async {
-    String? mediaUrl = await _storageService.uploadMedia(File(_image.path));
+    mediaUrl = await _storageService.uploadMedia(File(_image.path));
   }
 
   /*Future uploadImageToFirebase(BuildContext context) async {
@@ -73,7 +74,7 @@ class PostViewState extends State<PostView> {
               },
               child: CircleAvatar(
                 child: ClipOval(
-                  child: Image.network(
+                  child: _image !=null ?Image.network(mediaUrl,fit: BoxFit.cover) : Image.network(
                     "https://static.wikia.nocookie.net/amogus/images/c/cb/Susremaster.png/revision/latest/scale-to-width-down/1200?cb=20210806124552",
                     fit: BoxFit.cover,
                   ),
