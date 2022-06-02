@@ -23,7 +23,7 @@ class PostView extends StatefulWidget {
 class PostViewState extends State<PostView> {
 
   final ImagePicker _picker = ImagePicker();
-  late XFile _image = new XFile("");
+  XFile? _image ;
   late String mediaUrl = "";
 
   Future pickImage() async {
@@ -37,7 +37,8 @@ class PostViewState extends State<PostView> {
   StorageService _storageService = StorageService();
 
   Future uploadImageToFirebase(BuildContext context) async {
-    mediaUrl = await _storageService.uploadMedia(File(_image.path));
+    String? Path = _image?.path;
+    mediaUrl = await _storageService.uploadMedia(File(_image!.path));
   }
 
   /*Future uploadImageToFirebase(BuildContext context) async {
