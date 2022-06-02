@@ -1,5 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-import 'package:email_validator/email_validator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:i_sucialize/Authenticator.dart';
@@ -20,22 +20,32 @@ class _LoginScreenState extends State<LoginScreen>{
   @override
   Widget build(BuildContext context) {
 
-    Future<void> errDialog(bool isPassword, bool isEmail) {
+    Future<void> errDialog({
+      bool isEmail = false,
+      bool isPassword = false,
+      bool isIncorrect = false,
+      bool isNotUser = false}) {
       return showDialog<void>(
         context: context,
         barrierDismissible: true,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: const Text('Error while logging in!',
+            title: const Text('Error while registering!',
                 style: TextStyle(color: AppColors.textcolor2, fontSize: 20)
             ),
             content: SingleChildScrollView(
               child: ListBody(
                 children: <Widget>[
-                  isPassword ? Text('\nPlease enter a password',
+                  isEmail ? Text('Invalid email address',
                       style: TextStyle(color: AppColors.textcolor2, fontSize: 20)
                   ) : Text(''),
-                  isEmail ? Text('Invalid email address',
+                  isPassword ? Text('Please enter a password',
+                      style: TextStyle(color: AppColors.textcolor2, fontSize: 20)
+                  ) : Text(''),
+                  isIncorrect ? Text('Password incorrect',
+                      style: TextStyle(color: AppColors.textcolor2, fontSize: 20)
+                  ) : Text(''),
+                  isNotUser ? Text('A user with this email was not found',
                       style: TextStyle(color: AppColors.textcolor2, fontSize: 20)
                   ) : Text(''),
                 ],
@@ -56,22 +66,6 @@ class _LoginScreenState extends State<LoginScreen>{
         },
       );
     }
-
-    bool validateEmail(String email) {
-      bool isValid = true;
-      if (email.isEmpty) {
-        isValid = false;
-      }
-      else if (!EmailValidator.validate(email, true, true)) {
-        isValid = false;
-      }
-      if (!isValid) {
-        errDialog(false, true);
-      }
-      return isValid;
-    }
-
-
 
     return Scaffold(
       body: Scaffold(
@@ -253,30 +247,49 @@ class _LoginScreenState extends State<LoginScreen>{
                         ),
                         width: 130,
                         height: 75,
-                        child: Center(
-                          child: TextButton(
-                            onPressed: () {
-                              if (validateEmail(_emailController.text)) {
-                                if (_passwordController.text.isEmpty) {
-                                  errDialog(true, false);
-                                }
-                                else {
-                                  _authenticator.signIn(_emailController.text, _passwordController.text);
-                                  Navigator.pushNamed(context, '/home');
-                                }
+                        child: TextButton(
+                          onPressed: () {
+                            if (_emailController.text.isEmpty) {
+                              errDialog(isEmail: true);
+                            }
+                            else {
+                              if (_passwordController.text.isEmpty) {
+                                errDialog(isPassword: true);
                               }
-                            },
-                            child: Text("Login",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 25)),
-                          ),
+                              else {
+                                _authenticator.signIn(_emailController.text, _passwordController.text).then((String? uid) {
+                                  setState(() {
+                                    if (uid == 'invalid-email') {
+                                      errDialog(isEmail: true);
+                                    } else if (uid == 'wrong-password') {
+                                      errDialog(isIncorrect: true);
+                                    } else if (uid == 'user-not-found') {
+                                      errDialog(isNotUser: true);
+                                    } else {
+                                      Navigator.pushNamed(context, '/home');
+                                    }
+                                  });
+                                });
+                              }
+                            }
+                          },
+                          child: Text("Login",
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 25)),
                         ),
                       ),
                       Container(
                         margin: EdgeInsets.fromLTRB(15, 0, 0, 0),
                         child: TextButton(
                           onPressed: () {
-                            Navigator.pushNamed(context, '/home');
+                            signInWithGoogle().then((UserCredential userCred) {
+                              setState(() {
+                                print("bruh");
+                                String? uid = userCred.user?.uid;
+                                Navigator.pushNamed(context, '/home');
+                              });
+                            });
+
                           },
                           child: ClipOval(
                             child: Image.asset(
@@ -302,16 +315,13 @@ class _LoginScreenState extends State<LoginScreen>{
                   ),
                   width: 230,
                   height: 75,
-                  child: Center(
-                      child: FlatButton(
-                    padding: EdgeInsets.all(0),
+                  child: TextButton(
                     onPressed: () {
                       Navigator.pushNamed(context, '/register');
                     },
                     child: Text("Register",
                         style: TextStyle(color: Colors.white, fontSize: 25)),
-                  )),
-                  //child: ,
+                  ),
                 ),
               ),
             ],
