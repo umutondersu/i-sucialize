@@ -5,8 +5,8 @@ import 'package:i_sucialize/profile.dart';
 import 'package:i_sucialize/routes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:i_sucialize/walkthrough.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
-
 import 'home.dart';
 import 'notifications.dart';
 
@@ -30,6 +30,41 @@ class _MyFirebaseAppState extends State<MyFirebaseApp> {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
+  /*
+  int? firstLoad;
+  SharedPreferences? prefs;
+
+  decideRoute() async{
+    prefs = await SharedPreferences.getInstance();
+    setState(() {
+      firstLoad = (prefs!.getInt('appInitialLoad') ?? 0);
+    });
+  }
+
+  @override
+  void initState(){
+    super.initState();
+    decideRoute();
+  }
+
+  @override
+  Widget build(BuildContext context){
+    if(firstLoad == null){
+      return Container();
+    } else if (firstLoad == 0){
+      firstLoad = 1;
+      prefs!.setInt('appInitialLoad', firstLoad!);
+      return MaterialApp(
+        home: WalkThrough(),
+      );
+    } else{
+       return MaterialApp(
+        home: LoginPage(),
+       );
+      }
+    }
+  }
+  */
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -132,3 +167,5 @@ class ErrorScreen extends StatelessWidget {
     );
   }
 }
+
+
