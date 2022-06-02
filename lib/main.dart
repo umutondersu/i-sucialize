@@ -6,16 +6,24 @@ import 'package:i_sucialize/routes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:i_sucialize/walkthrough.dart';
 import 'firebase_options.dart';
+import 'package:i_sucialize/analytics_service.dart';
+import 'package:i_sucialize/firebase_options.dart';
+import 'package:get_it/get_it.dart';
 
 import 'home.dart';
 import 'notifications.dart';
+
+GetIt locator = GetIt.instance;
 
 void main() {
   Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(MyFirebaseApp());
+
+  locator.registerLazySingleton<AnalyticsService>(() => AnalyticsService());
+
+  runApp(const MyFirebaseApp());
 }
 
 class MyFirebaseApp extends StatefulWidget {
@@ -50,7 +58,7 @@ class _MyFirebaseAppState extends State<MyFirebaseApp> {
             home: MyApp(),
           );
         }
-        return MaterialApp(
+        return const MaterialApp(
           home: Center(
             child: Text('Connecting to Firebase'),
           ),
@@ -66,6 +74,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorObservers: [
+        locator<AnalyticsService>().getanalyticsObserver(),
+      ],
       initialRoute: '/',
       routes: appRoutes,
     );
