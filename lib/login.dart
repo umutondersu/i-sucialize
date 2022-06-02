@@ -1,15 +1,83 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:i_sucialize/Authenticator.dart';
+import 'package:i_sucialize/util/colors.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
   @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen>{
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final Authenticator _authenticator = Authenticator();
+
+  @override
   Widget build(BuildContext context) {
+
+    Future<void> errDialog(bool isPassword, bool isEmail) {
+      return showDialog<void>(
+        context: context,
+        barrierDismissible: true,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Error while logging in!',
+                style: TextStyle(color: AppColors.textcolor2, fontSize: 20)
+            ),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  isPassword ? Text('\nPlease enter a password',
+                      style: TextStyle(color: AppColors.textcolor2, fontSize: 20)
+                  ) : Text(''),
+                  isEmail ? Text('Invalid email address',
+                      style: TextStyle(color: AppColors.textcolor2, fontSize: 20)
+                  ) : Text(''),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: const Text('Ok',
+                    style: TextStyle(color: AppColors.textcolor2, fontSize: 20)
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+            backgroundColor: AppColors.textColor,
+          );
+        },
+      );
+    }
+
+    bool validateEmail(String email) {
+      bool isValid = true;
+      if (email.isEmpty) {
+        isValid = false;
+      }
+      else if (!EmailValidator.validate(email, true, true)) {
+        isValid = false;
+      }
+      if (!isValid) {
+        errDialog(false, true);
+      }
+      return isValid;
+    }
+
+
+
     return Scaffold(
       body: Scaffold(
-          body: Column(
+        body: SingleChildScrollView(
+          physics: NeverScrollableScrollPhysics(),
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
@@ -30,7 +98,6 @@ class LoginScreen extends StatelessWidget {
                       child: Text("Login",
                           style: TextStyle(color: Colors.white, fontSize: 25)),
                     ),
-                    //child: ,
                   )
                 ],
               ),
@@ -48,7 +115,7 @@ class LoginScreen extends StatelessWidget {
                   )
                 ],
               ),
-              Row(
+              Row( // Email
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Center(
@@ -77,15 +144,17 @@ class LoginScreen extends StatelessWidget {
                                 decoration: BoxDecoration(
                                   border: Border.all(
                                       color: Color.fromRGBO(0, 0, 0, 0),
-                                      width: 1),
+                                      width: 1
+                                  ),
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(20)),
                                   color: Color.fromRGBO(64, 118, 172, 1),
                                 ),
                                 child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                                   child: TextField(
-                                    style: TextStyle(color: Colors.white),
+                                    controller: _emailController,
+                                    style: TextStyle(color: Colors.white, fontSize: 20),
                                     textAlign: TextAlign.justify,
                                     decoration: InputDecoration(
                                       counter: null,
@@ -106,7 +175,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              Row(
+              Row( // Password
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Center(
@@ -142,9 +211,13 @@ class LoginScreen extends StatelessWidget {
                                   color: Color.fromRGBO(64, 118, 172, 1),
                                 ),
                                 child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                                   child: TextField(
-                                    style: TextStyle(color: Colors.white),
+                                    controller: _passwordController,
+                                    style: TextStyle(color: Colors.white, fontSize: 20),
+                                    obscureText: true,
+                                    enableSuggestions: false,
+                                    autocorrect: false,
                                     textAlign: TextAlign.justify,
                                     decoration: InputDecoration(
                                       counter: null,
@@ -165,7 +238,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              Center(
+              Center( // login buttons
                 child: Container(
                   margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
                   child: Row(
@@ -181,10 +254,17 @@ class LoginScreen extends StatelessWidget {
                         width: 130,
                         height: 75,
                         child: Center(
-                          child: FlatButton(
-                            padding: EdgeInsets.all(0),
+                          child: TextButton(
                             onPressed: () {
-                              Navigator.pushNamed(context, '/home');
+                              if (validateEmail(_emailController.text)) {
+                                if (_passwordController.text.isEmpty) {
+                                  errDialog(true, false);
+                                }
+                                else {
+                                  _authenticator.signIn(_emailController.text, _passwordController.text);
+                                  Navigator.pushNamed(context, '/home');
+                                }
+                              }
                             },
                             child: Text("Login",
                                 style: TextStyle(
@@ -193,37 +273,25 @@ class LoginScreen extends StatelessWidget {
                         ),
                       ),
                       Container(
-                          margin: EdgeInsets.fromLTRB(15, 0, 0, 0),
-                          child: FlatButton(
-                            padding: EdgeInsets.all(0),
-                            onPressed: () {
-                              Navigator.pushNamed(context, '/home');
-                            },
-                            child: ClipOval(
-                              child: Image.asset(
-                                'lib/assets/images/google_icon.png',
-                                height: 75,
-                                width: 75,
-                              ),
+                        margin: EdgeInsets.fromLTRB(15, 0, 0, 0),
+                        child: TextButton(
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/home');
+                          },
+                          child: ClipOval(
+                            child: Image.asset(
+                              'lib/assets/images/google_icon.png',
+                              height: 75,
+                              width: 75,
                             ),
-                          )),
-                      FlatButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/home');
-                        },
-                        child: ClipOval(
-                          child: Image.asset(
-                            'lib/assets/images/facebook_icon.png',
-                            height: 75,
-                            width: 75,
                           ),
-                        ),
-                      )
+                        )
+                      ),
                     ],
                   ),
                 ),
               ),
-              Center(
+              Center( // register button
                 child: Container(
                   margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
                   decoration: BoxDecoration(
@@ -248,7 +316,9 @@ class LoginScreen extends StatelessWidget {
               ),
             ],
           ),
+        ),
           backgroundColor: Color.fromRGBO(25, 25, 25, 1)),
     );
   }
 }
+
