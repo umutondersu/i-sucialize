@@ -23,8 +23,8 @@ class PostView extends StatefulWidget {
 class PostViewState extends State<PostView> {
 
   final ImagePicker _picker = ImagePicker();
-  late XFile _image;
-  late String mediaUrl;
+  late XFile _image = new XFile("");
+  late String mediaUrl = "";
 
   Future pickImage() async {
     final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
