@@ -1,11 +1,61 @@
 // ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
+import 'dart:io';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:i_sucialize/home.dart';
+import 'package:i_sucialize/storage_services.dart';
 import 'package:i_sucialize/util/colors.dart';
+import 'package:image_picker/image_picker.dart';
 
-class PostView extends StatelessWidget {
-  const PostView({Key? key}) : super(key: key);
+
+
+class PostView extends StatefulWidget {
+  PostView({Key? key}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() {
+    return PostViewState();
+  }
+
+}
+
+class PostViewState extends State<PostView> {
+
+  final ImagePicker _picker = ImagePicker();
+  XFile? _image ;
+  late String mediaUrl = "";
+
+  Future pickImage() async {
+    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      _image = pickedFile!;
+    });
+  }
+
+  StorageService _storageService = StorageService();
+
+  Future uploadImageToFirebase(BuildContext context) async {
+    String? Path = _image?.path;
+    mediaUrl = await _storageService.uploadMedia(File(_image!.path));
+  }
+
+  /*Future uploadImageToFirebase(BuildContext context) async {
+    String fileName = basename(_image!.path);
+    Reference firebaseStorageRef = FirebaseStorage.instance.ref().child('uploads/$fileName');
+    try {
+      await firebaseStorageRef.putFile(File(_image!.path));
+      print("Upload complete");
+      setState(() {
+        _image = null;
+      });
+    } on FirebaseException catch(e) {
+      print('ERROR: ${e.code} - ${e.message}');
+    } catch (e) {
+      print(e.toString());
+    }
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +75,7 @@ class PostView extends StatelessWidget {
               },
               child: CircleAvatar(
                 child: ClipOval(
-                  child: Image.network(
+                  child:  Image.network(
                     "https://static.wikia.nocookie.net/amogus/images/c/cb/Susremaster.png/revision/latest/scale-to-width-down/1200?cb=20210806124552",
                     fit: BoxFit.cover,
                   ),
@@ -47,7 +97,7 @@ class PostView extends StatelessWidget {
                   margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
                   decoration: BoxDecoration(
                     border:
-                        Border.all(color: AppColors.backgroundcolor2, width: 1),
+                    Border.all(color: AppColors.backgroundcolor2, width: 1),
                     borderRadius: BorderRadius.all(Radius.circular(20)),
                     color: AppColors.backgroundcolor2,
                   ),
@@ -56,7 +106,7 @@ class PostView extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Image.asset('lib/assets/images/1.png'),
+                        _image !=null ?Image.file(File(_image!.path)) :Image.asset('lib/assets/images/1.png'),
                         Padding(
                           padding: EdgeInsets.all(10),
                         ),
@@ -81,21 +131,25 @@ class PostView extends StatelessWidget {
                   margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
                   decoration: BoxDecoration(
                     border:
-                        Border.all(color: Color.fromRGBO(0, 0, 0, 0), width: 1),
+                    Border.all(color: Color.fromRGBO(0, 0, 0, 0), width: 1),
                     borderRadius: BorderRadius.all(Radius.circular(20)),
                     color: Color.fromRGBO(0, 72, 144, 1),
                   ),
                   width: 130,
                   height: 50,
                   child: Center(
-                    child: Text("Post",
-                        style: TextStyle(color: Colors.white, fontSize: 25)),
+                    child: TextButton(
+                      child: Text("Post",style: TextStyle(color: Colors.white, fontSize: 25)),
+                      onPressed: () {
+
+                      },
+                    ),
                   ),
                 ),
                 Container(
                   margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
                   child: IconButton(
-                    onPressed: () {},
+                    onPressed: pickImage,
                     icon: Icon(Icons.upload),
                     iconSize: 50,
                     color: Colors.white,
@@ -108,4 +162,5 @@ class PostView extends StatelessWidget {
         ),
         backgroundColor: Color.fromRGBO(25, 25, 25, 1));
   }
+
 }

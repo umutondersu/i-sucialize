@@ -9,14 +9,14 @@ class PostService {
   StorageService _storageService = StorageService();
   String mediaUrl = '';
 
-  Future<Post> addPost(String post, XFile pickedFile) async {
+  Future<Post> addPost(String username, String post, XFile pickedFile) async {
     var ref = _firestore.collection("users");
 
     mediaUrl = await _storageService.uploadMedia(File(pickedFile.path));
 
-    var documentRef = await ref.add({'post': post, 'image': mediaUrl});
+    var documentRef = await ref.add({'post': post, 'image': mediaUrl, 'username': username, 'date': DateTime.now()});
 
-    return Post(id: documentRef.id, post: post, image: mediaUrl);
+    return Post(id: documentRef.id, post: post, image: mediaUrl, username: username, date: DateTime.now());
   }
 
   Stream<QuerySnapshot> getPost() {
