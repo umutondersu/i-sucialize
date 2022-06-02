@@ -74,7 +74,7 @@ class PostViewState extends State<PostView> {
               },
               child: CircleAvatar(
                 child: ClipOval(
-                  child: _image !=null ?Image.network(mediaUrl,fit: BoxFit.cover) : Image.network(
+                  child:  Image.network(
                     "https://static.wikia.nocookie.net/amogus/images/c/cb/Susremaster.png/revision/latest/scale-to-width-down/1200?cb=20210806124552",
                     fit: BoxFit.cover,
                   ),
@@ -105,7 +105,7 @@ class PostViewState extends State<PostView> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Image.asset('lib/assets/images/1.png'),
+                        _image !=null ?Image.file(File(_image!.path)) :Image.asset('lib/assets/images/1.png'),
                         Padding(
                           padding: EdgeInsets.all(10),
                         ),
