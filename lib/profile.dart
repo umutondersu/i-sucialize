@@ -1,19 +1,11 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:i_sucialize/profileObject.dart';
 import 'package:i_sucialize/util/colors.dart';
 
 class ProfileView extends StatelessWidget {
   ProfileView({Key? key}) : super(key: key);
-
-  Profile prof = new Profile(
-      username: "AmogSu",
-      description: "Very Sus",
-      img:
-          "https://static.wikia.nocookie.net/amogus/images/c/cb/Susremaster.png/revision/latest/scale-to-width-down/1200?cb=20210806124552",
-      followers: 666,
-      following: 420,
-      posts: 1);
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +70,7 @@ class ProfileView extends StatelessWidget {
                   CircleAvatar(
                     child: ClipOval(
                       child: Image.network(
-                        prof.img,
+                        prof!.img,
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -101,7 +93,7 @@ class ProfileView extends StatelessWidget {
                     width: 200,
                     height: 40,
                     child: Center(
-                      child: Text(prof.username,
+                      child: Text(prof!.username.toString(),
                           style: TextStyle(color: Colors.white, fontSize: 20)),
                     ),
                     //child: ,
@@ -129,7 +121,7 @@ class ProfileView extends StatelessWidget {
                           style: TextStyle(color: Colors.white, fontSize: 20),
                         ),
                         Text(
-                          prof.followers.toString(),
+                          prof!.followers.toString(),
                           style: TextStyle(color: Colors.white, fontSize: 20),
                         ),
                       ],
@@ -153,7 +145,7 @@ class ProfileView extends StatelessWidget {
                           style: TextStyle(color: Colors.white, fontSize: 20),
                         ),
                         Text(
-                          prof.following.toString(),
+                          prof!.following.toString(),
                           style: TextStyle(color: Colors.white, fontSize: 20),
                         ),
                       ],
@@ -177,7 +169,7 @@ class ProfileView extends StatelessWidget {
                           style: TextStyle(color: Colors.white, fontSize: 20),
                         ),
                         Text(
-                          prof.posts.toString(),
+                          prof!.postCount.toString(),
                           style: TextStyle(color: Colors.white, fontSize: 20),
                         ),
                       ],
@@ -218,7 +210,7 @@ class ProfileView extends StatelessWidget {
                             child: Padding(
                               padding: EdgeInsets.all(20),
                               child: Text(
-                                prof.description,
+                                prof!.description.toString(),
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 16),
                               ),
@@ -238,19 +230,4 @@ class ProfileView extends StatelessWidget {
           backgroundColor: Color.fromRGBO(25, 25, 25, 1)),
     );
   }
-}
-
-class Profile {
-  final String username;
-  final String description;
-  final String img;
-  final int followers, following, posts;
-
-  Profile(
-      {required this.username,
-      required this.description,
-      required this.img,
-      required this.followers,
-      required this.following,
-      required this.posts});
 }

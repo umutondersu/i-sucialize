@@ -1,9 +1,11 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:i_sucialize/Authenticator.dart';
 import 'package:i_sucialize/util/colors.dart';
+import 'package:i_sucialize/profileObject.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -16,10 +18,9 @@ class _LoginScreenState extends State<LoginScreen>{
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final Authenticator _authenticator = Authenticator();
-
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   @override
   Widget build(BuildContext context) {
-
     Future<void> errDialog({
       bool isEmail = false,
       bool isPassword = false,
@@ -257,7 +258,7 @@ class _LoginScreenState extends State<LoginScreen>{
                                 errDialog(isPassword: true);
                               }
                               else {
-                                _authenticator.signIn(_emailController.text, _passwordController.text).then((String? uid) {
+                                _authenticator.signIn(_emailController.text, _passwordController.text).then((String uid) {
                                   setState(() {
                                     if (uid == 'invalid-email') {
                                       errDialog(isEmail: true);
@@ -266,6 +267,9 @@ class _LoginScreenState extends State<LoginScreen>{
                                     } else if (uid == 'user-not-found') {
                                       errDialog(isNotUser: true);
                                     } else {
+                                      getProfile(uid).then((prof) {
+                                        //
+                                      });
                                       Navigator.pushNamed(context, '/home');
                                     }
                                   });
@@ -284,7 +288,6 @@ class _LoginScreenState extends State<LoginScreen>{
                           onPressed: () {
                             signInWithGoogle().then((UserCredential userCred) {
                               setState(() {
-                                print("bruh");
                                 String? uid = userCred.user?.uid;
                                 Navigator.pushNamed(context, '/home');
                               });
