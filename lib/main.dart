@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:i_sucialize/home.dart';
@@ -7,28 +8,24 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:i_sucialize/walkthrough.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
-
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';  
 import 'package:i_sucialize/analytics_service.dart';
 import 'package:i_sucialize/firebase_options.dart';
-import 'package:get_it/get_it.dart';
-
 import 'home.dart';
 import 'notifications.dart';
-
 import 'package:flutter/foundation.dart' show kDebugMode;
 
-GetIt locator = GetIt.instance;
-
-void main() {
-  Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  WidgetsFlutterBinding.ensureInitialized();
-
-  locator.registerLazySingleton<AnalyticsService>(() => AnalyticsService());
-
-  runApp(const MyFirebaseApp());
+void main () async {
+  runZonedGuarded<Future<void>>(() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+    FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
+    runApp(const MyFirebaseApp());
+  }, (error, stack) =>
+      FirebaseCrashlytics.instance.recordError(error, stack, fatal: true));
 }
 
 class MyFirebaseApp extends StatefulWidget {
@@ -43,48 +40,6 @@ class _MyFirebaseAppState extends State<MyFirebaseApp> {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-/*void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-
-  Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-
-  FirebaseCrashlytics.instance.crash();
-  WidgetsFlutterBinding.ensureInitialized();
-  runApp(MyFirebaseApp());
-}
-
-class MyFirebaseApp extends StatefulWidget {
-  const MyFirebaseApp({Key? key}) : super(key: key);
-
-  @override
-  _MyFirebaseAppState createState() => _MyFirebaseAppState();
-}
-
-class _MyFirebaseAppState extends State<MyFirebaseApp> {
-  final Future<FirebaseApp> _initialization = Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-// **
-  void _firebaseCrash() async{
-    if (kDebugMode) {
-      // Force disable Crashlytics collection while doing every day development.
-      // Temporarily toggle this to true if you want to test crash reporting in your app.
-      await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
-    }
-
-    else {
-      await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
-    }
-
-  }
-  @override
-  void initState(){
-    _firebaseCrash();
-    super.initState();
-  }
-*/
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -122,7 +77,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       navigatorObservers: [
-        locator<AnalyticsService>().getanalyticsObserver(),
+
       ],
       initialRoute: '/',
       routes: appRoutes,
@@ -227,3 +182,47 @@ class ErrorScreen extends StatelessWidget {
   }
   */
 
+/*
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  FirebaseCrashlytics.instance.crash();
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(MyFirebaseApp());
+}
+
+class MyFirebaseApp extends StatefulWidget {
+  const MyFirebaseApp({Key? key}) : super(key: key);
+
+  @override
+  _MyFirebaseAppState createState() => _MyFirebaseAppState();
+}
+
+class _MyFirebaseAppState extends State<MyFirebaseApp> {
+  final Future<FirebaseApp> _initialization = Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+// **
+  void _firebaseCrash() async{
+    if (kDebugMode) {
+      // Force disable Crashlytics collection while doing every day development.
+      // Temporarily toggle this to true if you want to test crash reporting in your app.
+      await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
+    }
+
+    else {
+      await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
+    }
+
+  }
+  @override
+  void initState(){
+    _firebaseCrash();
+    super.initState();
+  }
+
+*/
