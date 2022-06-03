@@ -7,17 +7,17 @@ class Authenticator {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  Future<String?> signIn(String email, String password) async {
+  Future<String> signIn(String email, String password) async {
     try {
       var user = await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
 
-      return user.user?.uid;
+      return user.user!.uid;
     } on FirebaseAuthException catch (e) {
       return e.code;
     }
   }
 
-  Future<String?> signUp(String email, String username, String password) async {
+  Future<String> signUp(String email, String username, String password) async {
     try {
       var user = await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
 
@@ -26,7 +26,7 @@ class Authenticator {
         "email" : email,
       });
 
-      return user.user?.uid;
+      return user.user!.uid;
     } on FirebaseAuthException catch (e) {
       return e.code;
     }
