@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 List<Feed> feed_items = [
   Feed(
       username: "i/Amogdrip",
@@ -14,7 +16,8 @@ List<Feed> feed_items = [
       vote: 23,
       image: "https://i0.wp.com/wroxe.com/wp-content/uploads/2020/11/among-us-terimleri.jpg?fit=1024%2C576&ssl=1",
       avatarUrl:
-      "https://i.pinimg.com/736x/47/39/34/4739341664d338e0c96d578ef97c54ad.jpg"),
+      "https://i.pinimg.com/236x/db/b3/9d/dbb39d8f7713c3e160754de3bd709ca3.jpg"),
+
   Feed(
       username: "i/AskAmong",
       message: "What will be the changes in nowadays muders???",
@@ -49,6 +52,32 @@ List<Feed> feed_items = [
       "https://i.pinimg.com/474x/b0/63/98/b0639897a0248b50cebee54e6908e4bb.jpg"),
 ];
 
+/*
+var db =  FirebaseFirestore.instance;
+Future<List<Feed>>getFeeds() async {
+  List<Feed> list = <Feed>[];
+  var docs = await db.collection("posts").orderBy("date").limit(20).get().then((result){
+    print(result);
+  });
+
+   /*.then((QuerySnapshot q) => (){
+     print(q);
+     q.docs.forEach((DocumentSnapshot doc) => (){
+       print(doc);
+       list.add(Feed(
+            username: doc.get("username"),
+            message: doc.get("post"),
+            time: doc.get("date"),
+            vote: doc.get("votes"),
+            image: doc.get("image")));
+      });
+   });*/
+//.withConverter(fromFirestore: Feed.fromFirestore, toFirestore: (Feed feed, _) => feed.toFirestore());
+
+ return list;
+}
+
+*/
 class Feed {
   final String username;
   final String message;
@@ -57,14 +86,40 @@ class Feed {
   final String  image;
   final String avatarUrl;
 
+  /*
+  factory Feed.fromFirestore(
+      DocumentSnapshot<Map<String, dynamic>> snapshot,
+      SnapshotOptions? options,
+      ) {
+    final data = snapshot.data();
 
+    return Feed(
+      username: data?['username'],
+      message: data?['post'],
+      time: data?['date'],
+      image: data?['image'],
+      vote: data?['votes'],
+    );
+  }
+
+  Map<String, dynamic> toFirestore() {
+    return {
+      if (username != null) "name": username,
+      if (message != null) "post": message,
+      if (time != null) "date": time,
+      if (image != null) "image": image,
+      if (vote != null) "votes": vote,
+    };
+  }
+*/
   Feed(
     { required this.username,
       required this.message,
       required this.time,
       required this.vote,
       required this.image,
-      required this.avatarUrl});
+      required this.avatarUrl,
+    });
 
   getDifference(DateTime now) {
     int day = now.difference(time).inDays % 365;

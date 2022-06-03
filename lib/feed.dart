@@ -53,6 +53,7 @@ class FeedView extends StatelessWidget {
     );
   }
 
+
   List<Widget> list = feed_items
       .map((e) =>
       Container(
