@@ -44,7 +44,7 @@ class PostViewState extends State<PostView> {
     int votes = 0;
 
     final data = {
-      'username': prof.username,
+      //'username': prof.username,
       'post': post,
       'image': mediaUrl,
       'date': date,
