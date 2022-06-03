@@ -172,7 +172,7 @@ class _ProfileEditViewState extends State<ProfileEditView> {
           ),
         ),
       ),
-      backgroundColor: AppColors.backgroundcolor,
+      backgroundColor: AppColors.mainbackgroundcolor,
     );
   }
 }
