@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:i_sucialize/profileObject.dart';
 import 'package:i_sucialize/util/colors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileView extends StatelessWidget {
   ProfileView({Key? key}) : super(key: key);
@@ -25,8 +26,13 @@ class ProfileView extends StatelessWidget {
               color: AppColors.backgroundcolor2,
             ),
             child: TextButton(
-              onPressed: () {
-                Navigator.popUntil(context, (route) => route.isFirst);
+              onPressed: () async {
+                final SharedPreferences prefs =
+                    await SharedPreferences.getInstance();
+                prefs.remove('email');
+                //prefs.remove('password');
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                    '/welcome', (Route<dynamic> route) => false);
               },
               child: Text(
                 "Logout",
