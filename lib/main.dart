@@ -8,10 +8,11 @@ import 'package:i_sucialize/walkthrough.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
 
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';  
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:i_sucialize/analytics_service.dart';
 import 'package:i_sucialize/firebase_options.dart';
 import 'package:get_it/get_it.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'home.dart';
 import 'notifications.dart';
@@ -20,7 +21,7 @@ import 'package:flutter/foundation.dart' show kDebugMode;
 
 GetIt locator = GetIt.instance;
 
-void main() {
+Future<void> main() async {
   Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -28,11 +29,26 @@ void main() {
 
   locator.registerLazySingleton<AnalyticsService>(() => AnalyticsService());
 
-  runApp(const MyFirebaseApp());
+  final prefs = await SharedPreferences.getInstance();
+  bool isWTdone = prefs.getBool('WT') ?? false;
+  bool isLoggedIn = prefs.getString('email') == null ? false : true;
+  late String initialRoute;
+
+  if (isWTdone) {
+    if (isLoggedIn) {
+      initialRoute = '/home';
+    }
+    initialRoute = '/welcome';
+  } else {
+    initialRoute = '/';
+  }
+
+  runApp(MyFirebaseApp(initialRoute: initialRoute));
 }
 
 class MyFirebaseApp extends StatefulWidget {
-  const MyFirebaseApp({Key? key}) : super(key: key);
+  final String initialRoute;
+  const MyFirebaseApp({Key? key, required this.initialRoute}) : super(key: key);
 
   @override
   _MyFirebaseAppState createState() => _MyFirebaseAppState();
@@ -102,7 +118,7 @@ class _MyFirebaseAppState extends State<MyFirebaseApp> {
         }
         if (snapshot.connectionState == ConnectionState.done) {
           return MaterialApp(
-            home: MyApp(),
+            home: MyApp(initialRoute: widget.initialRoute),
           );
         }
         return const MaterialApp(
@@ -116,7 +132,9 @@ class _MyFirebaseAppState extends State<MyFirebaseApp> {
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({Key? key}) : super(key: key);
+  final String initialRoute;
+
+  const MyApp({Key? key, required this.initialRoute}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -124,7 +142,8 @@ class MyApp extends StatelessWidget {
       navigatorObservers: [
         locator<AnalyticsService>().getanalyticsObserver(),
       ],
-      initialRoute: '/',
+      //iswalkthrough and islogin
+      initialRoute: initialRoute,
       routes: appRoutes,
     );
   }
