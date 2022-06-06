@@ -84,7 +84,7 @@ class _WalkthroughScreenState extends State<WalkthroughScreen> {
           ));
 
   double currentPage = 0.0;
-  final _pageViewController = new PageController();
+  final _pageViewController = PageController();
 
   @override
   void initState() {
@@ -107,8 +107,8 @@ class _WalkthroughScreenState extends State<WalkthroughScreen> {
         ),
         child: FlatButton(
           onPressed: () async {
-            Navigator.pop(context, '/');
-            Navigator.pushNamed(context, '/welcome');
+            Navigator.pushNamedAndRemoveUntil(
+                context, '/welcome', (Route<dynamic> route) => false);
             SharedPreferences sharedPreferences =
                 await SharedPreferences.getInstance();
             isWTdone = true;
