@@ -37,8 +37,9 @@ void main() async {
     if (isWTdone) {
       if (isLoggedIn) {
         initialRoute = '/home';
+      } else {
+        initialRoute = '/welcome';
       }
-      initialRoute = '/welcome';
     } else {
       initialRoute = '/';
     }
