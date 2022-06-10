@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:i_sucialize/databaseInterface.dart';
 import 'package:i_sucialize/home.dart';
 import 'package:i_sucialize/profile.dart';
 import 'package:i_sucialize/routes.dart';
@@ -36,6 +37,7 @@ void main() async {
 
     if (isWTdone) {
       if (isLoggedIn) {
+        databaseInterface = DatabaseInterface(uid: prefs.getString('uid') ?? "4lK7ZmibDTcY50rdiONRA22Gr6b2");
         initialRoute = '/home';
       } else {
         initialRoute = '/welcome';

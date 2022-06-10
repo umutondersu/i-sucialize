@@ -1,5 +1,38 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 
+
+////////////////////////
+//     DO NOT USE     //
+////////////////////////
+
+
+/*import 'package:cloud_firestore/cloud_firestore.dart';
+
+
+class User {
+  String email;
+  String username;
+  String description;
+  String img;
+  String uid;
+  int followers, following, postCount;
+  List<String>? posts = List.empty(growable: true);
+
+  User({
+    this.email = "example@example.com",
+    this.username = "amogus",
+    this.description = "Very Sus",
+    this.img = "https://static.wikia.nocookie.net/amogus/images/c/cb/Susremaster.png/revision/latest/scale-to-width-down/1200?cb=20210806124552",
+    this.uid = "",
+    this.followers = 0,
+    this.following = 0,
+    this.postCount = 0,
+    this.posts,
+  });
+}
+
+User? currentUser;
+*/
+/*
 class Profile {
   String email;
   String username;
@@ -66,6 +99,7 @@ Future<Profile?> getProfile(String uid) async {
 }
 
 Profile prof = Profile();
+*/
 
 /*Profile prof = Profile(
     username: "",

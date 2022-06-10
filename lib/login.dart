@@ -4,9 +4,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:i_sucialize/Authenticator.dart';
+import 'package:i_sucialize/databaseInterface.dart';
 import 'package:i_sucialize/home.dart';
 import 'package:i_sucialize/util/colors.dart';
-import 'package:i_sucialize/profileObject.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -20,7 +20,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final Authenticator _authenticator = Authenticator();
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   @override
   Widget build(BuildContext context) {
     Future<void> errDialog(
@@ -288,15 +287,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                       } else if (uid == 'user-not-found') {
                                         errDialog(isNotUser: true);
                                       } else {
-                                        getProfile(uid).then((prof) {
-                                          //
-                                        });
+                                        databaseInterface = DatabaseInterface(uid: uid);
                                         final SharedPreferences
                                             sharedPreferences =
                                             await SharedPreferences
                                                 .getInstance();
                                         sharedPreferences.setString(
                                             'email', _emailController.text);
+                                        sharedPreferences.setString(
+                                            'uid', uid);
                                         Navigator.pushAndRemoveUntil(
                                             context,
                                             MaterialPageRoute(
@@ -321,7 +320,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 signInWithGoogle()
                                     .then((UserCredential userCred) {
                                   setState(() {
-                                    String? uid = userCred.user?.uid;
+                                    databaseInterface = DatabaseInterface(uid: userCred.user!.uid);
                                     Navigator.pushNamed(context, '/home');
                                   });
                                 });
