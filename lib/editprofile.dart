@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:i_sucialize/util/colors.dart';
+import 'package:i_sucialize/databaseInterface.dart';
 
 class ProfileEditView extends StatefulWidget {
   const ProfileEditView({Key? key}) : super(key: key);
@@ -11,164 +12,139 @@ class ProfileEditView extends StatefulWidget {
 }
 
 class _ProfileEditViewState extends State<ProfileEditView> {
-  final _name = TextEditingController();
-  final _status = TextEditingController();
-  final _about = TextEditingController();
+  final _nameController = TextEditingController();
+  final _aboutController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       //bottomNavigationBar: ,
       appBar: EditProfileAppBar(),
-      body: Center(
-        child: SizedBox(
-          height: MediaQuery.of(context).size.height * 0.85,
-          width: MediaQuery.of(context).size.width * 0.9,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                  color: AppColors.primary,
-                ),
-                margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                width: 200,
-                height: 50,
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    "Edit Your Name",
-                    style: TextStyle(color: AppColors.textcolor, fontSize: 20),
-                  ),
-                ),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: AppColors.primary, width: 4),
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                  color: AppColors.backgroundcolor2,
-                ),
-                margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                height: 50,
-                child: Align(
-                  alignment: Alignment.center,
-                  child: TextField(
-                    style: TextStyle(color: AppColors.textcolor),
-                    controller: _name,
-                    textAlign: TextAlign.left,
-                    maxLength: 50,
-                    decoration: InputDecoration(
-                      counter: null,
-                      hintStyle: TextStyle(color: AppColors.textcolor),
-                      border: InputBorder.none,
-                    ),
-                  ),
-                ),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                  color: AppColors.primary,
-                ),
-                margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                width: 200,
-                height: 50,
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    "Edit Your Status",
-                    style: TextStyle(color: AppColors.textcolor, fontSize: 20),
-                  ),
-                ),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: AppColors.primary, width: 4),
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                  color: AppColors.backgroundcolor2,
-                ),
-                margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                height: 50,
-                child: Align(
-                  alignment: Alignment.center,
-                  child: TextField(
-                    style: TextStyle(color: AppColors.textcolor),
-                    controller: _status,
-                    textAlign: TextAlign.left,
-                    maxLength: 50,
-                    decoration: InputDecoration(
-                      counter: null,
-                      hintStyle: TextStyle(color: AppColors.textcolor),
-                      border: InputBorder.none,
-                    ),
-                  ),
-                ),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                  color: AppColors.primary,
-                ),
-                margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                width: 250,
-                height: 50,
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    "Edit Your About Section",
-                    style: TextStyle(color: AppColors.textcolor, fontSize: 20),
-                  ),
-                ),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: AppColors.primary, width: 4),
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                  color: AppColors.backgroundcolor2,
-                ),
-                margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                height: 200,
-                child: Align(
-                  alignment: Alignment.center,
-                  child: TextField(
-                    expands: true,
-                    maxLines: null,
-                    style: TextStyle(color: AppColors.textcolor),
-                    controller: _about,
-                    textAlign: TextAlign.left,
-                    decoration: InputDecoration(
-                      hintStyle: TextStyle(color: AppColors.textcolor),
-                      border: InputBorder.none,
-                    ),
-                  ),
-                ),
-              ),
-              Center(
-                child: Container(
+      body: SingleChildScrollView(
+        physics: NeverScrollableScrollPhysics(),
+        child: Center(
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height * 0.85,
+            width: MediaQuery.of(context).size.width * 0.9,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(20)),
                     color: AppColors.primary,
                   ),
                   margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
                   width: 250,
-                  height: 55,
-                  child: TextButton(
-                    onPressed: () {
-                      _name.clear();
-                      _status.clear();
-                      _about.clear();
-                    },
+                  height: 50,
+                  child: Align(
+                    alignment: Alignment.center,
                     child: Text(
-                      "Save Changes",
-                      style:
-                          TextStyle(color: AppColors.textcolor, fontSize: 20),
+                      "Change Your Username",
+                      style: TextStyle(color: AppColors.textcolor, fontSize: 20),
                     ),
                   ),
                 ),
-              ),
-            ],
+                Container(
+                  margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: AppColors.primary, width: 4),
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                    color: AppColors.backgroundcolor2,
+                  ),
+                  height: 50,
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: TextField(
+                      controller: _nameController,
+                      style: TextStyle(
+                          color: Colors.white, fontSize: 20),
+                      textAlign: TextAlign.left,
+                      decoration: InputDecoration(
+                        counter: null,
+                        hintStyle:
+                        TextStyle(color: Colors.white),
+                        border: InputBorder.none,
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                    color: AppColors.primary,
+                  ),
+                  margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                  width: 250,
+                  height: 50,
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      "Edit Your About Section",
+                      style: TextStyle(color: AppColors.textcolor, fontSize: 20),
+                    ),
+                  ),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: AppColors.primary, width: 4),
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                    color: AppColors.backgroundcolor2,
+                  ),
+                  margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                  height: 200,
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: TextField(
+                      controller: _aboutController,
+                      style: TextStyle(
+                          color: Colors.white, fontSize: 20),
+                      textAlign: TextAlign.left,
+                      decoration: InputDecoration(
+                        counter: null,
+                        hintStyle:
+                        TextStyle(color: Colors.white),
+                        border: InputBorder.none,
+                      ),
+                    ),
+                  ),
+                ),
+                Center(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                      color: AppColors.primary,
+                    ),
+                    margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                    width: 250,
+                    height: 55,
+                    child: TextButton(
+                      onPressed: () {
+                        if (_nameController.text.isNotEmpty) {
+                          //print(databaseInterface.runtimeType);
+                          databaseInterface!.updateUserData({
+                            "username" : _nameController.text,
+                          });
+                          _nameController.clear();
+                        }
+                        if (_nameController.text.isNotEmpty) {
+                          databaseInterface!.updateUserData({
+                            "description" : _aboutController.text
+                          });
+                          _aboutController.clear();
+                        }
+                      },
+                      child: Text(
+                        "Save Changes",
+                        style:
+                        TextStyle(color: AppColors.textcolor, fontSize: 20),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
