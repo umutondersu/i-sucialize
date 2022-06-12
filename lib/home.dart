@@ -7,6 +7,8 @@ import 'package:i_sucialize/util/colors.dart';
 import 'package:i_sucialize/walkthrough.dart';
 import 'package:i_sucialize/post.dart';
 import 'package:i_sucialize/chat_main.dart';
+//import sharedpreferences
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
   int index = 0;
@@ -25,9 +27,11 @@ class _HomeScreenState extends State<HomeScreen> {
   PageController? pageController = PageController(initialPage: 0);
 
   _HomeScreenState() {
+    setWt();
     pageController = PageController(initialPage: 0);
   }
   _HomeScreenState.asindex(index) {
+    setWt();
     _selectedIndex = index;
     pageController = PageController(initialPage: _selectedIndex);
   }
@@ -44,6 +48,11 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       _selectedIndex = index;
     });
+  }
+
+  void setWt() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('WT', true);
   }
 
   @override
