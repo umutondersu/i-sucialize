@@ -145,35 +145,39 @@ class _LoginScreenState extends State<LoginScreen> {
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 20),
                                 ),
-                                Container(
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: Color.fromRGBO(0, 0, 0, 0),
-                                        width: 1),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20)),
-                                    color: Color.fromRGBO(64, 118, 172, 1),
-                                  ),
-                                  child: Padding(
-                                    padding:
-                                        const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                                    child: TextField(
-                                      controller: _emailController,
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 20),
-                                      textAlign: TextAlign.justify,
-                                      decoration: InputDecoration(
-                                        counter: null,
-                                        hintStyle:
-                                            TextStyle(color: Colors.white),
-                                        border: InputBorder.none,
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: Color.fromRGBO(0, 0, 0, 0),
+                                          width: 0.01),
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(20)),
+                                      color: Color.fromRGBO(64, 118, 172, 1),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          15, 0, 15, 0),
+                                      child: TextField(
+                                        controller: _emailController,
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 20),
+                                        textAlign: TextAlign.left,
+                                        decoration: InputDecoration(
+                                          counter: null,
+                                          hintStyle:
+                                              TextStyle(color: Colors.white),
+                                          border: InputBorder.none,
+                                        ),
                                       ),
                                     ),
+                                    margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.7,
+                                    height: 200,
                                   ),
-                                  margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.7,
-                                  height: 200,
                                 )
                               ],
                             ),
@@ -222,19 +226,22 @@ class _LoginScreenState extends State<LoginScreen> {
                                   child: Padding(
                                     padding:
                                         const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                                    child: TextField(
-                                      controller: _passwordController,
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 20),
-                                      obscureText: true,
-                                      enableSuggestions: false,
-                                      autocorrect: false,
-                                      textAlign: TextAlign.justify,
-                                      decoration: InputDecoration(
-                                        counter: null,
-                                        hintStyle:
-                                            TextStyle(color: Colors.white),
-                                        border: InputBorder.none,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(0),
+                                      child: TextField(
+                                        controller: _passwordController,
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 20),
+                                        obscureText: true,
+                                        enableSuggestions: false,
+                                        autocorrect: false,
+                                        textAlign: TextAlign.left,
+                                        decoration: InputDecoration(
+                                          counter: null,
+                                          hintStyle:
+                                              TextStyle(color: Colors.white),
+                                          border: InputBorder.none,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -287,15 +294,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                       } else if (uid == 'user-not-found') {
                                         errDialog(isNotUser: true);
                                       } else {
-                                        databaseInterface = DatabaseInterface(uid: uid);
+                                        databaseInterface =
+                                            DatabaseInterface(uid: uid);
                                         final SharedPreferences
                                             sharedPreferences =
                                             await SharedPreferences
                                                 .getInstance();
                                         sharedPreferences.setString(
                                             'email', _emailController.text);
-                                        sharedPreferences.setString(
-                                            'uid', uid);
+                                        sharedPreferences.setString('uid', uid);
                                         Navigator.pushAndRemoveUntil(
                                             context,
                                             MaterialPageRoute(
@@ -320,8 +327,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                 signInWithGoogle()
                                     .then((UserCredential userCred) {
                                   setState(() {
-                                    databaseInterface = DatabaseInterface(uid: userCred.user!.uid);
-                                    Navigator.pushNamed(context, '/home');
+                                    databaseInterface = DatabaseInterface(
+                                        uid: userCred.user!.uid);
+                                    Navigator.pushAndRemoveUntil(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                HomeScreen.asindex(0)),
+                                        (Route<dynamic> route) => false);
                                   });
                                 });
                               },
