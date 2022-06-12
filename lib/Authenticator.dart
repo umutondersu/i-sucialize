@@ -24,6 +24,11 @@ class Authenticator {
       await _firestore.collection("users").doc(user.user?.uid).set({
         "username" : username,
         "email" : email,
+        "description" : "very sus",
+        "followers" : 0,
+        "following" : 0,
+        "image" : "https://i.pinimg.com/originals/ce/5f/d3/ce5fd3590095d2aabe3ad6f6203dfe70.jpg",
+        "postCount" : 0,
       });
 
       return user.user!.uid;
