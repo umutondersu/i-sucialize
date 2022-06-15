@@ -53,6 +53,20 @@ class DatabaseInterface {
         .snapshots();
   }
 
+  Stream<QuerySnapshot> getAllNotifications() {
+    return FirebaseFirestore.instance
+        .collection('notifications').orderBy('date', descending: true).limit(20)
+        .snapshots();
+  }
+
+
+  Stream<QuerySnapshot> getFriendsNotifications(List<String> following) {
+    return FirebaseFirestore.instance
+        .collection('notifications')
+        .where('userid', whereIn: following).orderBy('date', descending: true).limit(20)
+        .snapshots();
+  }
+
   Stream<DocumentSnapshot> getMessageStream({required String messageID}) {
     return FirebaseFirestore.instance
         .collection('Messages')

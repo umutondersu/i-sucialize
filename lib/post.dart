@@ -52,6 +52,12 @@ class PostViewState extends State<PostView> {
       'downVotes': []
     };
 
+    final notification = {
+      'userid': databaseInterface.uid,
+      'post': post,
+      'date': date
+    };
+
     var db = FirebaseFirestore.instance;
     await db
         .collection("posts")
@@ -68,6 +74,8 @@ class PostViewState extends State<PostView> {
                 error = true;
               })
             });
+
+    await db.collection('notifications').add(notification);
     if (!error) {
       postController.clear();
       int c = count + 1;

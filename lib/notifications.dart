@@ -1,4 +1,5 @@
 // ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:i_sucialize/home.dart';
@@ -6,98 +7,183 @@ import 'package:i_sucialize/notification_items.dart';
 import 'package:i_sucialize/util/colors.dart';
 import 'package:intl/intl.dart';
 
-class NotificationsView extends StatelessWidget {
+import 'databaseInterface.dart';
+
+class NotificationsView extends StatefulWidget {
   NotificationsView({Key? key}) : super(key: key);
 
-  List<Widget> list = notification_items
-      .map((e) => Container(
-            margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
-            child: Row(
-              children: [
-                CircleAvatar(
-                  child: ClipOval(
-                    child: Image.network(
-                      e.author_img,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  backgroundColor: AppColors.backgroundcolor2,
-                  radius: 20,
-                ),
-                Padding(
-                  padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        e.member + " ● " + e.getDifference(DateTime.now()),
-                        style: TextStyle(
-                            color: AppColors.textcolor,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Container(
-                        child: Text(
-                          e.member.toLowerCase() +
-                              ' posted a new post: "' +
-                              e.message +
-                              '"',
-                          style: TextStyle(color: AppColors.textcolor2),
-                        ),
-                        width: 200,
-                        height: 50,
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            height: 70,
-            width: 320,
-          ))
-      .toList()
-      .reversed
-      .toList();
+
+  @override
+  State<StatefulWidget> createState() => _NotificationViewState();
+
+}
+
+class _NotificationViewState extends State<NotificationsView> {
+
+  late String image =
+      "https://i.pinimg.com/originals/ce/5f/d3/ce5fd3590095d2aabe3ad6f6203dfe70.jpg";
+
+
+  void getUserImage() async {
+    var docSnapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(databaseInterface.uid)
+        .get();
+    Map<String, dynamic> data = docSnapshot.data()!;
+    image = data['image'];
+  }
+
+  String getDifference(DateTime time) {
+    DateTime now = DateTime.now();
+
+    int day = now.difference(time).inDays % 365;
+    int hour = now.difference(time).inHours % 24;
+    int min = now.difference(time).inMinutes % 60;
+    int sec = now.difference(time).inSeconds % 60;
+
+    String dif = "";
+    if (day > 0) dif = day.toString() + "d ";
+    if (hour > 0) dif = dif + hour.toString() + "h ";
+    if (min > 0) dif = dif + min.toString() + "m ";
+    if (sec > 0) dif = dif + sec.toString() + "s";
+
+    return dif;
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Notifications'),
-        centerTitle: true,
-        elevation: 0,
-        foregroundColor: AppColors.textcolor,
-        backgroundColor: AppColors.primary,
-        leading: Padding(
-            padding: EdgeInsets.all(10),
-            child: FlatButton(
-              padding: EdgeInsets.all(0),
-              onPressed: () {
-                Navigator.pushNamed(context, '/profile');
-              },
-              child: CircleAvatar(
-                child: ClipOval(
-                  child: Image.network(
-                    "https://static.wikia.nocookie.net/amogus/images/c/cb/Susremaster.png/revision/latest/scale-to-width-down/1200?cb=20210806124552",
-                    fit: BoxFit.cover,
-                  ),
-                ),
+
+    return StreamBuilder(
+      stream: databaseInterface.getAllNotifications(),
+
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (snapshot.hasError) {
+          return const Text('Something went wrong');
+        }
+        getUserImage();
+        if (snapshot.connectionState == ConnectionState.waiting ||
+            !snapshot.hasData) {
+          return Scaffold(
+              appBar: AppBar(
+                title: const Text('Notifications'),
+                centerTitle: true,
+                elevation: 0,
+                foregroundColor: AppColors.textcolor,
                 backgroundColor: AppColors.primary,
-                radius: 100,
               ),
-            )),
-        leadingWidth: 80,
-      ),
-      body: Scaffold(
-          body: SingleChildScrollView(
-            reverse: true,
-            child: Align(
-                alignment: Alignment.topCenter, child: Column(children: list)),
+              backgroundColor: Color.fromRGBO(25, 25, 25, 1));
+        }
+
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text('Notifications'),
+            centerTitle: true,
+            elevation: 0,
+            foregroundColor: AppColors.textcolor,
+            backgroundColor: AppColors.primary,
+            leading: Padding(
+                padding: EdgeInsets.all(10),
+                child: FlatButton(
+                  padding: EdgeInsets.all(0),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/profile');
+                  },
+                  child: CircleAvatar(
+                    child: ClipOval(
+                      child: Image.network(
+                        image,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    backgroundColor: AppColors.primary,
+                    radius: 100,
+                  ),
+                )),
+            leadingWidth: 80,
           ),
-          backgroundColor: Color.fromRGBO(25, 25, 25, 1)),
+          body: ListView.builder(
+            itemCount: snapshot.data!.size,
+            itemBuilder: (context, index) {
+              DocumentSnapshot d = snapshot.data!.docs[index];
+
+              print(d['userid']);
+
+              return StreamBuilder(
+                  stream: databaseInterface.getUser(d['userid']),
+                  builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> s2) {
+                    if (s2.hasError) {
+                    return const Text('Something went wrong');
+                    }
+                    if (s2.connectionState == ConnectionState.waiting ||
+                    !s2.hasData) {
+                    return Container();
+                    }
+                    DocumentSnapshot us = s2.data!;
+
+                    //print(us);
+
+                    return Container(
+                      margin: EdgeInsets.fromLTRB(60, 10, 0, 0),
+                      child: Row(
+                      children: [
+                        CircleAvatar(
+                        child: ClipOval(
+                          child: Image.network(
+                            image,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        backgroundColor: AppColors.backgroundcolor2,
+                        radius: 20,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                us['username'] + " ● " + getDifference(d['date'].toDate()),
+                                style: TextStyle(
+                                  color: AppColors.textcolor,
+                                  fontWeight: FontWeight.bold
+                                ),
+                              ),
+                              Container(
+                                child: Text(
+                                  us['username'].toString().toLowerCase() +
+                                  ' posted a new post: "' +
+                                  d['post'] +
+                                  '"',
+                                  style: TextStyle(color: AppColors.textcolor2),
+                                ),
+                                width: 200,
+                                height: 50,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                      ),
+                      height: 70,
+                      width: 320,
+                    );
+                }
+              );
+            },
+          ),
+          backgroundColor: Color.fromRGBO(25, 25, 25, 1),
+        );
+
+      }
     );
 
-    /*Scaffold(
+
+  }
+
+}
+
+/*Scaffold(
           body: Align(
             child: Container(
               margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
@@ -384,5 +470,3 @@ class NotificationsView extends StatelessWidget {
           ),
           backgroundColor: Color.fromRGBO(25, 25, 25, 1)),
         );*/
-  }
-}

@@ -15,27 +15,8 @@ class FeedView extends StatefulWidget {
 }
 
 class _FeedViewState extends State<FeedView> {
-  late Map<String, Info> info = new Map();
   late String image =
       "https://i.pinimg.com/originals/ce/5f/d3/ce5fd3590095d2aabe3ad6f6203dfe70.jpg";
-
-
-  void setInfo(AsyncSnapshot<QuerySnapshot> snapshot) async {
-    int size = snapshot.data!.size;
-    Map<String, Info> im = new Map();
-    for (int i = 0; i < size; i++) {
-      DocumentSnapshot d = snapshot.data!.docs[i];
-
-      var collection = FirebaseFirestore.instance.collection('users');
-      //userUid is the current auth user
-      var docSnapshot = await collection.doc(d['userid']).get();
-
-      Map<String, dynamic> data = docSnapshot.data()!;
-
-      info[d['userid']] =
-          new Info(image: data['image'], username: data['username']);
-    }
-  }
 
 
   void getUserImage() async {
@@ -256,10 +237,15 @@ class _FeedViewState extends State<FeedView> {
                                               fontWeight: FontWeight.bold),
                                         ),
                                         Container(
-                                          child: Text(
-                                            d['post'],
-                                            style: TextStyle(
-                                                color: AppColors.textcolor2),
+                                          child: Padding(
+                                            padding: EdgeInsets.all(10),
+                                            child: Text(
+                                              d['post'],
+                                              style: TextStyle(
+                                                color: AppColors.textcolor,
+                                                fontWeight: FontWeight.w500
+                                              ),
+                                            ),
                                           ),
                                           decoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(5),
@@ -300,22 +286,6 @@ class _FeedViewState extends State<FeedView> {
     );
   }
 }
-
-class Info {
-  final String image;
-  final String username;
-
-  Info({required this.image, required this.username});
-}
-
-
-
-
-
-
-
-
-
 /*
 class FeedView extends StatelessWidget {
   const FeedView({Key? key}) : super(key: key);
