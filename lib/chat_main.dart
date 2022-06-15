@@ -2,9 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:i_sucialize/chat_home.dart';
 import 'package:i_sucialize/util/colors.dart';
 import 'package:i_sucialize/home.dart';
+import 'package:i_sucialize/databaseInterface.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ChatView extends StatelessWidget {
-  const ChatView({Key? key}) : super(key: key);
+  ChatView({Key? key}) : super(key: key);
+
+  late String image =
+      "https://i.pinimg.com/originals/ce/5f/d3/ce5fd3590095d2aabe3ad6f6203dfe70.jpg";
+
+  void getUserImage() async {
+    var docSnapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(databaseInterface.uid)
+        .get();
+    Map<String, dynamic> data = docSnapshot.data()!;
+    image = data['image'];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,19 +40,16 @@ class ChatView extends StatelessWidget {
                 child: CircleAvatar(
                   child: ClipOval(
                     child: Image.network(
-                      "https://static.wikia.nocookie.net/amogus/images/c/cb/Susremaster.png/revision/latest/scale-to-width-down/1200?cb=20210806124552",
+                      image,
                       fit: BoxFit.cover,
                     ),
                   ),
                   backgroundColor: AppColors.primary,
                   radius: 100,
                 ),
-              )
-
-          ),
+              )),
           leadingWidth: 80,
         ),
-        body: ChatHome()
-    );
+        body: ChatHome());
   }
 }

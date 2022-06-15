@@ -5,6 +5,7 @@ import 'package:i_sucialize/util/colors.dart';
 import 'chat_home.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'messages.dart';
+import 'package:i_sucialize/databaseInterface.dart';
 
 class ChatScreen extends StatefulWidget {
   String email;
@@ -20,6 +21,17 @@ class _ChatScreenState extends State<ChatScreen> {
   final fs = FirebaseFirestore.instance;
   final _auth = FirebaseAuth.instance;
   final TextEditingController message = new TextEditingController();
+  late String image =
+      "https://i.pinimg.com/originals/ce/5f/d3/ce5fd3590095d2aabe3ad6f6203dfe70.jpg";
+
+  void getUserImage() async {
+    var docSnapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(databaseInterface.uid)
+        .get();
+    Map<String, dynamic> data = docSnapshot.data()!;
+    image = data['image'];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,24 +44,23 @@ class _ChatScreenState extends State<ChatScreen> {
         foregroundColor: AppColors.textcolor,
         backgroundColor: AppColors.primary,
         leading: Padding(
-          padding: EdgeInsets.all(10),
-          child: FlatButton(
-            padding: EdgeInsets.all(0),
-            onPressed: () {
-              Navigator.pushNamed(context, '/profile');
-            },
-            child: CircleAvatar(
-              child: ClipOval(
-                child: Image.network(
-                  "https://static.wikia.nocookie.net/amogus/images/c/cb/Susremaster.png/revision/latest/scale-to-width-down/1200?cb=20210806124552",
-                  fit: BoxFit.cover,
+            padding: EdgeInsets.all(10),
+            child: FlatButton(
+              padding: EdgeInsets.all(0),
+              onPressed: () {
+                Navigator.pushNamed(context, '/profile');
+              },
+              child: CircleAvatar(
+                child: ClipOval(
+                  child: Image.network(
+                    image,
+                    fit: BoxFit.cover,
+                  ),
                 ),
+                backgroundColor: AppColors.primary,
+                radius: 100,
               ),
-              backgroundColor: AppColors.primary,
-              radius: 100,
-            ),
-          ),
-        ),
+            )),
         leadingWidth: 80,
         actions: [
           IconButton(
@@ -110,7 +121,10 @@ class _ChatScreenState extends State<ChatScreen> {
                       message.clear();
                     }
                   },
-                  icon: Icon(Icons.send_sharp,color: AppColors.primary,),
+                  icon: Icon(
+                    Icons.send_sharp,
+                    color: AppColors.primary,
+                  ),
                 ),
               ],
             ),
