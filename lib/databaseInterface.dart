@@ -19,12 +19,19 @@ class DatabaseInterface {
         .update(data);
   }
 
+  Future<void> updatePost(DocumentSnapshot d, Map<String, dynamic> data) async {
+    return await FirebaseFirestore.instance
+        .collection('posts')
+        .doc(d.id)
+        .update(data);
+  }
+
   Stream<DocumentSnapshot> getUserStream() {
     return FirebaseFirestore.instance.collection('users').doc(uid).snapshots();
   }
 
-  Future<DocumentSnapshot<Map<String, dynamic>>> getUser() {
-    return FirebaseFirestore.instance.collection('users').doc(uid).get();
+  Stream<DocumentSnapshot> getUser(String uuid) {
+    return FirebaseFirestore.instance.collection('users').doc(uuid).snapshots();
   }
 
   Stream<DocumentSnapshot> getPostStream({required String postID}) {
@@ -36,6 +43,14 @@ class DatabaseInterface {
 
   Stream<QuerySnapshot> getAllPostsStream() {
     return FirebaseFirestore.instance.collection('posts').snapshots();
+  }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> getFriendsPosts(
+      List<String> following) {
+    return FirebaseFirestore.instance
+        .collection('posts')
+        .where('userid', whereIn: following)
+        .snapshots();
   }
 
   Stream<DocumentSnapshot> getMessageStream({required String messageID}) {

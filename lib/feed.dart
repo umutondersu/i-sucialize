@@ -1,138 +1,363 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:i_sucialize/databaseInterface.dart';
 import 'package:i_sucialize/util/colors.dart';
 import 'package:i_sucialize/feed_items.dart';
 import 'package:intl/intl.dart';
 import 'package:i_sucialize/home.dart';
 import 'package:flutter/cupertino.dart';
 
-class FeedView extends StatelessWidget {
+class FeedView extends StatefulWidget {
   FeedView({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('AmogSu Feed'),
-        centerTitle: true,
-        actions: [
-          TextButton(
-            onPressed: () => throw Exception(),
-            child: const Text("Throw Test Exception"),
+  State<StatefulWidget> createState() => _FeedViewState();
+}
+
+List<Widget> list = feed_items
+    .map((e) => Container(
+          margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+          decoration: BoxDecoration(
+            border: Border.all(color: AppColors.backgroundcolor, width: 1),
+            borderRadius: BorderRadius.all(Radius.circular(15)),
+            color: AppColors.backgroundcolor2,
           ),
-        ],
-        elevation: 0,
-        foregroundColor: AppColors.textcolor,
-        backgroundColor: AppColors.primary,
-        leading: Padding(
-            padding: EdgeInsets.all(10),
-            child: FlatButton(
-              padding: EdgeInsets.all(0),
-              onPressed: () {
-                Navigator.pushNamed(context, '/profile');
-              },
-              child: CircleAvatar(
+          child: Row(
+            children: [
+              Container(
+                child: Column(
+                  children: [
+                    IconButton(
+                        iconSize: 25,
+                        onPressed: () {},
+                        icon: Icon(Icons.arrow_circle_up_outlined)),
+                    Text(e.vote.toString()),
+                    IconButton(
+                        iconSize: 25,
+                        onPressed: () {},
+                        icon: Icon(Icons.arrow_circle_down_outlined)),
+                  ],
+                ),
+              ),
+              CircleAvatar(
                 child: ClipOval(
                   child: Image.network(
-                    "https://static.wikia.nocookie.net/amogus/images/c/cb/Susremaster.png/revision/latest/scale-to-width-down/1200?cb=20210806124552",
+                    e.avatarUrl,
                     fit: BoxFit.cover,
                   ),
                 ),
-                backgroundColor: AppColors.primary,
-                radius: 100,
+                backgroundColor: AppColors.backgroundcolor2,
+                radius: 20,
               ),
-            )),
-        leadingWidth: 80,
-      ),
-      body: Scaffold(
-          body: SingleChildScrollView(
-            reverse: true,
-            child: Align(
-                alignment: Alignment.topCenter, child: Column(children: list)),
-          ),
-          backgroundColor: Color.fromRGBO(25, 25, 25, 1)),
-    );
-  }
-
-
-  List<Widget> list = feed_items
-      .map((e) =>
-      Container(
-        margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
-        decoration: BoxDecoration(
-          border:
-          Border.all(color: AppColors.backgroundcolor, width: 1),
-          borderRadius: BorderRadius.all(Radius.circular(15)),
-          color: AppColors.backgroundcolor2,
-        ),
-        child: Row(
-          children: [
-            Container(
-              child: Column(
-                children:[
-                  IconButton(iconSize: 25,onPressed: (){}, icon: Icon(Icons.arrow_circle_up_outlined)),
-                  Text(e.vote.toString()),
-                  IconButton(iconSize: 25,onPressed: (){}, icon: Icon(Icons.arrow_circle_down_outlined)),
-                ],
-              ),
-            ),
-            CircleAvatar(
-              child: ClipOval(
-                child: Image.network(
-                  e.avatarUrl,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              backgroundColor: AppColors.backgroundcolor2,
-              radius: 20,
-            ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    e.username + " ● " + e.getDifference(DateTime.now()),
-                    style: TextStyle(
-                        color: AppColors.textcolor,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  Container(
-                    child: Text(
-                          e.message,
-                      style: TextStyle(color: AppColors.textcolor2),
+              Padding(
+                padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      e.username + " ● " + e.getDifference(DateTime.now()),
+                      style: TextStyle(
+                          color: AppColors.textcolor,
+                          fontWeight: FontWeight.bold),
                     ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color: Colors.white24,
+                    Container(
+                      child: Text(
+                        e.message,
+                        style: TextStyle(color: AppColors.textcolor2),
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: Colors.white24,
+                      ),
+                      width: 200,
                     ),
-                    width: 200,
-
-                  ),
-                  SizedBox(height:5),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(
-                        20), // Image border
-                    child: SizedBox.fromSize(
-                      size: Size(150, 100), // Image radius
-                      child: Image.network(
-                        e.image,
-                        fit: BoxFit.fitHeight,
+                    SizedBox(height: 5),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(20), // Image border
+                      child: SizedBox.fromSize(
+                        size: Size(150, 100), // Image radius
+                        child: Image.network(
+                          e.image,
+                          fit: BoxFit.fitHeight,
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(height:5),
-                ],
+                    SizedBox(height: 5),
+                  ],
+                ),
               ),
-            ),
-          ],
-        ),
+            ],
+          ),
+          width: 375,
+        ))
+    .toList()
+    .reversed
+    .toList();
 
-        width: 375,
-      ))
-      .toList()
-      .reversed
-      .toList();
+class _FeedViewState extends State<FeedView> {
+  late Map<String, Info> info = new Map();
+  late String image;
+
+  void setInfo(AsyncSnapshot<QuerySnapshot> snapshot) async {
+    int size = snapshot.data!.size;
+    for (int i = 0; i < size; i++) {
+      DocumentSnapshot d = snapshot.data!.docs[i];
+
+      var collection = FirebaseFirestore.instance.collection('users');
+      //userUid is the current auth user
+      var docSnapshot = await collection.doc(d['userid']).get();
+
+      Map<String, dynamic> data = docSnapshot.data()!;
+
+      info[d['userid']] =
+          new Info(image: data['image'], username: data['username']);
+    }
+  }
+
+  void getUserImage() async {
+    var docSnapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(databaseInterface!.uid)
+        .get();
+    Map<String, dynamic> data = docSnapshot.data()!;
+    image = data['image'];
+  }
+
+  String voteStatus(DocumentSnapshot d) {
+    List<dynamic> upVotes = d['upVotes'];
+    List<dynamic> downVotes = d['downVotes'];
+    if (upVotes.contains(databaseInterface!.uid)) {
+      return "upvote";
+    } else if (downVotes.contains(databaseInterface!.uid)) {
+      return "downvote";
+    }
+    return "none";
+  }
+
+  int voteCount(DocumentSnapshot d) {
+    List<dynamic> upVotes = d['upVotes'];
+    List<dynamic> downVotes = d['downVotes'];
+    return upVotes.length - downVotes.length;
+  }
+
+  String getDifference(DateTime time) {
+    DateTime now = DateTime.now();
+
+    int day = now.difference(time).inDays % 365;
+    int hour = now.difference(time).inHours % 24;
+    int min = now.difference(time).inMinutes % 60;
+    int sec = now.difference(time).inSeconds % 60;
+
+    String dif = "";
+    if (day > 0) dif = day.toString() + "d ";
+    if (hour > 0) dif = dif + hour.toString() + "h ";
+    if (min > 0) dif = dif + min.toString() + "m ";
+    if (sec > 0) dif = dif + sec.toString() + "s";
+
+    return dif;
+  }
+
+  void toggleUpVote(DocumentSnapshot d) {
+    List<dynamic> upVotes = d['upVotes'];
+    List<dynamic> downVotes = d['downVotes'];
+    if (upVotes.contains(databaseInterface!.uid)) {
+      upVotes.remove(databaseInterface!.uid);
+    } else {
+      upVotes.add(databaseInterface!.uid);
+      if (downVotes.contains(databaseInterface!.uid)) {
+        downVotes.remove(databaseInterface!.uid);
+      }
+    }
+
+    databaseInterface!
+        .updatePost(d, {'upVotes': upVotes, 'downVotes': downVotes});
+  }
+
+  void toggleDownVote(DocumentSnapshot d) {
+    List<dynamic> upVotes = d['upVotes'];
+    List<dynamic> downVotes = d['downVotes'];
+    if (downVotes.contains(databaseInterface!.uid)) {
+      downVotes.remove(databaseInterface!.uid);
+    } else {
+      downVotes.add(databaseInterface!.uid);
+      if (upVotes.contains(databaseInterface!.uid)) {
+        upVotes.remove(databaseInterface!.uid);
+      }
+    }
+
+    databaseInterface!
+        .updatePost(d, {'upVotes': upVotes, 'downVotes': downVotes});
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<QuerySnapshot>(
+      stream: databaseInterface!.getAllPostsStream(),
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (snapshot.hasError) {
+          return const Text('Something went wrong');
+        }
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Text("Loading");
+        }
+
+        setInfo(snapshot);
+        getUserImage();
+
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text('AmogSu Feed'),
+            centerTitle: true,
+            /*actions: [
+              TextButton(
+                onPressed: () => throw Exception(),
+                child: const Text("Throw Test Exception"),
+              ),
+            ],*/
+            elevation: 0,
+            foregroundColor: AppColors.textcolor,
+            backgroundColor: AppColors.primary,
+            leading: Padding(
+                padding: EdgeInsets.all(10),
+                child: FlatButton(
+                  padding: EdgeInsets.all(0),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/profile');
+                  },
+                  child: CircleAvatar(
+                    child: ClipOval(
+                      child: Image.network(
+                        image,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    backgroundColor: AppColors.primary,
+                    radius: 100,
+                  ),
+                )),
+            leadingWidth: 80,
+          ),
+          body: Scaffold(
+              body: Container(
+                //reverse: true,
+                child: Align(
+                    alignment: Alignment.topCenter,
+                    child: ListView.builder(
+                      itemCount: snapshot.data!.size,
+                      itemBuilder: (context, pointer) {
+                        DocumentSnapshot d = snapshot.data!.docs[pointer];
+                        return Container(
+                          margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                                color: AppColors.backgroundcolor, width: 1),
+                            borderRadius: BorderRadius.all(Radius.circular(15)),
+                            color: AppColors.backgroundcolor2,
+                          ),
+                          child: Row(
+                            children: [
+                              Container(
+                                child: Column(
+                                  children: [
+                                    IconButton(
+                                      iconSize: 25,
+                                      onPressed: () {
+                                        toggleUpVote(d);
+                                      },
+                                      icon: Icon(
+                                        Icons.arrow_circle_up_outlined,
+                                        color: voteStatus(d) == "upvote"
+                                            ? Colors.amber
+                                            : Colors.black,
+                                      ),
+                                    ),
+                                    Text(voteCount(d).toString()),
+                                    IconButton(
+                                      iconSize: 25,
+                                      onPressed: () {
+                                        toggleDownVote(d);
+                                      },
+                                      icon: Icon(
+                                          Icons.arrow_circle_down_outlined,
+                                          color: voteStatus(d) == "downvote"
+                                              ? Colors.amber
+                                              : Colors.black),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              CircleAvatar(
+                                child: ClipOval(
+                                  child: Image.network(
+                                    info[d['userid']]!.image,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                backgroundColor: AppColors.backgroundcolor2,
+                                radius: 20,
+                              ),
+                              Padding(
+                                padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      info[d['userid']]!.username +
+                                          " ● " +
+                                          getDifference(d['date'].toDate()),
+                                      style: TextStyle(
+                                          color: AppColors.textcolor,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    Container(
+                                      child: Text(
+                                        d['post'],
+                                        style: TextStyle(
+                                            color: AppColors.textcolor2),
+                                      ),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(5),
+                                        color: Colors.white24,
+                                      ),
+                                      width: 200,
+                                    ),
+                                    SizedBox(height: 5),
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(
+                                          20), // Image border
+                                      child: SizedBox.fromSize(
+                                        size: Size(150, 100), // Image radius
+                                        child: Image.network(
+                                          d['image'],
+                                          fit: BoxFit.fitHeight,
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(height: 5),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          width: 375,
+                        );
+                      },
+                    )),
+              ),
+              backgroundColor: Color.fromRGBO(25, 25, 25, 1)),
+        );
+      },
+    );
+  }
+}
+
+class Info {
+  final String image;
+  final String username;
+
+  Info({required this.image, required this.username});
 }
 
 
@@ -722,5 +947,4 @@ List<FeedModel> feedData = [
 
 
 */
-
 

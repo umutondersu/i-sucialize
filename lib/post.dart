@@ -42,14 +42,14 @@ class PostViewState extends State<PostView> {
 
     await uploadImageToFirebase();
     date = DateTime.now();
-    int votes = 0;
 
     final data = {
       'userid': databaseInterface!.uid,
       'post': post,
       'image': mediaUrl,
       'date': date,
-      'votes': votes
+      'upVotes': [],
+      'downVotes': []
     };
 
     var db = FirebaseFirestore.instance;
