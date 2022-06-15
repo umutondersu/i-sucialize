@@ -42,7 +42,7 @@ class DatabaseInterface {
   }
 
   Stream<QuerySnapshot> getAllPostsStream() {
-    return FirebaseFirestore.instance.collection('posts').snapshots();
+    return FirebaseFirestore.instance.collection('posts').orderBy('date', descending: true).limit(100).snapshots();
   }
 
   Stream<QuerySnapshot<Map<String, dynamic>>> getFriendsPosts(

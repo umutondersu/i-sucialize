@@ -14,94 +14,15 @@ class FeedView extends StatefulWidget {
   State<StatefulWidget> createState() => _FeedViewState();
 }
 
-List<Widget> list = feed_items
-    .map((e) => Container(
-          margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
-          decoration: BoxDecoration(
-            border: Border.all(color: AppColors.backgroundcolor, width: 1),
-            borderRadius: BorderRadius.all(Radius.circular(15)),
-            color: AppColors.backgroundcolor2,
-          ),
-          child: Row(
-            children: [
-              Container(
-                child: Column(
-                  children: [
-                    IconButton(
-                        iconSize: 25,
-                        onPressed: () {},
-                        icon: Icon(Icons.arrow_circle_up_outlined)),
-                    Text(e.vote.toString()),
-                    IconButton(
-                        iconSize: 25,
-                        onPressed: () {},
-                        icon: Icon(Icons.arrow_circle_down_outlined)),
-                  ],
-                ),
-              ),
-              CircleAvatar(
-                child: ClipOval(
-                  child: Image.network(
-                    e.avatarUrl,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                backgroundColor: AppColors.backgroundcolor2,
-                radius: 20,
-              ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      e.username + " ● " + e.getDifference(DateTime.now()),
-                      style: TextStyle(
-                          color: AppColors.textcolor,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    Container(
-                      child: Text(
-                        e.message,
-                        style: TextStyle(color: AppColors.textcolor2),
-                      ),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        color: Colors.white24,
-                      ),
-                      width: 200,
-                    ),
-                    SizedBox(height: 5),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(20), // Image border
-                      child: SizedBox.fromSize(
-                        size: Size(150, 100), // Image radius
-                        child: Image.network(
-                          e.image,
-                          fit: BoxFit.fitHeight,
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 5),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          width: 375,
-        ))
-    .toList()
-    .reversed
-    .toList();
-
 class _FeedViewState extends State<FeedView> {
   late Map<String, Info> info = new Map();
   late String image =
       "https://i.pinimg.com/originals/ce/5f/d3/ce5fd3590095d2aabe3ad6f6203dfe70.jpg";
 
+
   void setInfo(AsyncSnapshot<QuerySnapshot> snapshot) async {
     int size = snapshot.data!.size;
+    Map<String, Info> im = new Map();
     for (int i = 0; i < size; i++) {
       DocumentSnapshot d = snapshot.data!.docs[i];
 
@@ -115,6 +36,7 @@ class _FeedViewState extends State<FeedView> {
           new Info(image: data['image'], username: data['username']);
     }
   }
+
 
   void getUserImage() async {
     var docSnapshot = await FirebaseFirestore.instance
@@ -212,19 +134,6 @@ class _FeedViewState extends State<FeedView> {
               backgroundColor: Color.fromRGBO(25, 25, 25, 1));
         }
         getUserImage();
-        setInfo(snapshot);
-
-        if (info.isEmpty) {
-          return Scaffold(
-              appBar: AppBar(
-                title: const Text('Feed'),
-                centerTitle: true,
-                elevation: 0,
-                foregroundColor: AppColors.textcolor,
-                backgroundColor: AppColors.primary,
-              ),
-              backgroundColor: Color.fromRGBO(25, 25, 25, 1));
-        }
 
         return Scaffold(
           appBar: AppBar(
@@ -266,105 +175,122 @@ class _FeedViewState extends State<FeedView> {
                     alignment: Alignment.topCenter,
                     child: ListView.builder(
                       itemCount: snapshot.data!.size,
-                      itemBuilder: (context, pointer) {
-                        DocumentSnapshot d = snapshot.data!.docs[pointer];
-                        return Container(
-                          margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                                color: AppColors.backgroundcolor, width: 1),
-                            borderRadius: BorderRadius.all(Radius.circular(15)),
-                            color: AppColors.backgroundcolor2,
-                          ),
-                          child: Row(
-                            children: [
-                              Container(
-                                child: Column(
-                                  children: [
-                                    IconButton(
-                                      iconSize: 25,
-                                      onPressed: () {
-                                        toggleUpVote(d);
-                                      },
-                                      icon: Icon(
-                                        Icons.arrow_circle_up_outlined,
-                                        color: voteStatus(d) == "upvote"
-                                            ? Colors.amber
-                                            : Colors.black,
-                                      ),
-                                    ),
-                                    Text(voteCount(d).toString()),
-                                    IconButton(
-                                      iconSize: 25,
-                                      onPressed: () {
-                                        toggleDownVote(d);
-                                      },
-                                      icon: Icon(
-                                        Icons.arrow_circle_down_outlined,
-                                        color: voteStatus(d) == "downvote"
-                                            ? Colors.amber
-                                            : Colors.black,
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                      itemBuilder: (context, index) {
+                        DocumentSnapshot d = snapshot.data!.docs[index];
+                        
+                        return StreamBuilder(
+                          stream: databaseInterface.getUser(d['userid']),
+                          builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> s2) {
+                            if (s2.hasError) {
+                              return const Text('Something went wrong');
+                            }
+                            if (s2.connectionState == ConnectionState.waiting ||
+                                !s2.hasData) {
+                              return Container();
+                            }
+
+                            DocumentSnapshot u = s2.requireData;
+                            return Container(
+                              margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                    color: AppColors.backgroundcolor, width: 1),
+                                borderRadius: BorderRadius.all(Radius.circular(15)),
+                                color: AppColors.backgroundcolor2,
                               ),
-                              CircleAvatar(
-                                child: ClipOval(
-                                  child: Image.network(
-                                    info[d['userid']]!.image,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                                backgroundColor: AppColors.backgroundcolor2,
-                                radius: 20,
-                              ),
-                              Padding(
-                                padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      info[d['userid']]!.username +
-                                          " ● " +
-                                          getDifference(d['date'].toDate()),
-                                      style: TextStyle(
-                                          color: AppColors.textcolor,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    Container(
-                                      child: Text(
-                                        d['post'],
-                                        style: TextStyle(
-                                            color: AppColors.textcolor2),
-                                      ),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(5),
-                                        color: Colors.white24,
-                                      ),
-                                      width: 200,
-                                    ),
-                                    SizedBox(height: 5),
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(
-                                          20), // Image border
-                                      child: SizedBox.fromSize(
-                                        size: Size(150, 100), // Image radius
-                                        child: Image.network(
-                                          d['image'],
-                                          fit: BoxFit.fitHeight,
+                              child: Row(
+                                children: [
+                                  Container(
+                                    child: Column(
+                                      children: [
+                                        IconButton(
+                                          iconSize: 25,
+                                          onPressed: () {
+                                            toggleUpVote(d);
+                                          },
+                                          icon: Icon(
+                                            Icons.arrow_circle_up_outlined,
+                                            color: voteStatus(d) == "upvote"
+                                                ? Colors.amber
+                                                : Colors.black,
+                                          ),
                                         ),
+                                        Text(voteCount(d).toString()),
+                                        IconButton(
+                                          iconSize: 25,
+                                          onPressed: () {
+                                            toggleDownVote(d);
+                                          },
+                                          icon: Icon(
+                                            Icons.arrow_circle_down_outlined,
+                                            color: voteStatus(d) == "downvote"
+                                                ? Colors.amber
+                                                : Colors.black,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  CircleAvatar(
+                                    child: ClipOval(
+                                      child: Image.network(
+                                        u['image'],
+                                        fit: BoxFit.cover,
                                       ),
                                     ),
-                                    SizedBox(height: 5),
-                                  ],
-                                ),
+                                    backgroundColor: AppColors.backgroundcolor2,
+                                    radius: 20,
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          u['username'] +
+                                              " ● " +
+                                              getDifference(d['date'].toDate()),
+                                          style: TextStyle(
+                                              color: AppColors.textcolor,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        Container(
+                                          child: Text(
+                                            d['post'],
+                                            style: TextStyle(
+                                                color: AppColors.textcolor2),
+                                          ),
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(5),
+                                            color: Colors.white24,
+                                          ),
+                                          width: 200,
+                                        ),
+                                        SizedBox(height: 5),
+                                        ClipRRect(
+                                          borderRadius: BorderRadius.circular(
+                                              20), // Image border
+                                          child: SizedBox.fromSize(
+                                            size: Size(150, 100), // Image radius
+                                            child: Image.network(
+                                              d['image'],
+                                              fit: BoxFit.fitHeight,
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(height: 5),
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                          width: 375,
+                              width: 375,
+                            );
+                          },
                         );
+                        
+
                       },
                     )),
               ),
@@ -969,4 +895,85 @@ List<FeedModel> feedData = [
 
 
 */
+
+/*List<Widget> list = feed_items
+    .map((e) => Container(
+          margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+          decoration: BoxDecoration(
+            border: Border.all(color: AppColors.backgroundcolor, width: 1),
+            borderRadius: BorderRadius.all(Radius.circular(15)),
+            color: AppColors.backgroundcolor2,
+          ),
+          child: Row(
+            children: [
+              Container(
+                child: Column(
+                  children: [
+                    IconButton(
+                        iconSize: 25,
+                        onPressed: () {},
+                        icon: Icon(Icons.arrow_circle_up_outlined)),
+                    Text(e.vote.toString()),
+                    IconButton(
+                        iconSize: 25,
+                        onPressed: () {},
+                        icon: Icon(Icons.arrow_circle_down_outlined)),
+                  ],
+                ),
+              ),
+              CircleAvatar(
+                child: ClipOval(
+                  child: Image.network(
+                    e.avatarUrl,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                backgroundColor: AppColors.backgroundcolor2,
+                radius: 20,
+              ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      e.username + " ● " + e.getDifference(DateTime.now()),
+                      style: TextStyle(
+                          color: AppColors.textcolor,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Container(
+                      child: Text(
+                        e.message,
+                        style: TextStyle(color: AppColors.textcolor2),
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: Colors.white24,
+                      ),
+                      width: 200,
+                    ),
+                    SizedBox(height: 5),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(20), // Image border
+                      child: SizedBox.fromSize(
+                        size: Size(150, 100), // Image radius
+                        child: Image.network(
+                          e.image,
+                          fit: BoxFit.fitHeight,
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 5),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          width: 375,
+        ))
+    .toList()
+    .reversed
+    .toList();*/
 
