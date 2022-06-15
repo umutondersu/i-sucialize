@@ -42,7 +42,8 @@ class _ProfileEditViewState extends State<ProfileEditView> {
                     alignment: Alignment.center,
                     child: Text(
                       "Change Your Username",
-                      style: TextStyle(color: AppColors.textcolor, fontSize: 20),
+                      style:
+                          TextStyle(color: AppColors.textcolor, fontSize: 20),
                     ),
                   ),
                 ),
@@ -58,13 +59,11 @@ class _ProfileEditViewState extends State<ProfileEditView> {
                     alignment: Alignment.center,
                     child: TextField(
                       controller: _nameController,
-                      style: TextStyle(
-                          color: Colors.white, fontSize: 20),
+                      style: TextStyle(color: Colors.white, fontSize: 20),
                       textAlign: TextAlign.left,
                       decoration: InputDecoration(
                         counter: null,
-                        hintStyle:
-                        TextStyle(color: Colors.white),
+                        hintStyle: TextStyle(color: Colors.white),
                         border: InputBorder.none,
                       ),
                     ),
@@ -82,7 +81,8 @@ class _ProfileEditViewState extends State<ProfileEditView> {
                     alignment: Alignment.center,
                     child: Text(
                       "Edit Your About Section",
-                      style: TextStyle(color: AppColors.textcolor, fontSize: 20),
+                      style:
+                          TextStyle(color: AppColors.textcolor, fontSize: 20),
                     ),
                   ),
                 ),
@@ -98,13 +98,11 @@ class _ProfileEditViewState extends State<ProfileEditView> {
                     alignment: Alignment.topLeft,
                     child: TextField(
                       controller: _aboutController,
-                      style: TextStyle(
-                          color: Colors.white, fontSize: 20),
+                      style: TextStyle(color: Colors.white, fontSize: 20),
                       textAlign: TextAlign.left,
                       decoration: InputDecoration(
                         counter: null,
-                        hintStyle:
-                        TextStyle(color: Colors.white),
+                        hintStyle: TextStyle(color: Colors.white),
                         border: InputBorder.none,
                       ),
                     ),
@@ -123,22 +121,21 @@ class _ProfileEditViewState extends State<ProfileEditView> {
                       onPressed: () {
                         if (_nameController.text.isNotEmpty) {
                           //print(databaseInterface.runtimeType);
-                          databaseInterface!.updateUserData({
-                            "username" : _nameController.text,
+                          databaseInterface.updateUserData({
+                            "username": _nameController.text,
                           });
                           _nameController.clear();
                         }
                         if (_nameController.text.isNotEmpty) {
-                          databaseInterface!.updateUserData({
-                            "description" : _aboutController.text
-                          });
+                          databaseInterface.updateUserData(
+                              {"description": _aboutController.text});
                           _aboutController.clear();
                         }
                       },
                       child: Text(
                         "Save Changes",
                         style:
-                        TextStyle(color: AppColors.textcolor, fontSize: 20),
+                            TextStyle(color: AppColors.textcolor, fontSize: 20),
                       ),
                     ),
                   ),

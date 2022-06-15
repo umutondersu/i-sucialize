@@ -65,4 +65,4 @@ class DatabaseInterface {
   }
 }
 
-DatabaseInterface? databaseInterface;
+DatabaseInterface databaseInterface = new DatabaseInterface(uid: "");

@@ -97,7 +97,8 @@ List<Widget> list = feed_items
 
 class _FeedViewState extends State<FeedView> {
   late Map<String, Info> info = new Map();
-  late String image;
+  late String image =
+      "https://i.pinimg.com/originals/ce/5f/d3/ce5fd3590095d2aabe3ad6f6203dfe70.jpg";
 
   void setInfo(AsyncSnapshot<QuerySnapshot> snapshot) async {
     int size = snapshot.data!.size;
@@ -118,7 +119,7 @@ class _FeedViewState extends State<FeedView> {
   void getUserImage() async {
     var docSnapshot = await FirebaseFirestore.instance
         .collection('users')
-        .doc(databaseInterface!.uid)
+        .doc(databaseInterface.uid)
         .get();
     Map<String, dynamic> data = docSnapshot.data()!;
     image = data['image'];
@@ -127,9 +128,9 @@ class _FeedViewState extends State<FeedView> {
   String voteStatus(DocumentSnapshot d) {
     List<dynamic> upVotes = d['upVotes'];
     List<dynamic> downVotes = d['downVotes'];
-    if (upVotes.contains(databaseInterface!.uid)) {
+    if (upVotes.contains(databaseInterface.uid)) {
       return "upvote";
-    } else if (downVotes.contains(databaseInterface!.uid)) {
+    } else if (downVotes.contains(databaseInterface.uid)) {
       return "downvote";
     }
     return "none";
@@ -161,53 +162,73 @@ class _FeedViewState extends State<FeedView> {
   void toggleUpVote(DocumentSnapshot d) {
     List<dynamic> upVotes = d['upVotes'];
     List<dynamic> downVotes = d['downVotes'];
-    if (upVotes.contains(databaseInterface!.uid)) {
-      upVotes.remove(databaseInterface!.uid);
+    if (upVotes.contains(databaseInterface.uid)) {
+      upVotes.remove(databaseInterface.uid);
     } else {
-      upVotes.add(databaseInterface!.uid);
-      if (downVotes.contains(databaseInterface!.uid)) {
-        downVotes.remove(databaseInterface!.uid);
+      upVotes.add(databaseInterface.uid);
+      if (downVotes.contains(databaseInterface.uid)) {
+        downVotes.remove(databaseInterface.uid);
       }
     }
 
-    databaseInterface!
+    databaseInterface
         .updatePost(d, {'upVotes': upVotes, 'downVotes': downVotes});
   }
 
   void toggleDownVote(DocumentSnapshot d) {
     List<dynamic> upVotes = d['upVotes'];
     List<dynamic> downVotes = d['downVotes'];
-    if (downVotes.contains(databaseInterface!.uid)) {
-      downVotes.remove(databaseInterface!.uid);
+    if (downVotes.contains(databaseInterface.uid)) {
+      downVotes.remove(databaseInterface.uid);
     } else {
-      downVotes.add(databaseInterface!.uid);
-      if (upVotes.contains(databaseInterface!.uid)) {
-        upVotes.remove(databaseInterface!.uid);
+      downVotes.add(databaseInterface.uid);
+      if (upVotes.contains(databaseInterface.uid)) {
+        upVotes.remove(databaseInterface.uid);
       }
     }
 
-    databaseInterface!
+    databaseInterface
         .updatePost(d, {'upVotes': upVotes, 'downVotes': downVotes});
   }
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: databaseInterface!.getAllPostsStream(),
+      stream: databaseInterface.getAllPostsStream(),
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasError) {
           return const Text('Something went wrong');
         }
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Text("Loading");
+        if (snapshot.connectionState == ConnectionState.waiting ||
+            !snapshot.hasData) {
+          return Scaffold(
+              appBar: AppBar(
+                title: const Text('Feed'),
+                centerTitle: true,
+                elevation: 0,
+                foregroundColor: AppColors.textcolor,
+                backgroundColor: AppColors.primary,
+              ),
+              backgroundColor: Color.fromRGBO(25, 25, 25, 1));
         }
-
-        setInfo(snapshot);
         getUserImage();
+        setInfo(snapshot);
+
+        if (info.isEmpty) {
+          return Scaffold(
+              appBar: AppBar(
+                title: const Text('Feed'),
+                centerTitle: true,
+                elevation: 0,
+                foregroundColor: AppColors.textcolor,
+                backgroundColor: AppColors.primary,
+              ),
+              backgroundColor: Color.fromRGBO(25, 25, 25, 1));
+        }
 
         return Scaffold(
           appBar: AppBar(
-            title: const Text('AmogSu Feed'),
+            title: const Text('Feed'),
             centerTitle: true,
             /*actions: [
               TextButton(
@@ -279,10 +300,11 @@ class _FeedViewState extends State<FeedView> {
                                         toggleDownVote(d);
                                       },
                                       icon: Icon(
-                                          Icons.arrow_circle_down_outlined,
-                                          color: voteStatus(d) == "downvote"
-                                              ? Colors.amber
-                                              : Colors.black),
+                                        Icons.arrow_circle_down_outlined,
+                                        color: voteStatus(d) == "downvote"
+                                            ? Colors.amber
+                                            : Colors.black,
+                                      ),
                                     ),
                                   ],
                                 ),

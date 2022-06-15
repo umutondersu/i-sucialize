@@ -44,7 +44,7 @@ class PostViewState extends State<PostView> {
     date = DateTime.now();
 
     final data = {
-      'userid': databaseInterface!.uid,
+      'userid': databaseInterface.uid,
       'post': post,
       'image': mediaUrl,
       'date': date,
@@ -71,7 +71,7 @@ class PostViewState extends State<PostView> {
     if (!error) {
       postController.clear();
       int c = count + 1;
-      databaseInterface!.updateUserData({'postCount': c});
+      databaseInterface.updateUserData({'postCount': c});
     }
   }
 
@@ -96,9 +96,20 @@ class PostViewState extends State<PostView> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<DocumentSnapshot>(
-        stream: databaseInterface!.getUserStream(),
+        stream: databaseInterface.getUserStream(),
         builder:
             (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+          if (!snapshot.hasData) {
+            return Scaffold(
+                appBar: AppBar(
+                  title: const Text('New Post'),
+                  centerTitle: true,
+                  elevation: 0,
+                  foregroundColor: AppColors.textcolor,
+                  backgroundColor: AppColors.primary,
+                ),
+                backgroundColor: Color.fromRGBO(25, 25, 25, 1));
+          }
           if (snapshot.hasError) {
             return const Text('Something went wrong');
           }
