@@ -1,10 +1,70 @@
 // ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:i_sucialize/home.dart';
-import 'package:i_sucialize/main.dart';
 import 'package:i_sucialize/util/colors.dart';
-import 'package:i_sucialize/routes.dart';
+import 'package:i_sucialize/databaseInterface.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+final _controller = TextEditingController();
+Future<String> getuid(String name) async {
+  QuerySnapshot q = await FirebaseFirestore.instance
+      .collection('users')
+      .where('username', isEqualTo: name)
+      .get();
+  return q.docs[0].id;
+}
+
+Stream<List<Profilehist>> searchlist() async* {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  List<Profilehist> hist = [];
+  List<String> stringhist = prefs.getStringList('hist') ?? [];
+
+  if (stringhist.isEmpty) {
+    prefs.setStringList('hist', []);
+    hist.add(Profilehist(name: 'umut')); //temp
+    yield hist; //temp
+  }
+
+  for (var i = 0; i < stringhist.length; i++) {
+    hist.add(Profilehist(name: stringhist[i]));
+  }
+}
+/*
+Future<List<Profilehist>> searchlist() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  List<Profilehist> hist = [];
+  List<String>? stringhist = prefs.getStringList('hist');
+  if (stringhist == null) {
+    prefs.setStringList('hist', []);
+    hist.add(Profilehist(name: 'umut')); //temp
+    return hist;
+  }
+
+  for (var i = 0; i < stringhist.length; i++) {
+    hist.add(Profilehist(name: stringhist[i]));
+  }
+
+  hist.add(Profilehist(name: 'umut')); //temp
+  return hist;
+}
+*/
+
+/*
+Stream<Profilehist> histstream() async* {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  List<String>? stringhist = prefs.getStringList('hist') ?? [];
+
+  if (stringhist.isEmpty) {
+    //temp
+    prefs.setStringList('hist', []); //temp
+    yield Profilehist(name: 'umut'); //temp
+  } //temp
+  for (var i = 0; i < stringhist.length; i++) {
+    yield Profilehist(name: stringhist[i]);
+  }
+}
+*/
 
 class SearchView extends StatefulWidget {
   const SearchView({Key? key}) : super(key: key);
@@ -14,88 +74,186 @@ class SearchView extends StatefulWidget {
 }
 
 class _SearchViewState extends State<SearchView> {
+  late Stream<List<Profilehist>> _hist;
+
+  @override
+  void initState() {
+    _hist = searchlist();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: SearchPageAppBar(),
       body: SearchHistory(),
+      backgroundColor: AppColors.mainbackgroundcolor,
     );
   }
 
   // ignore: non_constant_identifier_names
-  Scaffold SearchHistory() {
-    return Scaffold(
-      body: Align(
-        alignment: Alignment.topCenter,
-        child: Container(
-          margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
-          decoration: BoxDecoration(
-            border: Border.all(color: AppColors.backgroundcolor, width: 1),
-            borderRadius: BorderRadius.all(Radius.circular(20)),
-            color: AppColors.backgroundcolor2,
-          ),
-          child: ListView.builder(
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: dummyHist.length,
-            itemBuilder: (context, i) => Column(
-              children: [
-                Divider(
-                  height: 10.0,
-                ),
-                ListTile(
-                  onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => HomeScreen.asindex(1),
+  StreamBuilder<List<Profilehist>> SearchHistory() {
+    return StreamBuilder<List<Profilehist>>(
+        stream: _hist,
+        initialData: [],
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return const Text('Something went wrong');
+          }
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          return Align(
+            alignment: Alignment.topCenter,
+            child: Container(
+              margin: EdgeInsets.fromLTRB(20, 20, 20, 0),
+              decoration: BoxDecoration(
+                border: Border.all(color: AppColors.backgroundcolor, width: 1),
+                borderRadius: BorderRadius.all(Radius.circular(20)),
+                color: AppColors.backgroundcolor2,
+              ),
+              child: ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: snapshot.data?.length,
+                itemBuilder: (context, i) => Column(
+                  children: [
+                    Divider(
+                      height: 10.0,
                     ),
-                  ),
-                  leading: CircleAvatar(
-                    foregroundColor: Theme.of(context).primaryColor,
-                    backgroundColor: AppColors.mainbackgroundcolor,
-                    backgroundImage: NetworkImage(dummyHist[i].avatarUrl),
-                  ),
-                  title: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        dummyHist[i].name,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.appBarTitleTextColor),
+                    ListTile(
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HomeScreen.asindex(1),
+                        ),
                       ),
-                      IconButton(
-                          onPressed: () => {
-                                setState(() {
-                                  dummyHist.removeAt(i);
-                                })
-                              },
-                          icon: Icon(
-                            Icons.remove,
-                            color: AppColors.appBarTitleTextColor,
-                          )),
-                    ],
-                  ),
-                )
-              ],
+                      leading: CircleAvatar(
+                        foregroundColor: Theme.of(context).primaryColor,
+                        backgroundColor: AppColors.mainbackgroundcolor,
+                        backgroundImage:
+                            NetworkImage(snapshot.data![i].getAvatar()),
+                      ),
+                      title: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            snapshot.data![i].name,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.appBarTitleTextColor),
+                          ),
+                          IconButton(
+                              onPressed: () => {
+                                    setState(() {
+                                      snapshot.data!.removeAt(i);
+                                    })
+                                  },
+                              icon: Icon(
+                                Icons.remove,
+                                color: AppColors.appBarTitleTextColor,
+                              )),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              /*ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: dummyHist.length,
+                itemBuilder: (context, i) => Column(
+                  children: [
+                    Divider(
+                      height: 10.0,
+                    ),
+                    ListTile(
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HomeScreen.asindex(1),
+                        ),
+                      ),
+                      leading: CircleAvatar(
+                        foregroundColor: Theme.of(context).primaryColor,
+                        backgroundColor: AppColors.mainbackgroundcolor,
+                        backgroundImage: NetworkImage(dummyHist[i].avatarUrl),
+                      ),
+                      title: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            dummyHist[i].name,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.appBarTitleTextColor),
+                          ),
+                          IconButton(
+                              onPressed: () => {
+                                    setState(() {
+                                      dummyHist.removeAt(i);
+                                    })
+                                  },
+                              icon: Icon(
+                                Icons.remove,
+                                color: AppColors.appBarTitleTextColor,
+                              )),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),*/
+              width: 350,
+              height: 280,
             ),
-          ),
-          width: 350,
-          height: 280,
-        ),
-      ),
-      backgroundColor: AppColors.mainbackgroundcolor,
+          );
+        });
+  }
+
+  StreamBuilder<QuerySnapshot> UserStream(String name) {
+    return StreamBuilder<QuerySnapshot>(
+      stream: databaseInterface.getUserFromName(name),
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (snapshot.hasError) {
+          return const Text('Something went wrong');
+        }
+        if (snapshot.connectionState == ConnectionState.waiting ||
+            !snapshot.hasData) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+        return CircleAvatar(
+          foregroundColor: Theme.of(context).primaryColor,
+          backgroundColor: AppColors.mainbackgroundcolor,
+          backgroundImage: NetworkImage(snapshot.data!.docs[0]['image']),
+        );
+      },
     );
   }
 }
 
 class SearchPageAppBar extends StatelessWidget with PreferredSizeWidget {
-  const SearchPageAppBar({
+  SearchPageAppBar({
     Key? key,
   }) : super(key: key);
 
+  late String image =
+      "https://i.pinimg.com/originals/ce/5f/d3/ce5fd3590095d2aabe3ad6f6203dfe70.jpg";
+
+  void getUserImage() async {
+    var docSnapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(databaseInterface.uid)
+        .get();
+    Map<String, dynamic> data = docSnapshot.data()!;
+    image = data['image'];
+  }
+
   @override
   Size get preferredSize => Size.fromHeight(kToolbarHeight);
-
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -103,24 +261,23 @@ class SearchPageAppBar extends StatelessWidget with PreferredSizeWidget {
       backgroundColor: AppColors.primary,
       leadingWidth: 80,
       leading: Padding(
-        padding: EdgeInsets.fromLTRB(10, 10, 0, 10),
-        child: FlatButton(
-          padding: EdgeInsets.all(0),
-          onPressed: () {
-            Navigator.pushNamed(context, '/profile');
-          },
-          child: CircleAvatar(
-            child: ClipOval(
-              child: Image.network(
-                "https://static.wikia.nocookie.net/amogus/images/c/cb/Susremaster.png/revision/latest/scale-to-width-down/1200?cb=20210806124552",
-                fit: BoxFit.cover,
+          padding: EdgeInsets.all(10),
+          child: FlatButton(
+            padding: EdgeInsets.all(0),
+            onPressed: () {
+              Navigator.pushNamed(context, '/profile');
+            },
+            child: CircleAvatar(
+              child: ClipOval(
+                child: Image.network(
+                  image,
+                  fit: BoxFit.cover,
+                ),
               ),
+              backgroundColor: AppColors.primary,
+              radius: 100,
             ),
-            backgroundColor: AppColors.primary,
-            radius: 100,
-          ),
-        ),
-      ),
+          )),
       centerTitle: true,
       title: SearchBar(),
       actions: [
@@ -154,8 +311,6 @@ class SearchBar extends StatefulWidget {
 }
 
 class _SearchBarState extends State<SearchBar> {
-  final _controller = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -190,6 +345,43 @@ class _SearchBarState extends State<SearchBar> {
   }
 }
 
+class Profilehist {
+  late String uid = "";
+  final String name;
+  late String avatarUrl = "";
+
+  void initState() async {
+    this.uid = await getuid();
+    this.avatarUrl = await getUserImage();
+  }
+
+  String getAvatar() {
+    print(this.avatarUrl);
+    return this.avatarUrl;
+  }
+
+  Profilehist({required this.name}) {
+    initState();
+  }
+
+  Future<String> getUserImage() async {
+    var docSnapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(this.uid)
+        .get();
+    Map<String, dynamic> data = docSnapshot.data()!;
+    return data['image'];
+  }
+
+  Future<String> getuid() async {
+    QuerySnapshot q = await FirebaseFirestore.instance
+        .collection('users')
+        .where('username', isEqualTo: this.name)
+        .get();
+    return q.docs[0].id;
+  }
+}
+/*
 class ProfileHist {
   final String name;
   final String route;
@@ -224,3 +416,4 @@ List<ProfileHist> dummyHist = [
     route: "/profile",
   ),
 ];
+*/

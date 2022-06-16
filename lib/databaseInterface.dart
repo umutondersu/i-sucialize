@@ -26,12 +26,34 @@ class DatabaseInterface {
         .update(data);
   }
 
+  Future<bool> isUserExists(String uid) async {
+    return await FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .get()
+        .then((value) {
+      if (value.exists) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+  }
+
   Stream<DocumentSnapshot> getUserStream() {
     return FirebaseFirestore.instance.collection('users').doc(uid).snapshots();
   }
 
   Stream<DocumentSnapshot> getUser(String uuid) {
     return FirebaseFirestore.instance.collection('users').doc(uuid).snapshots();
+  }
+
+  Stream<QuerySnapshot> getUserFromName(String name) {
+    return FirebaseFirestore.instance
+        .collection('users')
+        .where('username', isEqualTo: name)
+        .limit(1)
+        .snapshots();
   }
 
   Stream<DocumentSnapshot> getPostStream({required String postID}) {
@@ -42,7 +64,11 @@ class DatabaseInterface {
   }
 
   Stream<QuerySnapshot> getAllPostsStream() {
-    return FirebaseFirestore.instance.collection('posts').orderBy('date', descending: true).limit(100).snapshots();
+    return FirebaseFirestore.instance
+        .collection('posts')
+        .orderBy('date', descending: true)
+        .limit(100)
+        .snapshots();
   }
 
   Stream<QuerySnapshot<Map<String, dynamic>>> getFriendsPosts(
@@ -55,15 +81,18 @@ class DatabaseInterface {
 
   Stream<QuerySnapshot> getAllNotifications() {
     return FirebaseFirestore.instance
-        .collection('notifications').orderBy('date', descending: true).limit(20)
+        .collection('notifications')
+        .orderBy('date', descending: true)
+        .limit(20)
         .snapshots();
   }
-
 
   Stream<QuerySnapshot> getFriendsNotifications(List<String> following) {
     return FirebaseFirestore.instance
         .collection('notifications')
-        .where('userid', whereIn: following).orderBy('date', descending: true).limit(20)
+        .where('userid', whereIn: following)
+        .orderBy('date', descending: true)
+        .limit(20)
         .snapshots();
   }
 
