@@ -1,8 +1,12 @@
 // ignore_for_file: prefer_const_constructors
-
+import 'package:path/path.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:i_sucialize/util/colors.dart';
 import 'package:i_sucialize/databaseInterface.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 
 class ProfileEditView extends StatefulWidget {
   const ProfileEditView({Key? key}) : super(key: key);
@@ -14,6 +18,49 @@ class ProfileEditView extends StatefulWidget {
 class _ProfileEditViewState extends State<ProfileEditView> {
   final _nameController = TextEditingController();
   final _aboutController = TextEditingController();
+
+  final ImagePicker _picker = ImagePicker();
+  XFile? _image;
+  String? mediaUrl;
+
+  Future pickImage() async {
+    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      _image = pickedFile!;
+    });
+  }
+
+  void changePP() async {
+    await uploadImageToFirebase();
+    if (mediaUrl != null) {
+      databaseInterface.updateUserData({'image': mediaUrl});
+      _image = null;
+      mediaUrl = null;
+    }
+  }
+
+  Future uploadImageToFirebase() async {
+    if (_image == null) {
+      print("No Image picked");
+    } else {
+      String fileName = basename(_image!.path);
+      Reference firebaseStorageRef = FirebaseStorage.instance
+          .ref()
+          .child('uploads/${DateTime
+          .now()
+          .millisecondsSinceEpoch}-$fileName');
+      try {
+        await firebaseStorageRef.putFile(File(_image!.path));
+        print("Upload complete");
+        mediaUrl = await firebaseStorageRef.getDownloadURL();
+      } on FirebaseException catch (e) {
+        print('ERROR: ${e.code} - ${e.message}');
+      } catch (e) {
+        print(e.toString());
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -108,6 +155,35 @@ class _ProfileEditViewState extends State<ProfileEditView> {
                     ),
                   ),
                 ),
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                    color: AppColors.primary,
+                  ),
+                  margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                  width: 300,
+                  height: 50,
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      "Upload A New Profile Picture",
+                      style:
+                      TextStyle(color: AppColors.textcolor, fontSize: 20),
+                    ),
+                  ),
+                ),
+                Center (
+                  child: Container(
+                    margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                    child: IconButton(
+                      onPressed: pickImage,
+                      icon: Icon(Icons.upload),
+                      iconSize: 50,
+                      color: Colors.white,
+                      splashRadius: 30,
+                    ),
+                  ),
+                ),
                 Center(
                   child: Container(
                     decoration: BoxDecoration(
@@ -131,6 +207,7 @@ class _ProfileEditViewState extends State<ProfileEditView> {
                               {"description": _aboutController.text});
                           _aboutController.clear();
                         }
+                        changePP();
                       },
                       child: Text(
                         "Save Changes",

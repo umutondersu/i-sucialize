@@ -4,14 +4,6 @@ class DatabaseInterface {
   final String uid;
   DatabaseInterface({required this.uid});
 
-  /*Future<void> updateUserData(String sugars, String name, int strength) async {
-    return await _userCollection.doc(uid).set({
-      'sugars': sugars,
-      'name': name,
-      'strength': strength,
-    });
-  }*/
-
   Future<void> updateUserData(Map<String, dynamic> data) async {
     return await FirebaseFirestore.instance
         .collection('users')

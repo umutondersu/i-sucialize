@@ -2,18 +2,14 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:i_sucialize/databaseInterface.dart';
-import 'package:i_sucialize/profile.dart';
 import 'package:path/path.dart';
-import 'package:i_sucialize/home.dart';
-import 'package:i_sucialize/storage_services.dart';
 import 'package:i_sucialize/util/colors.dart';
 import 'package:image_picker/image_picker.dart';
 
 class PostView extends StatefulWidget {
-  PostView({Key? key}) : super(key: key);
+  const PostView({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -83,8 +79,6 @@ class PostViewState extends State<PostView> {
     }
   }
 
-  StorageService _storageService = StorageService();
-
   Future uploadImageToFirebase() async {
     String fileName = basename(_image!.path);
     Reference firebaseStorageRef = FirebaseStorage.instance
@@ -130,8 +124,7 @@ class PostViewState extends State<PostView> {
                 backgroundColor: AppColors.primary,
                 leading: Padding(
                   padding: EdgeInsets.all(10),
-                  child: FlatButton(
-                    padding: EdgeInsets.all(0),
+                  child: TextButton(
                     onPressed: () {
                       Navigator.pushNamed(context, '/profile');
                     },
