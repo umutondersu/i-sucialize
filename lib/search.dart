@@ -22,6 +22,7 @@ Stream<List<Profilehist>> searchlist() async* {
   SharedPreferences prefs = await SharedPreferences.getInstance();
 
   List<String> stringhist = prefs.getStringList('hist') ?? [];
+  hist.clear();
 
   if (stringhist.isEmpty) {
     prefs.setStringList('hist', []);
