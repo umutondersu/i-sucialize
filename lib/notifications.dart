@@ -100,8 +100,6 @@ class _NotificationViewState extends State<NotificationsView> {
               itemBuilder: (context, index) {
                 DocumentSnapshot d = snapshot.data!.docs[index];
 
-                print(d['userid']);
-
                 return StreamBuilder(
                     stream: databaseInterface.getUser(d['userid']),
                     builder: (BuildContext context,

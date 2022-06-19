@@ -40,14 +40,6 @@ class DatabaseInterface {
     });
   }
 
-  Stream<bool> isFollowing(String friend) async* {
-    final user =
-        await FirebaseFirestore.instance.collection('users').doc(uid).get();
-    List<dynamic> followerList = user.data()!["followerList"];
-
-    yield followerList.contains(friend);
-  }
-
   Future<void> addFriend(String friendID) async {
     final user =
         await FirebaseFirestore.instance.collection("users").doc(uid).get();

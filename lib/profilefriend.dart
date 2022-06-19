@@ -40,7 +40,71 @@ class _FriendProfileViewState extends State<FriendProfileView> {
             return const Text('Something went wrong');
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Text("Loading");
+            return Scaffold(
+              appBar: AppBar(
+                title: const Text('Profile'),
+                centerTitle: true,
+                elevation: 0,
+                foregroundColor: Colors.white,
+                backgroundColor: AppColors.primary,
+                leading: Padding(
+                  padding: EdgeInsets.all(10),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                          color: AppColors.backgroundcolor2, width: 1),
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                      color: AppColors.backgroundcolor2,
+                    ),
+                    child: StreamBuilder<DocumentSnapshot>(
+                        stream: databaseInterface.getUserStream(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<DocumentSnapshot> s2) {
+                          if (s2.hasError) {
+                            return const Text('Something went wrong');
+                          }
+                          if (s2.connectionState == ConnectionState.waiting) {
+                            return const SizedBox();
+                          }
+
+                          List<dynamic> following = s2.data!['followerList'];
+                          if (following.contains(uid)) {
+                            return TextButton(
+                                onPressed: () {
+                                  databaseInterface.removeFriend(uid);
+                                },
+                                child: Text(
+                                  "Unfollow",
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 16),
+                                ));
+                          }
+                          return TextButton(
+                              onPressed: () {
+                                databaseInterface.addFriend(uid);
+                              },
+                              child: Text(
+                                "Follow",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 16),
+                              ));
+                        }),
+                  ),
+                ),
+                leadingWidth: 150,
+                actions: [
+                  IconButton(
+                    icon: Icon(Icons.arrow_back),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ],
+              ),
+              body: Scaffold(
+                backgroundColor: Color.fromRGBO(25, 25, 25, 1),
+              ),
+            );
           }
           return Scaffold(
             appBar: AppBar(

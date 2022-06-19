@@ -18,7 +18,6 @@ class _FeedViewState extends State<FeedView> {
   late String image =
       "https://i.pinimg.com/originals/ce/5f/d3/ce5fd3590095d2aabe3ad6f6203dfe70.jpg";
 
-
   void getUserImage() async {
     var docSnapshot = await FirebaseFirestore.instance
         .collection('users')
@@ -117,7 +116,8 @@ class _FeedViewState extends State<FeedView> {
         getUserImage();
 
         return Scaffold(
-          appBar: AppBar(
+          appBar: feedAppBar(),
+          /*appBar: AppBar(
             title: const Text('Feed'),
             centerTitle: true,
             /*actions: [
@@ -148,7 +148,7 @@ class _FeedViewState extends State<FeedView> {
                   ),
                 )),
             leadingWidth: 80,
-          ),
+          ),*/
           body: Scaffold(
               body: Container(
                 //reverse: true,
@@ -158,10 +158,11 @@ class _FeedViewState extends State<FeedView> {
                       itemCount: snapshot.data!.size,
                       itemBuilder: (context, index) {
                         DocumentSnapshot d = snapshot.data!.docs[index];
-                        
+
                         return StreamBuilder(
                           stream: databaseInterface.getUser(d['userid']),
-                          builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> s2) {
+                          builder: (BuildContext context,
+                              AsyncSnapshot<DocumentSnapshot> s2) {
                             if (s2.hasError) {
                               return const Text('Something went wrong');
                             }
@@ -176,7 +177,8 @@ class _FeedViewState extends State<FeedView> {
                               decoration: BoxDecoration(
                                 border: Border.all(
                                     color: AppColors.backgroundcolor, width: 1),
-                                borderRadius: BorderRadius.all(Radius.circular(15)),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(15)),
                                 color: AppColors.backgroundcolor2,
                               ),
                               child: Row(
@@ -225,8 +227,10 @@ class _FeedViewState extends State<FeedView> {
                                   Padding(
                                     padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
                                     child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           u['username'] +
@@ -242,13 +246,13 @@ class _FeedViewState extends State<FeedView> {
                                             child: Text(
                                               d['post'],
                                               style: TextStyle(
-                                                color: AppColors.textcolor,
-                                                fontWeight: FontWeight.w500
-                                              ),
+                                                  color: AppColors.textcolor,
+                                                  fontWeight: FontWeight.w500),
                                             ),
                                           ),
                                           decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(5),
+                                            borderRadius:
+                                                BorderRadius.circular(5),
                                             color: Colors.white24,
                                           ),
                                           width: 200,
@@ -258,7 +262,8 @@ class _FeedViewState extends State<FeedView> {
                                           borderRadius: BorderRadius.circular(
                                               20), // Image border
                                           child: SizedBox.fromSize(
-                                            size: Size(150, 100), // Image radius
+                                            size:
+                                                Size(150, 100), // Image radius
                                             child: Image.network(
                                               d['image'],
                                               fit: BoxFit.fitHeight,
@@ -275,8 +280,6 @@ class _FeedViewState extends State<FeedView> {
                             );
                           },
                         );
-                        
-
                       },
                     )),
               ),
@@ -284,6 +287,84 @@ class _FeedViewState extends State<FeedView> {
         );
       },
     );
+  }
+}
+
+class feedAppBar extends StatelessWidget with PreferredSizeWidget {
+  late String image =
+      "https://i.pinimg.com/originals/ce/5f/d3/ce5fd3590095d2aabe3ad6f6203dfe70.jpg";
+  @override
+  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder(
+        stream: databaseInterface.getUserStream(),
+        builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> s2) {
+          if (s2.hasError) {
+            return const Text('Something went wrong');
+          }
+          if (s2.connectionState == ConnectionState.waiting || !s2.hasData) {
+            return AppBar(
+              title: const Text('Feed'),
+              centerTitle: true,
+              /*actions: [
+              TextButton(
+                onPressed: () => throw Exception(),
+                child: const Text("Throw Test Exception"),
+              ),
+            ],*/
+              elevation: 0,
+              foregroundColor: AppColors.textcolor,
+              backgroundColor: AppColors.primary,
+              leading: Padding(
+                  padding: EdgeInsets.all(10),
+                  child: FlatButton(
+                    padding: EdgeInsets.all(0),
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/profile');
+                    },
+                    child: CircleAvatar(
+                      child: ClipOval(
+                        child: Image.network(
+                          image,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      backgroundColor: AppColors.primary,
+                      radius: 100,
+                    ),
+                  )),
+              leadingWidth: 80,
+            );
+          }
+
+          return AppBar(
+            title: const Text('Feed'),
+            centerTitle: true,
+            elevation: 0,
+            foregroundColor: AppColors.textcolor,
+            backgroundColor: AppColors.primary,
+            leading: Padding(
+                padding: EdgeInsets.all(10),
+                child: FlatButton(
+                  padding: EdgeInsets.all(0),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/profile');
+                  },
+                  child: CircleAvatar(
+                    child: ClipOval(
+                      child: Image.network(
+                        s2.data!['image'],
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    backgroundColor: AppColors.primary,
+                    radius: 100,
+                  ),
+                )),
+            leadingWidth: 80,
+          );
+        });
   }
 }
 /*

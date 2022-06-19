@@ -37,40 +37,7 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.mainbackgroundcolor,
-      appBar: AppBar(
-        title: const Text('SUspicious Group'),
-        centerTitle: true,
-        elevation: 0,
-        foregroundColor: AppColors.textcolor,
-        backgroundColor: AppColors.primary,
-        leading: Padding(
-            padding: EdgeInsets.all(10),
-            child: FlatButton(
-              padding: EdgeInsets.all(0),
-              onPressed: () {
-                Navigator.pushNamed(context, '/profile');
-              },
-              child: CircleAvatar(
-                child: ClipOval(
-                  child: Image.network(
-                    image,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                backgroundColor: AppColors.primary,
-                radius: 100,
-              ),
-            )),
-        leadingWidth: 80,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-        ],
-      ),
+      appBar: appBar(),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -132,5 +99,99 @@ class _ChatScreenState extends State<ChatScreen> {
         ),
       ),
     );
+  }
+}
+
+class appBar extends StatelessWidget with PreferredSizeWidget {
+  late String image =
+      "https://i.pinimg.com/originals/ce/5f/d3/ce5fd3590095d2aabe3ad6f6203dfe70.jpg";
+  @override
+  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder(
+        stream: databaseInterface.getUserStream(),
+        builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> s2) {
+          if (s2.hasError) {
+            return const Text('Something went wrong');
+          }
+          if (s2.connectionState == ConnectionState.waiting || !s2.hasData) {
+            return AppBar(
+              title: const Text('SUspicious Group'),
+              centerTitle: true,
+              /*actions: [
+              TextButton(
+                onPressed: () => throw Exception(),
+                child: const Text("Throw Test Exception"),
+              ),
+            ],*/
+              elevation: 0,
+              foregroundColor: AppColors.textcolor,
+              backgroundColor: AppColors.primary,
+              leading: Padding(
+                  padding: EdgeInsets.all(10),
+                  child: FlatButton(
+                    padding: EdgeInsets.all(0),
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/profile');
+                    },
+                    child: CircleAvatar(
+                      child: ClipOval(
+                        child: Image.network(
+                          image,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      backgroundColor: AppColors.primary,
+                      radius: 100,
+                    ),
+                  )),
+              leadingWidth: 80,
+              actions: [
+                IconButton(
+                  icon: Icon(Icons.arrow_back),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            );
+          }
+
+          return AppBar(
+            title: const Text('SUspicious Group'),
+            centerTitle: true,
+            elevation: 0,
+            foregroundColor: AppColors.textcolor,
+            backgroundColor: AppColors.primary,
+            leading: Padding(
+                padding: EdgeInsets.all(10),
+                child: FlatButton(
+                  padding: EdgeInsets.all(0),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/profile');
+                  },
+                  child: CircleAvatar(
+                    child: ClipOval(
+                      child: Image.network(
+                        s2.data!['image'],
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    backgroundColor: AppColors.primary,
+                    radius: 100,
+                  ),
+                )),
+            leadingWidth: 80,
+            actions: [
+              IconButton(
+                icon: Icon(Icons.arrow_back),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          );
+        });
   }
 }

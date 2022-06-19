@@ -33,6 +33,7 @@ Stream<List<Profilehist>> searchlist() async* {
       hist.add(Profilehist(name: stringhist[i]));
     });
   }
+  yield hist;
 }
 /*
 Future<List<Profilehist>> searchlist() async {
@@ -121,6 +122,7 @@ class _SearchViewState extends State<SearchView> {
                 color: AppColors.backgroundcolor2,
               ),
               child: ListView.builder(
+                  reverse: true,
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: snapshot.data?.length,
                   itemBuilder: (context, i) {
@@ -154,8 +156,15 @@ class _SearchViewState extends State<SearchView> {
                               ),
                               IconButton(
                                   onPressed: () => {
-                                        setState(() {
+                                        setState(() async {
                                           snapshot.data!.removeAt(i);
+                                          final SharedPreferences prefs =
+                                              await SharedPreferences
+                                                  .getInstance();
+                                          List<String> hList =
+                                              prefs.getStringList('hist')!;
+                                          hList.removeAt(i);
+                                          prefs.setStringList('hist', hList);
                                         })
                                       },
                                   icon: Icon(
@@ -214,7 +223,7 @@ class _SearchViewState extends State<SearchView> {
                 ),
               ),*/
               width: 350,
-              height: 280,
+              height: 260,
             ),
           );
         });
@@ -353,12 +362,15 @@ class SearchPageAppBar extends StatelessWidget with PreferredSizeWidget {
                       } else if (q.docs.isNotEmpty) {
                         final SharedPreferences prefs =
                             await SharedPreferences.getInstance();
-                        prefs.getStringList('hist')!.add(_controller.text);
-                        if (prefs.getStringList('hist')!.length == 5) {
-                          prefs.getStringList('hist')!.removeAt(0);
-                        }
+                        List<String> hList = prefs.getStringList('hist')!;
+                        hList.add(_controller.text);
                         var h = Profilehist(name: _controller.text);
                         hist.add(h);
+                        if (hList.length == 5) {
+                          hList.removeAt(0);
+                          hist.removeAt(0);
+                        }
+                        prefs.setStringList('hist', hList);
 
                         Navigator.push(
                             context,
@@ -450,7 +462,6 @@ class Profilehist {
   }
 
   String getAvatar() {
-    print(this.avatarUrl);
     return this.avatarUrl;
   }
 
