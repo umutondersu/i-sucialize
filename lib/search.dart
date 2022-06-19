@@ -1,6 +1,7 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, unnecessary_this
 import 'package:flutter/material.dart';
 import 'package:i_sucialize/home.dart';
+import 'package:i_sucialize/profilefriend.dart';
 import 'package:i_sucialize/util/colors.dart';
 import 'package:i_sucialize/databaseInterface.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -22,12 +23,12 @@ Stream<List<Profilehist>> searchlist() async* {
 
   if (stringhist.isEmpty) {
     prefs.setStringList('hist', []);
-    hist.add(Profilehist(name: 'umut')); //temp
     yield hist; //temp
   }
-
   for (var i = 0; i < stringhist.length; i++) {
-    hist.add(Profilehist(name: stringhist[i]));
+    await Future.delayed(const Duration(milliseconds: 20), () {
+      hist.add(Profilehist(name: stringhist[i]));
+    });
   }
 }
 /*
@@ -66,6 +67,8 @@ Stream<Profilehist> histstream() async* {
 }
 */
 
+//
+
 class SearchView extends StatefulWidget {
   const SearchView({Key? key}) : super(key: key);
 
@@ -95,7 +98,7 @@ class _SearchViewState extends State<SearchView> {
   StreamBuilder<List<Profilehist>> SearchHistory() {
     return StreamBuilder<List<Profilehist>>(
         stream: _hist,
-        initialData: [],
+        initialData: const [],
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return const Text('Something went wrong');
@@ -115,51 +118,53 @@ class _SearchViewState extends State<SearchView> {
                 color: AppColors.backgroundcolor2,
               ),
               child: ListView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: snapshot.data?.length,
-                itemBuilder: (context, i) => Column(
-                  children: [
-                    Divider(
-                      height: 10.0,
-                    ),
-                    ListTile(
-                      onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => HomeScreen.asindex(1),
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: snapshot.data?.length,
+                  itemBuilder: (context, i) {
+                    return Column(
+                      children: [
+                        Divider(
+                          height: 10.0,
                         ),
-                      ),
-                      leading: CircleAvatar(
-                        foregroundColor: Theme.of(context).primaryColor,
-                        backgroundColor: AppColors.mainbackgroundcolor,
-                        backgroundImage:
-                            NetworkImage(snapshot.data![i].getAvatar()),
-                      ),
-                      title: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            snapshot.data![i].name,
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: AppColors.appBarTitleTextColor),
+                        ListTile(
+                          onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  FriendProfileView(uid: snapshot.data![i].uid),
+                            ),
                           ),
-                          IconButton(
-                              onPressed: () => {
-                                    setState(() {
-                                      snapshot.data!.removeAt(i);
-                                    })
-                                  },
-                              icon: Icon(
-                                Icons.remove,
-                                color: AppColors.appBarTitleTextColor,
-                              )),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              ),
+                          /*leading: CircleAvatar(
+                            foregroundColor: Theme.of(context).primaryColor,
+                            backgroundColor: AppColors.mainbackgroundcolor,
+                            backgroundImage:
+                                NetworkImage(snapshot.data![i].getAvatar()),
+                          ),*/
+                          title: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                snapshot.data![i].name,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.appBarTitleTextColor),
+                              ),
+                              IconButton(
+                                  onPressed: () => {
+                                        setState(() {
+                                          snapshot.data!.removeAt(i);
+                                        })
+                                      },
+                                  icon: Icon(
+                                    Icons.remove,
+                                    color: AppColors.appBarTitleTextColor,
+                                  )),
+                            ],
+                          ),
+                        )
+                      ],
+                    );
+                  }),
               /*ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: dummyHist.length,
@@ -212,6 +217,7 @@ class _SearchViewState extends State<SearchView> {
         });
   }
 
+/*
   StreamBuilder<QuerySnapshot> UserStream(String name) {
     return StreamBuilder<QuerySnapshot>(
       stream: databaseInterface.getUserFromName(name),
@@ -233,13 +239,10 @@ class _SearchViewState extends State<SearchView> {
       },
     );
   }
+  */
 }
 
 class SearchPageAppBar extends StatelessWidget with PreferredSizeWidget {
-  SearchPageAppBar({
-    Key? key,
-  }) : super(key: key);
-
   late String image =
       "https://i.pinimg.com/originals/ce/5f/d3/ce5fd3590095d2aabe3ad6f6203dfe70.jpg";
 
@@ -256,48 +259,132 @@ class SearchPageAppBar extends StatelessWidget with PreferredSizeWidget {
   Size get preferredSize => Size.fromHeight(kToolbarHeight);
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      foregroundColor: AppColors.textcolor,
-      backgroundColor: AppColors.primary,
-      leadingWidth: 80,
-      leading: Padding(
-          padding: EdgeInsets.all(10),
-          child: FlatButton(
-            padding: EdgeInsets.all(0),
-            onPressed: () {
-              Navigator.pushNamed(context, '/profile');
-            },
-            child: CircleAvatar(
-              child: ClipOval(
-                child: Image.network(
-                  image,
-                  fit: BoxFit.cover,
-                ),
-              ),
+    return StreamBuilder<DocumentSnapshot>(
+        stream: databaseInterface.getUserStream(),
+        builder:
+            (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+          if (snapshot.hasError) {
+            return const Text('Something went wrong');
+          }
+          if (snapshot.connectionState == ConnectionState.waiting ||
+              !snapshot.hasData) {
+            return AppBar(
+              foregroundColor: AppColors.textcolor,
               backgroundColor: AppColors.primary,
-              radius: 100,
-            ),
-          )),
-      centerTitle: true,
-      title: SearchBar(),
-      actions: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(0, 5, 5, 5),
-          child: Container(
-            decoration: BoxDecoration(
-              border: Border.all(
-                  color: Color.fromRGBO(64, 118, 172, 1), width: 0.5),
-              borderRadius: BorderRadius.all(Radius.circular(70)),
-              color: Color.fromRGBO(64, 118, 172, 1),
-            ),
-            child: IconButton(
-              icon: Icon(Icons.search),
-              onPressed: () {},
-            ),
-          ),
-        )
-      ],
-    );
+              leadingWidth: 80,
+              leading: Padding(
+                  padding: EdgeInsets.all(10),
+                  child: FlatButton(
+                    padding: EdgeInsets.all(0),
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/profile');
+                    },
+                    child: CircleAvatar(
+                      child: ClipOval(),
+                      backgroundColor: AppColors.primary,
+                      radius: 100,
+                    ),
+                  )),
+              centerTitle: true,
+              title: SearchBar(),
+              actions: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 5, 5, 5),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                          color: Color.fromRGBO(64, 118, 172, 1), width: 0.5),
+                      borderRadius: BorderRadius.all(Radius.circular(70)),
+                      color: Color.fromRGBO(64, 118, 172, 1),
+                    ),
+                    child:
+                        IconButton(icon: Icon(Icons.search), onPressed: () {}),
+                  ),
+                )
+              ],
+            );
+          }
+          return AppBar(
+            foregroundColor: AppColors.textcolor,
+            backgroundColor: AppColors.primary,
+            leadingWidth: 80,
+            leading: Padding(
+                padding: EdgeInsets.all(10),
+                child: FlatButton(
+                  padding: EdgeInsets.all(0),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/profile');
+                  },
+                  child: CircleAvatar(
+                    child: ClipOval(
+                      child: Image.network(
+                        snapshot.data!['image'],
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    backgroundColor: AppColors.primary,
+                    radius: 100,
+                  ),
+                )),
+            centerTitle: true,
+            title: SearchBar(),
+            actions: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 5, 5, 5),
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                        color: Color.fromRGBO(64, 118, 172, 1), width: 0.5),
+                    borderRadius: BorderRadius.all(Radius.circular(70)),
+                    color: Color.fromRGBO(64, 118, 172, 1),
+                  ),
+                  child: IconButton(
+                    icon: Icon(Icons.search),
+                    onPressed: () async {
+                      QuerySnapshot q = await FirebaseFirestore.instance
+                          .collection('users')
+                          .where('username', isEqualTo: _controller.text)
+                          .get();
+                      if (_controller.text == snapshot.data!['username']) {
+                        Navigator.pushNamed(context, '/profile');
+                      } else if (q.docs.isNotEmpty) {
+                        final SharedPreferences prefs =
+                            await SharedPreferences.getInstance();
+                        prefs.getStringList('hist')!.add(_controller.text);
+                        if (prefs.getStringList('hist')!.length == 5) {
+                          prefs.getStringList('hist')!.removeAt(0);
+                        }
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    FriendProfileView(uid: q.docs[0].id)));
+                        searchlist();
+                      } else {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: Text("User not found"),
+                                content: Text("Please try again"),
+                                actions: [
+                                  FlatButton(
+                                    child: Text("OK"),
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                  )
+                                ],
+                              );
+                            });
+                      }
+                    },
+                  ),
+                ),
+              )
+            ],
+          );
+        });
   }
 }
 
@@ -346,9 +433,10 @@ class _SearchBarState extends State<SearchBar> {
 }
 
 class Profilehist {
-  late String uid = "";
+  late final String uid;
   final String name;
-  late String avatarUrl = "";
+  late String avatarUrl =
+      "https://i.pinimg.com/originals/1e/9c/b5/1e9cb54915d4c73e1ac2b4853bd9d89d.jpg";
 
   void initState() async {
     this.uid = await getuid();
