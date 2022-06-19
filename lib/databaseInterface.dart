@@ -11,6 +11,14 @@ class DatabaseInterface {
         .update(data);
   }
 
+  Future<void> updateOtherUserData(
+      String uuid, Map<String, dynamic> data) async {
+    return await FirebaseFirestore.instance
+        .collection('users')
+        .doc(uuid)
+        .update(data);
+  }
+
   Future<void> updatePost(DocumentSnapshot d, Map<String, dynamic> data) async {
     return await FirebaseFirestore.instance
         .collection('posts')
@@ -30,6 +38,58 @@ class DatabaseInterface {
         return false;
       }
     });
+  }
+
+  Stream<bool> isFollowing(String friend) async* {
+    final user =
+        await FirebaseFirestore.instance.collection('users').doc(uid).get();
+    List<dynamic> followerList = user.data()!["followerList"];
+
+    yield followerList.contains(friend);
+  }
+
+  Future<void> addFriend(String friendID) async {
+    final user =
+        await FirebaseFirestore.instance.collection("users").doc(uid).get();
+
+    List<dynamic> followerList = user.data()!["followerList"];
+    followerList.add(friendID);
+
+    final data = {
+      'followerList': followerList,
+      'following': followerList.length,
+    };
+    updateUserData(data);
+
+    final otherUser = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(friendID)
+        .get();
+    var followers = otherUser.data()!["followers"];
+    final otherData = {'followers': followers + 1};
+    updateOtherUserData(friendID, otherData);
+  }
+
+  Future<void> removeFriend(String friendID) async {
+    final user =
+        await FirebaseFirestore.instance.collection("users").doc(uid).get();
+
+    List<dynamic> followerList = user.data()!["followerList"];
+    followerList.remove(friendID);
+
+    final data = {
+      'followerList': followerList,
+      'following': followerList.length,
+    };
+    updateUserData(data);
+
+    final otherUser = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(friendID)
+        .get();
+    var followers = otherUser.data()!["followers"];
+    final otherData = {'followers': followers - 1};
+    updateOtherUserData(friendID, otherData);
   }
 
   Stream<DocumentSnapshot> getUserStream() {

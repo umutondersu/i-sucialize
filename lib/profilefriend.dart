@@ -58,16 +58,42 @@ class _FriendProfileViewState extends State<FriendProfileView> {
                     borderRadius: BorderRadius.all(Radius.circular(20)),
                     color: AppColors.backgroundcolor2,
                   ),
-                  child: TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      "Add Friend", //TODO: friend function
-                      style: TextStyle(color: Colors.white, fontSize: 16),
-                    ),
-                  ),
+                  child: StreamBuilder<DocumentSnapshot>(
+                      stream: databaseInterface.getUserStream(),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<DocumentSnapshot> s2) {
+                        if (s2.hasError) {
+                          return const Text('Something went wrong');
+                        }
+                        if (s2.connectionState == ConnectionState.waiting) {
+                          return const SizedBox();
+                        }
+
+                        List<dynamic> following = s2.data!['followerList'];
+                        if (following.contains(uid)) {
+                          return TextButton(
+                              onPressed: () {
+                                databaseInterface.removeFriend(uid);
+                              },
+                              child: Text(
+                                "Unfollow",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 16),
+                              ));
+                        }
+                        return TextButton(
+                            onPressed: () {
+                              databaseInterface.addFriend(uid);
+                            },
+                            child: Text(
+                              "Follow",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 16),
+                            ));
+                      }),
                 ),
               ),
-              leadingWidth: 120,
+              leadingWidth: 150,
               actions: [
                 IconButton(
                   icon: Icon(Icons.arrow_back),

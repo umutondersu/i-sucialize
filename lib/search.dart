@@ -16,9 +16,11 @@ Future<String> getuid(String name) async {
   return q.docs[0].id;
 }
 
+List<Profilehist> hist = [];
+
 Stream<List<Profilehist>> searchlist() async* {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  List<Profilehist> hist = [];
+
   List<String> stringhist = prefs.getStringList('hist') ?? [];
 
   if (stringhist.isEmpty) {
@@ -354,6 +356,9 @@ class SearchPageAppBar extends StatelessWidget with PreferredSizeWidget {
                         if (prefs.getStringList('hist')!.length == 5) {
                           prefs.getStringList('hist')!.removeAt(0);
                         }
+                        var h = Profilehist(name: _controller.text);
+                        hist.add(h);
+
                         Navigator.push(
                             context,
                             MaterialPageRoute(
