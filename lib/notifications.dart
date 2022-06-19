@@ -12,17 +12,13 @@ import 'databaseInterface.dart';
 class NotificationsView extends StatefulWidget {
   NotificationsView({Key? key}) : super(key: key);
 
-
   @override
   State<StatefulWidget> createState() => _NotificationViewState();
-
 }
 
 class _NotificationViewState extends State<NotificationsView> {
-
   late String image =
       "https://i.pinimg.com/originals/ce/5f/d3/ce5fd3590095d2aabe3ad6f6203dfe70.jpg";
-
 
   void getUserImage() async {
     var docSnapshot = await FirebaseFirestore.instance
@@ -52,135 +48,128 @@ class _NotificationViewState extends State<NotificationsView> {
 
   @override
   Widget build(BuildContext context) {
-
     return StreamBuilder(
-      stream: databaseInterface.getAllNotifications(),
+        stream: databaseInterface.getAllNotifications(),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.hasError) {
+            return const Text('Something went wrong');
+          }
+          getUserImage();
+          if (snapshot.connectionState == ConnectionState.waiting ||
+              !snapshot.hasData) {
+            return Scaffold(
+                appBar: AppBar(
+                  title: const Text('Notifications'),
+                  centerTitle: true,
+                  elevation: 0,
+                  foregroundColor: AppColors.textcolor,
+                  backgroundColor: AppColors.primary,
+                ),
+                backgroundColor: Color.fromRGBO(25, 25, 25, 1));
+          }
 
-      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        if (snapshot.hasError) {
-          return const Text('Something went wrong');
-        }
-        getUserImage();
-        if (snapshot.connectionState == ConnectionState.waiting ||
-            !snapshot.hasData) {
           return Scaffold(
-              appBar: AppBar(
-                title: const Text('Notifications'),
-                centerTitle: true,
-                elevation: 0,
-                foregroundColor: AppColors.textcolor,
-                backgroundColor: AppColors.primary,
-              ),
-              backgroundColor: Color.fromRGBO(25, 25, 25, 1));
-        }
-
-        return Scaffold(
-          appBar: AppBar(
-            title: const Text('Notifications'),
-            centerTitle: true,
-            elevation: 0,
-            foregroundColor: AppColors.textcolor,
-            backgroundColor: AppColors.primary,
-            leading: Padding(
-                padding: EdgeInsets.all(10),
-                child: FlatButton(
-                  padding: EdgeInsets.all(0),
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/profile');
-                  },
-                  child: CircleAvatar(
-                    child: ClipOval(
-                      child: Image.network(
-                        image,
-                        fit: BoxFit.cover,
+            appBar: AppBar(
+              title: const Text('Notifications'),
+              centerTitle: true,
+              elevation: 0,
+              foregroundColor: AppColors.textcolor,
+              backgroundColor: AppColors.primary,
+              leading: Padding(
+                  padding: EdgeInsets.all(10),
+                  child: FlatButton(
+                    padding: EdgeInsets.all(0),
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/profile');
+                    },
+                    child: CircleAvatar(
+                      child: ClipOval(
+                        child: Image.network(
+                          image,
+                          fit: BoxFit.cover,
+                        ),
                       ),
+                      backgroundColor: AppColors.primary,
+                      radius: 100,
                     ),
-                    backgroundColor: AppColors.primary,
-                    radius: 100,
-                  ),
-                )),
-            leadingWidth: 80,
-          ),
-          body: ListView.builder(
-            itemCount: snapshot.data!.size,
-            itemBuilder: (context, index) {
-              DocumentSnapshot d = snapshot.data!.docs[index];
+                  )),
+              leadingWidth: 80,
+            ),
+            body: ListView.builder(
+              itemCount: snapshot.data!.size,
+              itemBuilder: (context, index) {
+                DocumentSnapshot d = snapshot.data!.docs[index];
 
-              print(d['userid']);
+                print(d['userid']);
 
-              return StreamBuilder(
-                  stream: databaseInterface.getUser(d['userid']),
-                  builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> s2) {
-                    if (s2.hasError) {
-                    return const Text('Something went wrong');
-                    }
-                    if (s2.connectionState == ConnectionState.waiting ||
-                    !s2.hasData) {
-                    return Container();
-                    }
-                    DocumentSnapshot us = s2.data!;
+                return StreamBuilder(
+                    stream: databaseInterface.getUser(d['userid']),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<DocumentSnapshot> s2) {
+                      if (s2.hasError) {
+                        return const Text('Something went wrong');
+                      }
+                      if (s2.connectionState == ConnectionState.waiting ||
+                          !s2.hasData) {
+                        return Container();
+                      }
+                      DocumentSnapshot us = s2.data!;
 
-                    //print(us);
-
-                    return Container(
-                      margin: EdgeInsets.fromLTRB(60, 10, 0, 0),
-                      child: Row(
-                      children: [
-                        CircleAvatar(
-                        child: ClipOval(
-                          child: Image.network(
-                            image,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                        backgroundColor: AppColors.backgroundcolor2,
-                        radius: 20,
-                        ),
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                us['username'] + " ● " + getDifference(d['date'].toDate()),
-                                style: TextStyle(
-                                  color: AppColors.textcolor,
-                                  fontWeight: FontWeight.bold
+                      return Container(
+                        margin: EdgeInsets.fromLTRB(60, 10, 0, 0),
+                        child: Row(
+                          children: [
+                            CircleAvatar(
+                              child: ClipOval(
+                                child: Image.network(
+                                  us['image'],
+                                  fit: BoxFit.cover,
                                 ),
                               ),
-                              Container(
-                                child: Text(
-                                  us['username'].toString().toLowerCase() +
-                                  ' posted a new post: "' +
-                                  d['post'] +
-                                  '"',
-                                  style: TextStyle(color: AppColors.textcolor2),
-                                ),
-                                width: 200,
-                                height: 50,
+                              backgroundColor: AppColors.backgroundcolor2,
+                              radius: 20,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    us['username'] +
+                                        " ● " +
+                                        getDifference(d['date'].toDate()),
+                                    style: TextStyle(
+                                        color: AppColors.textcolor,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Container(
+                                    child: Text(
+                                      us['username'].toString().toLowerCase() +
+                                          ' posted a new post: "' +
+                                          d['post'] +
+                                          '"',
+                                      style: TextStyle(
+                                          color: AppColors.textcolor2),
+                                    ),
+                                    width: 200,
+                                    height: 50,
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                      ],
-                      ),
-                      height: 70,
-                      width: 320,
-                    );
-                }
-              );
-            },
-          ),
-          backgroundColor: Color.fromRGBO(25, 25, 25, 1),
-        );
-
-      }
-    );
-
-
+                        height: 70,
+                        width: 320,
+                      );
+                    });
+              },
+            ),
+            backgroundColor: Color.fromRGBO(25, 25, 25, 1),
+          );
+        });
   }
-
 }
 
 /*Scaffold(
