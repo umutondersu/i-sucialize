@@ -1,5 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_profile_picture/flutter_profile_picture.dart';
+import 'package:fluttericon/mfg_labs_icons.dart';
+import 'package:fluttericon/typicons_icons.dart';
 import 'package:i_sucialize/databaseInterface.dart';
 import 'package:i_sucialize/util/colors.dart';
 import 'package:i_sucialize/feed_items.dart';
@@ -192,23 +195,23 @@ class _FeedViewState extends State<FeedView> {
                                             toggleUpVote(d);
                                           },
                                           icon: Icon(
-                                            Icons.arrow_circle_up_outlined,
+                                            voteStatus(d) == "upvote" ? Typicons.up : Typicons.up_outline,
                                             color: voteStatus(d) == "upvote"
-                                                ? Colors.amber
-                                                : Colors.black,
+                                                ? Colors.lightGreen
+                                                : Colors.grey,
                                           ),
                                         ),
-                                        Text(voteCount(d).toString()),
+                                        Text(voteCount(d).toString(), style: TextStyle(fontWeight: FontWeight.w600, color: voteCount(d) == 0 ? Colors.white : voteCount(d) > 0 ? Colors.lightGreen : Colors.red.shade900),),
                                         IconButton(
                                           iconSize: 25,
                                           onPressed: () {
                                             toggleDownVote(d);
                                           },
                                           icon: Icon(
-                                            Icons.arrow_circle_down_outlined,
+                                            voteStatus(d) == "downvote" ? Typicons.down : Typicons.down_outline,
                                             color: voteStatus(d) == "downvote"
-                                                ? Colors.amber
-                                                : Colors.black,
+                                                ? Colors.red.shade900
+                                                : Colors.grey,
                                           ),
                                         ),
                                       ],
@@ -316,25 +319,6 @@ class feedAppBar extends StatelessWidget with PreferredSizeWidget {
               elevation: 0,
               foregroundColor: AppColors.textcolor,
               backgroundColor: AppColors.primary,
-              leading: Padding(
-                  padding: EdgeInsets.all(10),
-                  child: FlatButton(
-                    padding: EdgeInsets.all(0),
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/profile');
-                    },
-                    child: CircleAvatar(
-                      child: ClipOval(
-                        child: Image.network(
-                          image,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      backgroundColor: AppColors.primary,
-                      radius: 100,
-                    ),
-                  )),
-              leadingWidth: 80,
             );
           }
 
@@ -351,16 +335,17 @@ class feedAppBar extends StatelessWidget with PreferredSizeWidget {
                   onPressed: () {
                     Navigator.pushNamed(context, '/profile');
                   },
-                  child: CircleAvatar(
-                    child: ClipOval(
-                      child: Image.network(
-                        s2.data!['image'],
-                        fit: BoxFit.cover,
+                  child:ProfilePicture(name: s2.data!['username'], radius: 100, fontsize: 10, img:s2.data!['image']),
+                  /*child: CircleAvatar(
+                      child: ClipOval(
+                        child: Image.network(
+                          image,
+                          fit: BoxFit.cover,
+                        ),
                       ),
-                    ),
-                    backgroundColor: AppColors.primary,
-                    radius: 100,
-                  ),
+                      backgroundColor: AppColors.primary,
+                      radius: 100,
+                    ),*/
                 )),
             leadingWidth: 80,
           );

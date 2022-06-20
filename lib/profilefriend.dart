@@ -2,6 +2,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_profile_picture/flutter_profile_picture.dart';
 import 'package:i_sucialize/Authenticator.dart';
 import 'package:i_sucialize/databaseInterface.dart';
 import 'package:i_sucialize/util/colors.dart';
@@ -183,7 +184,8 @@ class _FriendProfileViewState extends State<FriendProfileView> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        CircleAvatar(
+                        ProfilePicture(name: snapshot.data!['username'], radius: 100, fontsize: 10, img:snapshot.data!['image']),
+                        /*CircleAvatar(
                           child: ClipOval(
                             child: Image.network(
                               snapshot.data!['image'],
@@ -192,7 +194,7 @@ class _FriendProfileViewState extends State<FriendProfileView> {
                           ),
                           backgroundColor: Colors.white,
                           radius: 100,
-                        ),
+                        ),*/
                       ],
                     ),
                     Row(

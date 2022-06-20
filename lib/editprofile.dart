@@ -1,4 +1,5 @@
 // ignore_for_file: prefer_const_constructors
+import 'package:flutter_profile_picture/flutter_profile_picture.dart';
 import 'package:path/path.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -66,7 +67,7 @@ class _ProfileEditViewState extends State<ProfileEditView> {
   Widget build(BuildContext context) {
     return Scaffold(
       //bottomNavigationBar: ,
-      appBar: EditProfileAppBar(),
+      appBar: appBar(),
       body: SingleChildScrollView(
         physics: NeverScrollableScrollPhysics(),
         child: Center(
@@ -270,5 +271,76 @@ class EditProfileAppBar extends StatelessWidget with PreferredSizeWidget {
       ],
       centerTitle: true,
     );
+  }
+}
+
+class appBar extends StatelessWidget with PreferredSizeWidget {
+  late String image =
+      "https://i.pinimg.com/originals/ce/5f/d3/ce5fd3590095d2aabe3ad6f6203dfe70.jpg";
+  @override
+  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder(
+        stream: databaseInterface.getUserStream(),
+        builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> s2) {
+          if (s2.hasError) {
+            return const Text('Something went wrong');
+          }
+          if (s2.connectionState == ConnectionState.waiting || !s2.hasData) {
+            return AppBar(
+              title: const Text('Edit Profile'),
+              centerTitle: true,
+              /*actions: [
+              TextButton(
+                onPressed: () => throw Exception(),
+                child: const Text("Throw Test Exception"),
+              ),
+            ],*/
+              elevation: 0,
+              foregroundColor: AppColors.textcolor,
+              backgroundColor: AppColors.primary,
+            );
+          }
+
+          return AppBar(
+            title: const Text('Edit Profile'),
+            centerTitle: true,
+            elevation: 0,
+            foregroundColor: AppColors.textcolor,
+            backgroundColor: AppColors.primary,
+            leading: Padding(
+                padding: EdgeInsets.all(10),
+                child: FlatButton(
+                  padding: EdgeInsets.all(0),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/profile');
+                  },
+                  child:ProfilePicture(name: s2.data!['username'], radius: 100, fontsize: 10, img:s2.data!['image']),
+                  /*child: CircleAvatar(
+                      child: ClipOval(
+                        child: Image.network(
+                          image,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      backgroundColor: AppColors.primary,
+                      radius: 100,
+                    ),*/
+                )),
+            leadingWidth: 80,
+            actions: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(5, 5, 10, 5),
+                child: IconButton(
+                  icon: Icon(Icons.arrow_back),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              )
+            ],
+          );
+        });
   }
 }

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_profile_picture/flutter_profile_picture.dart';
 import 'package:i_sucialize/databaseInterface.dart';
 import 'package:path/path.dart';
 import 'package:i_sucialize/util/colors.dart';
@@ -124,22 +125,23 @@ class PostViewState extends State<PostView> {
                 backgroundColor: AppColors.primary,
                 leading: Padding(
                   padding: EdgeInsets.all(10),
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/profile');
-                    },
-                    child: CircleAvatar(
-                      child: ClipOval(
-                        child: Image.network(
-                          snapshot.data!['image'],
-                          fit: BoxFit.cover,
+                    child: FlatButton(
+                      padding: EdgeInsets.all(0),
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/profile');
+                      },
+                      child:ProfilePicture(name: snapshot.data!['username'], radius: 100, fontsize: 10, img:snapshot.data!['image']),
+                      /*child: CircleAvatar(
+                        child: ClipOval(
+                          child: Image.network(
+                            snapshot.data!['image'],
+                            fit: BoxFit.cover,
+                          ),
                         ),
-                      ),
-                      backgroundColor: AppColors.primary,
-                      radius: 100,
-                    ),
-                  ),
-                ),
+                        backgroundColor: AppColors.primary,
+                        radius: 100,
+                      ),*/
+                    )),
                 leadingWidth: 80,
               ),
               body: SingleChildScrollView(

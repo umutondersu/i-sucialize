@@ -2,6 +2,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_profile_picture/flutter_profile_picture.dart';
 import 'package:i_sucialize/home.dart';
 import 'package:i_sucialize/notification_items.dart';
 import 'package:i_sucialize/util/colors.dart';
@@ -69,32 +70,7 @@ class _NotificationViewState extends State<NotificationsView> {
           }
 
           return Scaffold(
-            appBar: AppBar(
-              title: const Text('Notifications'),
-              centerTitle: true,
-              elevation: 0,
-              foregroundColor: AppColors.textcolor,
-              backgroundColor: AppColors.primary,
-              leading: Padding(
-                  padding: EdgeInsets.all(10),
-                  child: FlatButton(
-                    padding: EdgeInsets.all(0),
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/profile');
-                    },
-                    child: CircleAvatar(
-                      child: ClipOval(
-                        child: Image.network(
-                          image,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      backgroundColor: AppColors.primary,
-                      radius: 100,
-                    ),
-                  )),
-              leadingWidth: 80,
-            ),
+            appBar: appBar(),
             body: ListView.builder(
               itemCount: snapshot.data!.size,
               itemBuilder: (context, index) {
@@ -165,6 +141,66 @@ class _NotificationViewState extends State<NotificationsView> {
               },
             ),
             backgroundColor: Color.fromRGBO(25, 25, 25, 1),
+          );
+        });
+  }
+}
+
+class appBar extends StatelessWidget with PreferredSizeWidget {
+  late String image =
+      "https://i.pinimg.com/originals/ce/5f/d3/ce5fd3590095d2aabe3ad6f6203dfe70.jpg";
+  @override
+  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder(
+        stream: databaseInterface.getUserStream(),
+        builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> s2) {
+          if (s2.hasError) {
+            return const Text('Something went wrong');
+          }
+          if (s2.connectionState == ConnectionState.waiting || !s2.hasData) {
+            return AppBar(
+              title: const Text('Notifications'),
+              centerTitle: true,
+              /*actions: [
+              TextButton(
+                onPressed: () => throw Exception(),
+                child: const Text("Throw Test Exception"),
+              ),
+            ],*/
+              elevation: 0,
+              foregroundColor: AppColors.textcolor,
+              backgroundColor: AppColors.primary,
+            );
+          }
+
+          return AppBar(
+            title: const Text('Notifications'),
+            centerTitle: true,
+            elevation: 0,
+            foregroundColor: AppColors.textcolor,
+            backgroundColor: AppColors.primary,
+            leading: Padding(
+                padding: EdgeInsets.all(10),
+                child: FlatButton(
+                  padding: EdgeInsets.all(0),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/profile');
+                  },
+                  child:ProfilePicture(name: s2.data!['username'], radius: 100, fontsize: 10, img:s2.data!['image']),
+                  /*child: CircleAvatar(
+                      child: ClipOval(
+                        child: Image.network(
+                          image,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      backgroundColor: AppColors.primary,
+                      radius: 100,
+                    ),*/
+                )),
+            leadingWidth: 80,
           );
         });
   }

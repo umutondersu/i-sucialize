@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_profile_picture/flutter_profile_picture.dart';
 import 'package:i_sucialize/chat_home.dart';
 import 'package:i_sucialize/util/colors.dart';
 import 'package:i_sucialize/home.dart';
@@ -55,24 +56,6 @@ class appBar extends StatelessWidget with PreferredSizeWidget {
               elevation: 0,
               foregroundColor: AppColors.textcolor,
               backgroundColor: AppColors.primary,
-              leading: Padding(
-                  padding: EdgeInsets.all(10),
-                  child: FlatButton(
-                    padding: EdgeInsets.all(0),
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/profile');
-                    },
-                    child: CircleAvatar(
-                      child: ClipOval(
-                        child: Image.network(
-                          image,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      backgroundColor: AppColors.primary,
-                      radius: 100,
-                    ),
-                  )),
               leadingWidth: 80,
             );
           }
@@ -90,16 +73,12 @@ class appBar extends StatelessWidget with PreferredSizeWidget {
                   onPressed: () {
                     Navigator.pushNamed(context, '/profile');
                   },
-                  child: CircleAvatar(
-                    child: ClipOval(
-                      child: Image.network(
-                        s2.data!['image'],
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    backgroundColor: AppColors.primary,
-                    radius: 100,
-                  ),
+                  child:ProfilePicture(name: s2.data!['username'], radius: 100, fontsize: 10, img:s2.data!['image']),
+                  /*child: CircleAvatar(
+                      child: ClipOval(),
+                      backgroundColor: AppColors.primary,
+                      radius: 100,
+                    ),*/
                 )),
             leadingWidth: 80,
           );

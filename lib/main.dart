@@ -31,6 +31,7 @@ void main() async {
     locator.registerLazySingleton<AnalyticsService>(() => AnalyticsService());
 
     final prefs = await SharedPreferences.getInstance();
+    prefs.clear();
     bool isWTdone = prefs.getBool('WT') ?? false;
     bool isLoggedIn = prefs.getString('email') == null ? false : true;
     late String initialRoute;
