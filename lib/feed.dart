@@ -179,10 +179,10 @@ class _FeedViewState extends State<FeedView> {
                               margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
                               decoration: BoxDecoration(
                                 border: Border.all(
-                                    color: AppColors.backgroundcolor, width: 1),
+                                    color: AppColors.backgroundcolor2, width: 1),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(15)),
-                                color: AppColors.backgroundcolor2,
+                                color: Color.fromRGBO(25, 25, 25, 1),
                               ),
                               child: Row(
                                 children: [
