@@ -203,12 +203,13 @@ class _ProfileEditViewState extends State<ProfileEditView> {
                           });
                           _nameController.clear();
                         }
-                        if (_nameController.text.isNotEmpty) {
+                        if (_aboutController.text.isNotEmpty) {
                           databaseInterface.updateUserData(
                               {"description": _aboutController.text});
                           _aboutController.clear();
                         }
                         changePP();
+                        Navigator.pop(context);
                       },
                       child: Text(
                         "Save Changes",
