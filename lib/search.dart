@@ -149,6 +149,7 @@ class _SearchViewState extends State<SearchView> {
                           title: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
+                              ProfilePicture(name: snapshot.data![i].name, radius: 20, fontsize: 16,img:snapshot.data![i].avatarUrl),
                               Text(
                                 snapshot.data![i].name,
                                 style: TextStyle(
