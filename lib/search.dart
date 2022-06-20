@@ -166,6 +166,9 @@ class _SearchViewState extends State<SearchView> {
                                               prefs.getStringList('hist')!;
                                           hList.removeAt(i);
                                           prefs.setStringList('hist', hList);
+                                          setState((){
+
+                                          });
                                         })
                                       },
                                   icon: Icon(
@@ -355,6 +358,7 @@ class SearchPageAppBar extends StatelessWidget with PreferredSizeWidget {
                           hist.removeAt(0);
                         }
                         prefs.setStringList('hist', hList);
+                        _controller.clear();
 
                         Navigator.push(
                             context,
