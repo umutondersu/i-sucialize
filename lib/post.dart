@@ -53,6 +53,7 @@ class PostViewState extends State<PostView> {
               ],
             );
           });
+      return;
     }
     String url = "";
     if(_image != null) {
