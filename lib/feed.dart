@@ -217,16 +217,7 @@ class _FeedViewState extends State<FeedView> {
                                       ],
                                     ),
                                   ),
-                                  CircleAvatar(
-                                    child: ClipOval(
-                                      child: Image.network(
-                                        u['image'],
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                    backgroundColor: AppColors.backgroundcolor2,
-                                    radius: 20,
-                                  ),
+                                  ProfilePicture(name: s2.data!['username'], radius: 20, fontsize: 10, img:s2.data!['image']),
                                   Padding(
                                     padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
                                     child: Column(
@@ -261,6 +252,7 @@ class _FeedViewState extends State<FeedView> {
                                           width: 200,
                                         ),
                                         SizedBox(height: 5),
+                                        d['image'] == "" ? SizedBox() :
                                         ClipRRect(
                                           borderRadius: BorderRadius.circular(
                                               20), // Image border

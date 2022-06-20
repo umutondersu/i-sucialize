@@ -34,16 +34,39 @@ class PostViewState extends State<PostView> {
     });
   }
 
-  void post(String username, int count) async {
+  void post(String username, int count, BuildContext context) async {
     String post = postController.text;
+    if(post == null || post == "") {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text("Post String Empty"),
+              content: Text("Please input a post message!"),
+              actions: [
+                FlatButton(
+                  child: Text("OK"),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                )
+              ],
+            );
+          });
+    }
+    String url = "";
+    if(_image != null) {
+      await uploadImageToFirebase();
+      url = mediaUrl!;
+    }
 
-    await uploadImageToFirebase();
+
     date = DateTime.now();
 
     final data = {
       'userid': databaseInterface.uid,
       'post': post,
-      'image': mediaUrl,
+      'image': url,
       'date': date,
       'upVotes': [],
       'downVotes': []
@@ -213,7 +236,7 @@ class PostViewState extends State<PostView> {
                                       color: Colors.white, fontSize: 25)),
                               onPressed: () {
                                 post(snapshot.data!['username'],
-                                    snapshot.data!['postCount']);
+                                    snapshot.data!['postCount'], context);
                               },
                             ),
                           ),
